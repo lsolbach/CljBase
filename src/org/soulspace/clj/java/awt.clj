@@ -1,6 +1,6 @@
-(ns org.soulspace.clj.java.awt.awtlib
+(ns org.soulspace.clj.java.awt
   (:use [org.soulspace.clj.java beans])
-  (:import [java.awt BasicStroke Color Dimension Event Font]))
+  (:import [java.awt BasicStroke Color Dimension Event Font GradientPaint TexturePaint]))
 
 ; AWT
 
@@ -34,14 +34,14 @@
 
 ; Paint
 (defn gradient-paint
-  [p1 color1 p2 color2]
-  (GradientPaint. p1 color1 p2 color2)
-  [p1 color1 p2 color2 cyclic]
-  (GradientPaint. p1 color1 p2 color2 cyclic)
-  [x1 y1 color1 x2 y2 color2]
-  (GradientPaint. x1 y1 color1 x2 y2 color2)
-  [x1 y1 color1 x2 y2 color2 cyclic]
-  (GradientPaint. x1 y1 color1 x2 y2 color2 cyclic))
+  ([p1 color1 p2 color2]
+  (GradientPaint. p1 color1 p2 color2))
+  ([p1 color1 p2 color2 cyclic]
+  (GradientPaint. p1 color1 p2 color2 cyclic))
+  ([x1 y1 color1 x2 y2 color2]
+  (GradientPaint. x1 y1 color1 x2 y2 color2))
+  ([x1 y1 color1 x2 y2 color2 cyclic]
+  (GradientPaint. x1 y1 color1 x2 y2 color2 cyclic)))
 
 (defn texture-paint
   [texture anchor]

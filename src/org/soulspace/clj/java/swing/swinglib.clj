@@ -18,6 +18,7 @@
             TreeExpansionListener TreeModelListener TreeSelectionListener TreeWillExpandListener
             UndoableEditListener]
            [javax.swing.table AbstractTableModel]
+           [javax.swing.tree DefaultMutableTreeNode]
            [java.text NumberFormat DateFormat]
            [net.miginfocom.swing MigLayout]))
 
