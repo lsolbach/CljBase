@@ -1,5 +1,5 @@
 (ns org.soulspace.clj.java.swing.constants
-  (:import [java.awt Color Event]
+  (:import [java.awt Event]
            [javax.swing Action JFileChooser JOptionPane SwingConstants WindowConstants]))
 
 ; Constant maps

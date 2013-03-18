@@ -1,6 +1,7 @@
 (ns org.soulspace.clj.java.swing.swinglib
   (:use [org.soulspace.clj.java beans]
-        [org.soulspace.clj.java.awt awtlib]
+        [org.soulspace.clj.java awt]
+        [org.soulspace.clj.java.awt event]
         [org.soulspace.clj.java.swing constants])
   (:import [javax.swing AbstractAction AbstractListModel Action BorderFactory ButtonGroup InputVerifier
             JButton JCheckBox JCheckBoxMenuItem JColorChooser JComboBox JDesktopPane JDialog
@@ -20,14 +21,14 @@
            [java.text NumberFormat DateFormat]
            [net.miginfocom.swing MigLayout]))
 
-; Private helpers
+; Helpers
 (defn init-swing
   ([c args]
     (set-properties! c args)
     c)
   ([c args items]
     (set-properties! c args)
-    (if (not (nil? items))
+    (if (seq items)
       (doseq [item items]
         (if (vector? item)
           (let [[child constraint] item]
@@ -322,6 +323,10 @@
   (proxy [AbstractListModel] []
     (getElementAt [idx] (nth @data idx))
     (getSize [] (count @data))))
+
+; DefaultMutableTreeNode
+(defn tree-node [obj args items]
+  (init-swing (DefaultMutableTreeNode. obj) args items))
 
 ; MigLayout
 (defn mig-layout [args]

@@ -5,6 +5,6 @@
 	<classpathentry kind="lib" path="classes"/>
 	<classpathentry kind="lib" path="lib/runtime/CljJavaLibrary.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/clojure.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/miglayout-swing.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/miglayout.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

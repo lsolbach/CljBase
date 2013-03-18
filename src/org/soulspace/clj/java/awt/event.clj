@@ -1,7 +1,5 @@
-(ns org.soulspace.clj.java.awt.awtlib
-  (:use [org.soulspace.clj.java beans])
-  (:import [java.awt Color Event Font]
-           [java.awt.event
+(ns org.soulspace.clj.java.awt.event
+  (:import [java.awt.event
             ActionListener AdjustmentListener ComponentAdapter ComponentListener
             ContainerAdapter ContainerListener FocusAdapter FocusListener
             HierarchyBoundsAdapter HierarchyBoundsListener HierarchyListener
@@ -9,7 +7,6 @@
             MouseAdapter MouseListener MouseMotionAdapter MouseMotionListener MouseWheelListener
             TextListener WindowAdapter WindowFocusListener WindowListener WindowStateListener]))
 
-; AWT
 ; Listeners
 (defn action-listener [f args]
   (proxy [ActionListener] []
@@ -157,35 +154,3 @@
   (proxy [WindowListener] []
     (windowStateChanged [event] (f event args))))
 
-; Color
-(defn color
-  ([value]
-    (Color. value))
-  ([r g b]
-    (Color. r g b)))
-
-; Font
-(def font-styles {:bold Font/BOLD
-                  :italic Font/ITALIC
-                  :plain Font/PLAIN
-                  :center-baseline Font/CENTER_BASELINE
-                  :hanging-baseline Font/HANGING_BASELINE
-                  :roman-baseline Font/ROMAN_BASELINE})
-
-(def font-names {:dialog Font/DIALOG
-                 :dialog-input Font/DIALOG_INPUT
-                 :monospaced Font/MONOSPACED
-                 :sans-serif Font/SANS_SERIF
-                 :serif Font/SERIF})
-
-(defn font
-  ([font]
-    (Font. font))
-  ([font-name style-vec size]
-    (Font. font-name (reduce + style-vec) size)))
-
-(defn derive-font
-  ([font style-vec]
-    (.derive font (reduce + style-vec)))
-  ([fontname style-vec size]
-    (.derive font (reduce + style-vec) size)))
