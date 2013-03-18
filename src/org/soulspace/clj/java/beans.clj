@@ -1,5 +1,5 @@
 (ns org.soulspace.clj.java.beans
-  (:use [org.soulspace.clj.lib string] 
+  (:use [org.soulspace.clj string] 
         [org.soulspace.clj.java reflection type-conversion]))
 
 ; Method-based reflective access to Java bean style objects.
