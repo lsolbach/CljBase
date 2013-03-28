@@ -235,6 +235,17 @@
 (defn window [args items]
   (init-swing (JLabel.) args items))
 
+(defn canvas-panel [paint-fn args items]
+  (init-swing
+    (proxy [javax.swing.JPanel] []
+      (paintComponent [^java.awt.Graphics g]
+                      (proxy-super paintComponent g)
+                      (let [^java.awt.Graphics2D g2d (.create g)]
+                        (paint-fn g2d)
+                        (.dispose g2d))))
+    args items))
+
+
 ; standard dialogs
 ; TODO add frame parameter to the dialogs
 (defn file-open-dialog [filename]
