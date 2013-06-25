@@ -16,7 +16,7 @@ License
 
 Code Repository
 ---------------
-[https://github.com/lsolbach/CljJavaLibrary] (https://github.com/lsolbach/CljJavaLibrary)
+[https://github.com/lsolbach/CljSwingLibrary] (https://github.com/lsolbach/CljSwingLibrary)
 
 History
 -------
@@ -27,6 +27,6 @@ Version 0.2.0 (19.06.2013)
 * refactorings
 * Graphics2D support
 
-Version 0.1.0 (--.--.201-)
+Version 0.1.0 (08.01.2013)
 --------------------------
 * Initial import
