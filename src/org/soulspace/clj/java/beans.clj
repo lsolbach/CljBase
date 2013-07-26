@@ -2,9 +2,11 @@
   (:use [org.soulspace.clj string] 
         [org.soulspace.clj.java reflection type-conversion]))
 
+;
 ; Method-based reflective access to Java bean style objects.
 ; 
 ; TODO memoize with core.memoize for performance
+;
 
 (defn getter? [method]
   (or
