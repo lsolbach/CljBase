@@ -3,41 +3,40 @@
   (:use [clojure.java.io :exclude [delete-file]]
         [org.soulspace.clj.file]))
 
-(defn split-paths 
+(defn split-paths
   ([sep paths]
-    "Split a path string with the given separator"
+    "Split a path string with the given separator."
     (str/split paths (re-pattern sep)))
   ([paths]
-    "Split a path string using ':' as separator"
+    "Split a path string using ':' as separator."
     (split-paths ":" paths)))
 
 (defn build-path
   ([sep files]
-    "Build a path by joining the given files with the separator"
+    "Build a path by joining the given files with the separator."
     (str/join sep (map path files)))
   ([files]
-    "Build a path by joining the given files with ':' as separator"
+    "Build a path by joining the given files with ':' as separator."
     (build-path ":" files)))
 
 ; convert ** -> ('filename pattern'|/)+  convert * -> ('filename pattern')+
 (defn path-pattern [ant-pattern]
-  "Convert ant style path patterns to regex path patterns"
+  "Convert ant style path patterns to regex path patterns."
   (let [file-regex "\\w|\\d|–"]
     (str/replace (str/replace ant-pattern "**" (str "(?:" file-regex "|/)+")) "*" (str "(?:" file-regex ")+"))))
 
 (defn build-searchpath [pathnames]
-  "Creates a sequence containing the directories to search"
-;  (println "building search path for" pathnames)
+  "Creates a sequence containing the directories to search."
   (if (coll? pathnames)
     (map as-file pathnames)
     (map as-file (split-paths pathnames))))
 
 (defn build-absolute-path
   ([dir filename]
-;    (println "build-absolute-path" dir filename)
+    "Returns the absolute path of the file defined by the given directory and filename."
     (str (absolute-path dir) "/" filename))
   ([dir filename extension]
-;    (println "build-absolute-path" dir filename extension)
+    "Returns the absolute path of the file defined by the given directory, filename and extension."
     (str (absolute-path dir) "/" filename "." extension)))
 
 (defn existing-files
@@ -73,11 +72,9 @@
 (defn locate-file
   ([searchpath filename]
     "Returns the first existing file on the search path for the specified filename"
-;    (println "locate-file" searchpath filename)
     (first (filter exists? (map (directory-searcher filename) searchpath))))
   ([searchpath filename extension]
     "Returns the first existing file on the search path for the specified filename and extension"
-;    (println "locate-file" searchpath filename extension)
     (first (filter exists? (map (directory-searcher filename extension) searchpath)))))
 
 (defn file-locator
