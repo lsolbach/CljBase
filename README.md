@@ -21,6 +21,10 @@ Code Repository
 History
 -------
 
+Version 0.2.0 (--.--.201-)
+--------------------------
+* added new type conversions
+
 Version 0.1.0 (--.--.201-)
 --------------------------
 * Initial import
