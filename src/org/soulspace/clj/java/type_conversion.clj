@@ -7,11 +7,19 @@
   obj)
 (defmethod coerce [Integer/TYPE Long] [_ obj]
   (Integer. (.intValue obj)))
+(defmethod coerce [Integer/TYPE Integer] [_ obj]
+  (Integer. (.intValue obj)))
 (defmethod coerce [Short/TYPE Long] [_ obj]
+  (Short. (.shortValue obj)))
+(defmethod coerce [Short/TYPE Integer] [_ obj]
   (Short. (.shortValue obj)))
 (defmethod coerce [Byte/TYPE Long] [_ obj]
   (Byte. (.byteValue obj)))
+(defmethod coerce [Byte/TYPE Integer] [_ obj]
+  (Byte. (.byteValue obj)))
 (defmethod coerce [Character/TYPE Long] [_ obj]
+  (Character. (.charValue obj)))
+(defmethod coerce [Character/TYPE Integer] [_ obj]
   (Character. (.charValue obj)))
 (defmethod coerce [java.io.File String] [_ str] 
   (java.io.File. str))
@@ -20,6 +28,3 @@
 (defmethod coerce :default [dest-class obj] 
    ;(println (str (.getSimpleName dest-class) " " (type obj)))
    (cast dest-class obj))
-
-
-
