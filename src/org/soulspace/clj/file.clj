@@ -5,10 +5,12 @@
   (:import [java.io File]))
 
 (defn exists? [file]
-  (and (not-nil? file) (.exists file)))
+  (let [file (as-file file)]
+    (and (not-nil? file) (.exists file))))
 
 (defn is-dir? [file]
-  (and (exists? file) (.isDirectory file)))
+  (let [file (as-file file)]
+    (and (exists? file) (.isDirectory file))))
 
 (defn file-name [file]
   "Returns the name of the file."
