@@ -29,7 +29,7 @@
   "Creates a sequence containing the directories to search."
   (if (coll? pathnames)
     (map as-file pathnames)
-    (map as-file (split-paths pathnames))))
+    (map as-file (split-path pathnames))))
 
 (defn build-absolute-path
   ([dir filename]
@@ -54,10 +54,10 @@
 (defn existing-files-on-path
   ([dir-path]
     "Returns all existing files on the given path"
-    (existing-files (map as-file (split-paths dir-path))))
+    (existing-files (map as-file (split-path dir-path))))
   ([ext dir-path]
     "Returns all existing files with the specified extension on the given path"
-    (existing-files ext (map as-file (split-paths  dir-path)))))
+    (existing-files ext (map as-file (split-paths dir-path)))))
 
 (defn directory-searcher
   ([filename]
