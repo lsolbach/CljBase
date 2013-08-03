@@ -1,35 +1,45 @@
 (ns org.soulspace.clj.string
   (:use [clojure.string :only [upper-case lower-case]]))
 
-(defn gt [v1 v2]
+(defn gt
+  [v1 v2]
   (> (.compareTo v1 v2) 0))
 
-(defn ge [v1 v2]
+(defn ge 
+  [v1 v2]
   (>= (.compareTo v1 v2) 0))
 
-(defn lt [v1 v2]
+(defn lt 
+  [v1 v2]
   (< (.compareTo v1 v2) 0))
 
-(defn le [v1 v2]
+(defn le 
+  [v1 v2]
   (<= (.compareTo v1 v2) 0))
 
-(defn eq [v1 v2]
+(defn eq 
+  [v1 v2]
   (= v1 v2))
 
-(defn ne [v1 v2]
+(defn ne 
+  [v1 v2]
   (not= v1 v2))
 
-(defn starts-with [pattern string]
+(defn starts-with 
+  [pattern string]
   (.startsWith string pattern))
 
-(defn ends-with [pattern string]
+(defn ends-with 
+  [pattern string]
   (.endsWith string pattern))
 
-(defn str-length [string]
+(defn str-length 
+  [string]
   (.length string))
 
 ; FIXME doesn't work yet
-(defn str-contains? [pattern string]
+(defn str-contains? 
+  [pattern string]
   (.contains string pattern))
 
 (defn index-of
@@ -50,28 +60,36 @@
   ([begin-idx end-idx string]
     (.substring string begin-idx end-idx)))
 
-(defn first-upper-case [string]
+(defn first-upper-case 
+  [string]
   (str (upper-case (substring 0 1 string)) (substring 1 string)))
 
-(defn first-lower-case [string]
+(defn first-lower-case
+  [string]
   (str (lower-case (substring 0 1 string)) (substring 1 string)))
 
 ; FIXME implement
-(defn to-camel-case [chr string]
+(defn to-camel-case
+  [chr string]
   )
 
 ; FIXME implement
-(defn from-camel-case [chr string]
+(defn from-camel-case 
+  [chr string]
   )
 
-(defn hyphen-to-camel-case [string]
+(defn hyphen-to-camel-case
+  [string]
   (to-camel-case \- string))
 
-(defn camel-case-to-hyphen [string]
+(defn camel-case-to-hyphen
+  [string]
   (from-camel-case \- string))
 
-(defn underscore-to-camel-case [string]
+(defn underscore-to-camel-case
+  [string]
   (to-camel-case \_ string))
 
-(defn camel-case-to-underscore [chr string]
+(defn camel-case-to-underscore
+  [chr string]
   (from-camel-case \_ string))
