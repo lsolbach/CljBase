@@ -57,7 +57,7 @@
     (existing-files (map as-file (split-path dir-path))))
   ([ext dir-path]
     "Returns all existing files with the specified extension on the given path"
-    (existing-files ext (map as-file (split-paths dir-path)))))
+    (existing-files ext (map as-file (split-path dir-path)))))
 
 (defn directory-searcher
   ([filename]
