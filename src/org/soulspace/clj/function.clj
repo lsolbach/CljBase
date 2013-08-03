@@ -26,39 +26,44 @@
   [path]
   (str/replace path \/ \.))
 
-(defn ns-to-filename [ns]
+(defn ns-to-filename 
   "Converts a namespace into a fileneame."
+  [ns]
  (str/replace ns \- \_))
 
-(defn filename-to-ns [file]
+(defn filename-to-ns
   "Converts a filename into a namespace."
- (str/replace file \_ \-))
+  [file]
+  (str/replace file \_ \-))
 
-(defn ns-to-file [ns]
+(defn ns-to-file
   "Converts a namespace into a fileneame."
- (str/replace (str/replace ns \- \_) \. \/))
+  [ns]
+  (str/replace (str/replace ns \- \_) \. \/))
 
-(defn file-to-ns [file]
+(defn file-to-ns
   "Converts a filename into a namespace."
+  [file]
  (str/replace (str/replace file \_ \-) \/ \.))
 
 ; TODO check for function with 'fn?'
 (defn call-by-name
+  "Resolves a function by name and calls it."
   ([^String name]
     (when-let [func (ns-resolve (symbol name))]
-      (func)))
+      (if (fn? func) (func))))
   ([^String name & args]
     (when-let [func (ns-resolve (symbol name))]
-      (apply func args))))
+      (if (fn? func) (apply func args)))))
 
-; TODO check for function with 'fn?'
 (defn call-by-ns-name
+  "Resolves a function by name in the given namespace and calls it."
   ([^String ns ^String name]
     (when-let [func (ns-resolve (symbol ns) (symbol name))]
-      (func)))
+      (if (fn? func) (func))))
   ([^String ns ^String name & args]
     (when-let [func (ns-resolve (symbol ns) (symbol name))]
-      (apply func args))))
+      (if (fn? func) (apply func args)))))
 
 ;(defn apply-for [f v]
 ;  (if (coll? v)
