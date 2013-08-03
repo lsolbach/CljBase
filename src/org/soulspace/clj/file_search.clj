@@ -3,13 +3,13 @@
   (:use [clojure.java.io :exclude [delete-file]]
         [org.soulspace.clj.file]))
 
-(defn split-paths
+(defn split-path
   ([sep paths]
     "Split a path string with the given separator."
     (str/split paths (re-pattern sep)))
   ([paths]
     "Split a path string using ':' as separator."
-    (split-paths ":" paths)))
+    (split-path ":" paths)))
 
 (defn build-path
   ([sep files]

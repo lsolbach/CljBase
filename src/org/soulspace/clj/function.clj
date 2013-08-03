@@ -1,10 +1,13 @@
 (ns org.soulspace.clj.function
   (:require [clojure.string :as str]))
 
-(defn not-nil? [x]
+(defn not-nil? 
+  "Tests if the argument is not nil. Same as (not (nil? x)) or ((complement nil?) x)."
+  [x]
   (not (nil? x)))
 
 (defn get-env
+  "Returns the environment variable named var."
   ([var]
     (System/getenv (name var)))
   ([var default]
@@ -13,22 +16,30 @@
         env
         default))))
 
-(defn ns-to-path [ns]
+(defn ns-to-path 
+  "Converts a namespace into a path."
+  [ns]
   (str/replace ns \. \/))
 
-(defn path-to-ns [path]
+(defn path-to-ns
+  "Converts a path into a namespace."
+  [path]
   (str/replace path \/ \.))
 
 (defn ns-to-filename [ns]
+  "Converts a namespace into a fileneame."
  (str/replace ns \- \_))
 
 (defn filename-to-ns [file]
+  "Converts a filename into a namespace."
  (str/replace file \_ \-))
 
 (defn ns-to-file [ns]
+  "Converts a namespace into a fileneame."
  (str/replace (str/replace ns \- \_) \. \/))
 
 (defn file-to-ns [file]
+  "Converts a filename into a namespace."
  (str/replace (str/replace file \_ \-) \/ \.))
 
 ; TODO check for function with 'fn?'
