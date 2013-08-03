@@ -1,7 +1,7 @@
 (ns org.soulspace.clj.java.type-conversion)
 
 (defmulti coerce
-  "coerce clojure data types to java data types"
+  "Coerce clojure data types to java data types"
   (fn [dest-class obj] [dest-class (class obj)]))
 (defmethod coerce [Boolean/TYPE Boolean] [_ obj]
   obj)
