@@ -27,7 +27,7 @@ Code Repository
 History
 -------
 
-Version 0.4.0 (0-.08.2013)
+Version 0.4.0 (--.--.2013)
 --------------------------
 * added copyright header in source files
 * updated module files
