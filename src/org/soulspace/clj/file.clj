@@ -54,11 +54,23 @@
   (let [file (as-file file)]
     (.getAbsolutePath file)))
 
+(defn absolute-file
+  "Returns the file as absolute file."
+  [file]
+  (let [file (as-file file)]
+    (.getAbsoluteFile file)))
+
 (defn canonical-path
   "Returns the canonical path of the file."
   [file]
   (let [file (as-file file)]
     (.getCanonicalPath file)))
+
+(defn canonical-file
+  "Returns the canonical file of the file."
+  [file]
+  (let [file (as-file file)]
+    (.getCanonicalFile file)))
 
 (defn relative-path [base-path file]
   "Returns the path of the file relative to the base-path."
