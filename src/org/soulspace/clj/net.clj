@@ -13,8 +13,7 @@
 (defn test-url
   "Test an URL, returns true if content is available"
   ([url]
-    (test-url url 500)
-    )
+    (test-url url 500))
   ([url timeout]
     (try
       (let [conn (.openConnection url)]
