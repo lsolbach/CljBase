@@ -1,9 +1,15 @@
 CljJavaLibrary
 ==============
-The CljJavaLibrary is a library with functions for Clojure/Java integration.
+The CljJavaLibrary contains various functions for Clojure/Java integration.
+
+It contains
+* Java reflection functions
+* Java Bean functions
+* BeanInfo functions
+* Java type coercion/conversion functions
 
 Author/Project Lead
-------------
+-------------------
 Ludger Solbach
 
 Copyright
@@ -21,10 +27,22 @@ Code Repository
 History
 -------
 
-Version 0.2.0 (--.--.201-)
+Version 0.4.0 (0-.08.2013)
 --------------------------
-* added new type conversions
+* added copyright header in source files
+* updated module files
 
-Version 0.1.0 (--.--.201-)
+
+Version 0.3.0 (05.08.2013)
 --------------------------
-* Initial import
+* enhanced doc strings
+* updated to CljLibrary 0.4.0
+* updated module files
+
+Version 0.2.0 (03.08.2013)
+--------------------------
+* added new type conversions from Integers to other numeric types
+* added license.txt
+* updated module files
+* initial github import
+* initial git import
