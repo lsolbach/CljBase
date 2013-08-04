@@ -5,6 +5,7 @@ It contains
 * string functions as supplement to clojure.string
 * file functions as supplement to clojure.java.io
 * file search functions
+* namespace functions
 
 Author/Project Lead
 ------------
