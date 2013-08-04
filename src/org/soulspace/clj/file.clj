@@ -87,9 +87,9 @@
         cbase-path (canonical-path (as-file base-path))]
     (if (starts-with cbase-path cpath)
       (if (ends-with "/" cbase-path)
-        (substring (str-length cbase-path) cpath)
-        (substring (+ (str-length cbase-path) 1) cpath))
-      (path file)))) ; TODO think about: walk up to a common parent and down again (../../src/bla)?
+        (substring (count cbase-path) cpath)
+        (substring (+ (count cbase-path) 1) cpath))
+      (path file))))
 
 (defn has-extension?
   "Returns true if the path of the file ends with the given extension."
@@ -106,9 +106,6 @@
   [file]
   (if-not (exists? file)
     (.mkdirs file)))
-
-; TODO implement generic directory walker (see/use walk function)
-; (defn dir-walker [fn dir] ...)?!
 
 (defn files
   "Returns a sequence of the files in a directory given as file.
