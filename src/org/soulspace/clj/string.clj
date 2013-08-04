@@ -1,95 +1,126 @@
+;
+;   Copyright (c) Ludger Solbach. All rights reserved.
+;   The use and distribution terms for this software are covered by the
+;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;   which can be found in the file license.txt at the root of this distribution.
+;   By using this software in any fashion, you are agreeing to be bound by
+;   the terms of this license.
+;   You must not remove this notice, or any other, from this software.
+;
 (ns org.soulspace.clj.string
   (:use [clojure.string :only [upper-case lower-case]]))
 
 (defn gt
-  [v1 v2]
-  (> (.compareTo v1 v2) 0))
+  "Greater than string comparison."
+  [s1 s2]
+  (> (.compareTo s1 s2) 0))
 
 (defn ge 
-  [v1 v2]
-  (>= (.compareTo v1 v2) 0))
+  "Greater or equal string comparison."
+  [s1 s2]
+  (>= (.compareTo s1 s2) 0))
 
 (defn lt 
-  [v1 v2]
-  (< (.compareTo v1 v2) 0))
+  "Less than string comparison."
+  [s1 s2]
+  (< (.compareTo s1 s2) 0))
 
 (defn le 
-  [v1 v2]
-  (<= (.compareTo v1 v2) 0))
+  "Less or equal string comparison."
+  [s1 s2]
+  (<= (.compareTo s1 s2) 0))
 
 (defn eq 
-  [v1 v2]
-  (= v1 v2))
+  "Equal string comparison."
+  [s1 s2]
+  (= s1 s2))
 
 (defn ne 
-  [v1 v2]
-  (not= v1 v2))
+  "Not equal string comparison."
+  [s1 s2]
+  (not= s1 s2))
 
 (defn starts-with 
-  [pattern string]
-  (.startsWith string pattern))
+  "Returns true if the string starts with the pattern."
+  [pattern s]
+  (.startsWith s pattern))
 
 (defn ends-with 
-  [pattern string]
-  (.endsWith string pattern))
-
-(defn str-length 
-  [string]
-  (.length string))
-
-; FIXME doesn't work yet
-(defn str-contains? 
-  [pattern string]
-  (.contains string pattern))
+  "Returns true if the string ends with the pattern."
+  [pattern s]
+  (.endsWith s pattern))
 
 (defn index-of
-  ([chr string]
-    (.indexOf string chr))
-  ([chr from-idx string]
-    (.indexOf string chr from-idx)))
+  "Returns the index of the first occurence of the char in string."
+  ([c s]
+    (.indexOf s c))
+  ([c from-idx s]
+    (.indexOf s c from-idx)))
 
-(defn last-index-of 
-  ([chr string]
-    (.lastIndexOf string chr))
-  ([chr from-idx string]
-    (.lastIndexOf string chr from-idx)))
+(defn last-index-of
+  "Returns the index of the last occurence of the char in string."
+  ([c s]
+    (.lastIndexOf s c))
+  ([c from-idx s]
+    (.lastIndexOf s c from-idx)))
 
 (defn substring 
-  ([begin-idx string]
-    (.substring string begin-idx))
-  ([begin-idx end-idx string]
-    (.substring string begin-idx end-idx)))
+  "Returns a substring of string defined by the indices."
+  ([begin-idx s]
+    (.substring s begin-idx))
+  ([begin-idx end-idx s]
+    (.substring s begin-idx end-idx)))
 
-(defn first-upper-case 
-  [string]
-  (str (upper-case (substring 0 1 string)) (substring 1 string)))
+(defn upper-case?
+  "Returns true if the char is upper case."
+  [c]
+  (Character/isUpperCase c))
+
+(defn lower-case?
+  "Returns true if the char is lower case."
+  [c]
+  (Character/isLowerCase c))
+
+(defn first-upper-case
+  "Returns the string with the first letter converted to upper case."
+  [s]
+  (str (upper-case (substring 0 1 s)) (substring 1 s)))
 
 (defn first-lower-case
-  [string]
-  (str (lower-case (substring 0 1 string)) (substring 1 string)))
+  "Returns the string with the first letter converted to lower case."
+  [s]
+  (str (lower-case (substring 0 1 s)) (substring 1 s)))
 
-; FIXME implement
 (defn to-camel-case
-  [chr string]
-  )
+  [c s]
+  (loop [chars (seq s) cc-chars []]
+    (if (seq chars)
+      (if (= (first chars) c)
+        (recur (rest (rest chars)) (conj cc-chars (upper-case (second chars))))
+        (recur (rest chars) (conj cc-chars (str (first chars)))))
+      (apply str cc-chars))))
 
-; FIXME implement
-(defn from-camel-case 
-  [chr string]
-  )
+(defn from-camel-case
+  [c s]
+  (loop [chars (seq s) r-chars [] begin true]
+    (if (seq chars)
+      (if (and (upper-case? (first chars)) (not begin))
+        (recur (rest chars) (conj r-chars c (first chars)) false)
+        (recur (rest chars) (conj r-chars (first chars)) false))
+      (apply str r-chars))))
 
-(defn hyphen-to-camel-case
-  [string]
-  (to-camel-case \- string))
+(defn hyphen-to-camel-case 
+  [s]
+  (to-camel-case \- s))
 
-(defn camel-case-to-hyphen
-  [string]
-  (from-camel-case \- string))
+(defn camel-case-to-hyphen 
+  [s]
+  (from-camel-case \- s))
 
 (defn underscore-to-camel-case
-  [string]
-  (to-camel-case \_ string))
+  [s]
+  (to-camel-case \_ s))
 
 (defn camel-case-to-underscore
-  [chr string]
-  (from-camel-case \_ string))
+  [s]
+  (from-camel-case \_ s))
