@@ -1,6 +1,6 @@
 CljLibrary
 ==============
-The CljLibrary is a library for clojure providing convenience functions with no other dependencies.
+The CljLibrary is a library for clojure providing convenience functions with no other dependencies than clojure itself.
 
 Author/Project Lead
 ------------
