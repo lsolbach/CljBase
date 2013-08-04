@@ -1,6 +1,10 @@
 CljLibrary
 ==============
 The CljLibrary is a library for clojure providing convenience functions with no other dependencies than clojure itself.
+It contains 
+* string functions as supplement to clojure.string
+* file functions as supplement to clojure.java.io
+* file search functions
 
 Author/Project Lead
 ------------
@@ -21,6 +25,6 @@ Code Repository
 History
 -------
 
-Version 0.1.0 (--.--.201-)
+Version 0.5.0 (--.--.201-)
 --------------------------
 * Initial import
