@@ -35,7 +35,6 @@ Version 0.5.0 (05.08.2013)
 * replaced str-length with count
 * updated module files
 
-
 Version 0.4.0 (03.08.2013)
 --------------------------
 * added absolute-file and canonical-file
