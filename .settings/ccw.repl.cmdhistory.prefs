@@ -1,0 +1,2 @@
+cmdhistory=[";; Switching to org.soulspace.clj.application.string-property namespace" "(replace-properties-recursive {\:bla \\"${fasel}\\" \:fasel \\"yo\!\\"} \\"${bla}\\")"]
+eclipse.preferences.version=1
