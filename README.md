@@ -2,6 +2,15 @@ CljApplicationLibrary
 ===============
 The CljApplicationLibrary contains abstractions and functions for building applications in clojure.
 
+It contains functions for
+
+* Dynamic Classpaths
+* Command Line Arguments
+* Environment Variables
+* Internationalization
+* String Properties (e.g. ${property})
+
+
 Author/Project Lead
 -------------------
 Ludger Solbach

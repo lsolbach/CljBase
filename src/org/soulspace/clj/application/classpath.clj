@@ -55,6 +55,13 @@
   ([cl url]
     (dp/add-classpath-url cl (as-url url))))
 
+(defn add-urls
+  ([urls]
+    (add-urls (context-classloader) urls))
+  ([cl urls]
+    (doseq [url urls]
+      (add-url cl url))))
+
 (defn urls
   "Returns the classpath URLs of a dynamic classloader."
   ([]
