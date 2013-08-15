@@ -22,10 +22,13 @@ License
 
 Code Repository
 ---------------
-[https://github.com/lsolbach/CljJavaLibrary] (https://github.com/lsolbach/CljJavaLibrary)
+[https://github.com/lsolbach/CljLibrary] (https://github.com/lsolbach/CljLibrary)
 
 History
 -------
+
+Version 0.5.1 (05.08.2013)
+--------------------------
 
 Version 0.5.0 (05.08.2013)
 --------------------------
