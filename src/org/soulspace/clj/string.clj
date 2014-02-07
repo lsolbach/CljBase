@@ -124,3 +124,10 @@
 (defn camel-case-to-underscore
   [s]
   (from-camel-case \_ s))
+
+(defn parse-number
+  "Reads a number from a string. Returns nil if not a number."
+  [s]
+  (if (re-find #"^-?\d+\.?\d*([Ee]\+\d+|[Ee]-\d+|[Ee]\d+)?$" (.trim s))
+    (read-string s)))
+

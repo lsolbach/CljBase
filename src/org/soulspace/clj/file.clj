@@ -8,6 +8,7 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.file
+  (:require [clojure.string :as str])
   (:use [clojure.core :exclude [name]]
         [clojure.java.io :exclude [delete-file]]
         [org.soulspace.clj string function])
@@ -57,6 +58,11 @@
   (let [file (as-file file)]
     (.getPath file)))
 
+(defn normalized-path
+  "Returns the normalized path (unix convention) of the file."
+  [file]
+  (str/replace path \\ \/))
+
 (defn absolute-path
   "Returns the absolute path of the file."
   [file]
@@ -99,7 +105,7 @@
 (defn matches?
   "Returns true if the path of the file matches the given pattern."
   [pattern file]
-  (and (exists? file) (re-matches pattern (path file))))
+  (and (exists? file) (re-matches pattern (normalized-path (path file)))))
 
 (defn create-dir
   "Creates a directory including missing parent directories."
@@ -138,7 +144,8 @@ If the given file is not a directory, it is returned as only file in the sequenc
       (.delete file))))
 
 (defn delete-dir [file]
-  "delete directory recursively"
+  "Deletes the directory and any subdirectories"
   (let [file (as-file file)]
     (doseq [f (reverse (all-files file))]
       (delete-file f))))
+

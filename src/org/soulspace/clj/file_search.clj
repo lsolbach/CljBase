@@ -13,19 +13,17 @@
         [org.soulspace.clj.file]))
 
 (defn split-path
+  "Split a path string with the given separator or ':' as default."
   ([sep paths]
-    "Split a path string with the given separator."
     (str/split paths (re-pattern sep)))
   ([paths]
-    "Split a path string using ':' as separator."
     (split-path ":" paths)))
 
 (defn build-path
+  "Build a path by joining the given files with the separator or ':' as default."
   ([sep files]
-    "Build a path by joining the given files with the separator."
     (str/join sep (map path files)))
   ([files]
-    "Build a path by joining the given files with ':' as separator."
     (build-path ":" files)))
 
 ; convert ** -> ('filename pattern'|/)+  convert * -> ('filename pattern')+
@@ -41,34 +39,32 @@
     (map as-file (split-path pathnames))))
 
 (defn build-absolute-path
+  "Returns the absolute path of the file defined by the given directory, filename (and extension)."
   ([dir filename]
-    "Returns the absolute path of the file defined by the given directory and filename."
     (str (absolute-path dir) "/" filename))
   ([dir filename extension]
-    "Returns the absolute path of the file defined by the given directory, filename and extension."
     (str (absolute-path dir) "/" filename "." extension)))
 
 (defn existing-files
+  "Returns all existing files (with the specified extension) in the given directories."
   ([dirs]
-    "Returns all existing files in the given directories"
     (filter exists? (flatten (map all-files dirs))))
   ([ext dirs]
-    "Returns all existing files with the specified extension in the given directories"
     (filter exists? (flatten (map #(all-files-by-extension ext %) dirs)))))
 
 (defn existing-files-by-pattern [pattern dirs]
-  "Returns all existing files matching the specified pattern in the given directories"
+  "Returns all existing files matching the specified pattern in the given directories."
   (filter exists? (flatten (map #(all-files-by-pattern pattern %) dirs))))
 
 (defn existing-files-on-path
+  "Returns all existing files (with the specified extension) on the given path."
   ([dir-path]
-    "Returns all existing files on the given path"
-    (existing-files (map as-file (split-path dir-path))))
+      (existing-files (map as-file (split-path dir-path))))
   ([ext dir-path]
-    "Returns all existing files with the specified extension on the given path"
     (existing-files ext (map as-file (split-path dir-path)))))
 
 (defn directory-searcher
+  "Returns a function that takes a directory and returns the file specified by filename (and extension)."
   ([filename]
     (fn [dir]
       (let [abs-name (build-absolute-path dir filename)]
@@ -79,19 +75,17 @@
         (as-file abs-name)))))
 
 (defn locate-file
+  "Returns the first existing file on the search path for the specified filename (and extension)."
   ([searchpath filename]
-    "Returns the first existing file on the search path for the specified filename"
     (first (filter exists? (map (directory-searcher filename) searchpath))))
   ([searchpath filename extension]
-    "Returns the first existing file on the search path for the specified filename and extension"
     (first (filter exists? (map (directory-searcher filename extension) searchpath)))))
 
 (defn file-locator
+  "Returns a function that locates a file by name on the search path."
   ([searchpath]
-;    (println "file-locator" searchpath)
     (fn [filename]
       (locate-file searchpath filename)))
   ([searchpath ext]
-;    (println "file-locator" searchpath ext)
     (fn [filename]
       (locate-file searchpath filename ext))))

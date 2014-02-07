@@ -14,14 +14,3 @@
   "Tests if the argument is not nil. Same as (not (nil? x)) or ((complement nil?) x)."
   [x]
   (not (nil? x)))
-
-; TODO remove (move to CljAppFramework)
-(defn get-env
-  "Returns the environment variable named var."
-  ([var]
-    (System/getenv (name var)))
-  ([var default]
-    (let [env (get-env var)]
-      (if-not (nil? env)
-        env
-        default))))
