@@ -27,8 +27,9 @@ Code Repository
 History
 -------
 
-Version 0.4.0 (--.--.2013)
+Version 0.4.0 (--.--.2014)
 --------------------------
+* updated CljLibrary dependency
 * added copyright header in source files
 * updated module files
 
