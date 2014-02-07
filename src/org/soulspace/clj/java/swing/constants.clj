@@ -9,6 +9,7 @@
 ;
 (ns org.soulspace.clj.java.swing.constants
   (:import [java.awt Event]
+           [java.awt.event ActionEvent]
            [javax.swing Action JFileChooser JOptionPane SwingConstants WindowConstants]))
 
 ; Constant maps
@@ -48,9 +49,9 @@
                   :icon        Action/SMALL_ICON
                   })
 
-(def modifier-mask-keys {:ctrl  Event/CTRL_MASK
-                         :shift Event/CTRL_MASK
-                         :alt   Event/ALT_MASK})
+(def modifier-mask-keys {:ctrl  ActionEvent/CTRL_MASK
+                         :shift ActionEvent/CTRL_MASK
+                         :alt   ActionEvent/ALT_MASK})
 
 (def filechooser-keys {:approve               JFileChooser/APPROVE_OPTION
                        :cancel                JFileChooser/CANCEL_OPTION

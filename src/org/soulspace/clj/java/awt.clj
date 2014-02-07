@@ -9,7 +9,7 @@
 ;
 (ns org.soulspace.clj.java.awt
   (:use [org.soulspace.clj.java beans])
-  (:import [java.awt BasicStroke Color Dimension Event Font GradientPaint TexturePaint]))
+  (:import [java.awt BasicStroke Color Dimension Event Font GradientPaint Insets TexturePaint]))
 
 ; AWT
 
@@ -17,6 +17,11 @@
 (defn dimension
   [width height]
   (Dimension. width height))
+
+; Insets
+(defn insets
+  [top left bottom right]
+  (Insets. top left bottom right))
 
 ; Color
 (def color-by-name {:black Color/BLACK

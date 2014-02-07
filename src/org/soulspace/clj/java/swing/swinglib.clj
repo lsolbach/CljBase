@@ -12,7 +12,8 @@
         [org.soulspace.clj.java awt]
         [org.soulspace.clj.java.awt event]
         [org.soulspace.clj.java.swing constants])
-  (:import [javax.swing AbstractAction AbstractListModel Action BorderFactory ButtonGroup InputVerifier
+  (:import [javax.swing AbstractAction AbstractListModel Action BorderFactory ButtonGroup
+            ImageIcon InputVerifier
             JButton JCheckBox JCheckBoxMenuItem JColorChooser JComboBox JDesktopPane JDialog
             JEditorPane JFileChooser JFormattedTextField JFrame JLabel JLayeredPane JList
             JMenu JMenuBar JMenuItem JOptionPane JPanel JPasswordField JPopupMenu JProgressBar
@@ -86,8 +87,8 @@
       action)))
 
 (defn key-stroke
-  ([chr]
-    (KeyStroke/getKeyStroke chr))
+  ([keycode]
+    (KeyStroke/getKeyStroke keycode))
   ([keycode & modifiers]
     (KeyStroke/getKeyStroke keycode (reduce + (map modifier-mask-keys modifiers)))))
 
@@ -105,6 +106,10 @@
         (= look :gtk)
         (UIManager/setLookAndFeel "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"))
   (SwingUtilities/updateComponentTreeUI frame))
+
+; Icons
+(defn image-icon [url args]
+  (init-swing (ImageIcon. url) args))
 
 ; Borders
 (defn titled-border [title]
