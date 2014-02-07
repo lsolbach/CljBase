@@ -27,8 +27,11 @@ Code Repository
 History
 -------
 
-Version 0.5.1 (05.08.2013)
+Version 0.6.0 (--.--.2014)
 --------------------------
+* added system properties support
+* added JVM proxy settings
+* added path normalization for file paths
 
 Version 0.5.0 (05.08.2013)
 --------------------------
