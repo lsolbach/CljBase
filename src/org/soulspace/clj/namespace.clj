@@ -8,7 +8,8 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.namespace
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  (:use [org.soulspace.clj file]))
 
 (defn ns-to-path 
   "Converts a namespace into a path."
@@ -18,7 +19,7 @@
 (defn path-to-ns
   "Converts a path into a namespace."
   [path]
-  (str/replace path \/ \.))
+  (str/replace (normalize-path path) \/ \.))
 
 (defn ns-to-filename 
   "Converts a namespace into a fileneame."

@@ -11,7 +11,7 @@
   (:require [clojure.string :as str])
   (:use [clojure.core :exclude [name]]
         [clojure.java.io :exclude [delete-file]]
-        [org.soulspace.clj string function])
+        [org.soulspace.clj string])
   (:import [java.io File]))
 
 (defn- list-files [file]
@@ -26,7 +26,7 @@
   "Returns true, if the given file exists."
   [file]
   (let [file (as-file file)]
-    (and (not-nil? file) (.exists file))))
+    (and (not (nil? file)) (.exists file))))
 
 (defn is-dir?
   "Returns true, if the given file exists and is a directory."
@@ -58,10 +58,15 @@
   (let [file (as-file file)]
     (.getPath file)))
 
+(defn normalize-path
+  "Returns the normalized path (unix convention) of the path."
+  [path]
+  (str/replace path \\ \/))
+
 (defn normalized-path
   "Returns the normalized path (unix convention) of the file."
   [file]
-  (str/replace path \\ \/))
+  (str/replace (path file) \\ \/))
 
 (defn absolute-path
   "Returns the absolute path of the file."
