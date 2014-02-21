@@ -10,7 +10,7 @@ It contains
 * network related functions
 * system functions based on java.lang.System
 
-Requires JavaSE7.
+Requires JavaSE 7.
 
 Author/Project Lead
 -------------------
@@ -35,13 +35,16 @@ Version 0.6.0 (--.--.2014)
 --------------------------
 * added system properties support
 * added JVM proxy settings
-* added path normalization for file paths
+* added path normalization for file paths (java.io)
+* added codec for base64 and hex coding of byte arrays
+* added message digests
+* now requires JavaSE 7
 
 Version 0.5.0 (05.08.2013)
 --------------------------
 * added camel case string functions
 * added copyright header in source files
-* moved namespace related functions to function namespace
+* moved namespace related functions to 'namespace' namespace
 * replaced str-length with count
 * updated module files
 
