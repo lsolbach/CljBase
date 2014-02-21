@@ -11,5 +11,5 @@
   )
 
 (deftest set-method-test
-  (is (= (setter-method javax.swing.JFrame "menuBar") nil))
+  (is (= (method-name (setter-method javax.swing.JFrame "menuBar")) "setMenuBar"))
   )

@@ -32,7 +32,7 @@ Version 0.4.0 (--.--.2014)
 * updated CljLibrary dependency
 * added copyright header in source files
 * updated module files
-
+* enhanced type coercions
 
 Version 0.3.0 (05.08.2013)
 --------------------------

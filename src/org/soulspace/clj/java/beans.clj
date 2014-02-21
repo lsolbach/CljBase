@@ -35,18 +35,21 @@
                       (nil? (.getParameterTypes %)))
                    (method-seq cl)))))
 
+; TODO add value as parameter and return the setter based on the type of the value
 (defn setter-method
   "Returns the setter method for this property. Works for derived properties too."
   [cl property]
   (let [pname (str "set" (first-upper-case property))]
     (first (filter #(= pname (.getName %)) (method-seq cl)))))
 
+; TODO add value as parameter and return the adder based on the type of the value
 (defn adder-method
   "Returns the add method for this multivalued property."
   [cl property]
   (let [pname (str "add" (first-upper-case property))]
     (first (filter #(= pname (.getName %)) (method-seq cl)))))
 
+; TODO add value as parameter and return the remover based on the type of the value
 (defn remover-method
   "Returns the remove method for this multivalued property."
   [cl property]
