@@ -21,6 +21,39 @@
         default))))
 
 (defn set-system-property
-  "Set a system property"
+  "Sets a system property."
   [property value]
   (System/setProperty property value))
+
+(defn get-system-property
+  "Gets a system property.
+   If a default is specified and the property is not set, the default will be returned."
+  ([property]
+    (System/getProperty property))
+  ([property default]
+    (System/getProperty property default)))
+
+(defn clear-system-property
+  "Removes the system propery."
+  [property]
+  (System/clearProperty property))
+
+(defn nano-time
+  "Returns the current time in nano seconds."
+  []
+  (System/nanoTime))
+
+(defn milli-time
+  "Returns the current time in milli seconds."
+  []
+  (System/currentTimeMillis))
+
+(defn line-separator
+  "Returns the line separator of the current system."
+  []
+  (System/lineSeparator))
+
+(defn exit
+  "Terminates the currently running JVM."
+  [status]
+  (System/exit status))

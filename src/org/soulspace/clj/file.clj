@@ -34,6 +34,12 @@
   (let [file (as-file file)]
     (and (exists? file) (.isDirectory file))))
 
+(defn is-file?
+  "Returns true, if the given file exists and is a directory."
+  [file]
+  (let [file (as-file file)]
+    (and (exists? file) (.isFile file))))
+
 (defn file-name
   "Returns the name of the file."
   [file]
@@ -153,4 +159,3 @@ If the given file is not a directory, it is returned as only file in the sequenc
   (let [file (as-file file)]
     (doseq [f (reverse (all-files file))]
       (delete-file f))))
-
