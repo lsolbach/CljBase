@@ -3,7 +3,7 @@
  :project "org.soulspace.clj"
  :type :library
  :version "0.6.0"
- :description "The CljLibrary is a library for clojure providing convenience functions with no other dependencies than clojure itself."
+ :description "The CljLibrary is a library for clojure providing convenience functions with no other dependencies than java and clojure."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"
  :license ["Eclipse Public License 1.0" "http://www.eclipse.org/legal/epl-v10.html"]
