@@ -78,3 +78,6 @@ if it is not dynamic already."
     (if (or (= (type cl) URLClassLoader) (= (type cl) DynamicClassLoader))
       (let [dyn-cl (create-dynamic-classloader cl)]
         (.setContextClassLoader (java.lang.Thread/currentThread) dyn-cl)))))
+
+(defn system-resource-url [resource]
+  (ClassLoader/getSystemResource resource))
