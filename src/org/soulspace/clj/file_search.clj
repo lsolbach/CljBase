@@ -59,7 +59,7 @@
 (defn existing-files-on-path
   "Returns all existing files (with the specified extension) on the given path."
   ([dir-path]
-      (existing-files (map as-file (split-path dir-path))))
+    (existing-files (map as-file (split-path dir-path))))
   ([ext dir-path]
     (existing-files ext (map as-file (split-path dir-path)))))
 

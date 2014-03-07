@@ -14,14 +14,6 @@
         [org.soulspace.clj string])
   (:import [java.io File]))
 
-(defn- list-files [file]
-  (let [file (as-file file)]
-    (seq (.listFiles file))))
-
-(defn- list-paths [file]
-  (let [file (as-file file)]
-    (seq (.list file))))
-
 (defn exists?
   "Returns true, if the given file exists."
   [file]
@@ -40,11 +32,43 @@
   (let [file (as-file file)]
     (and (exists? file) (.isFile file))))
 
+(defn readable?
+  "Returns true, if the given file is readable."
+  [file]
+  (let [file (as-file file)]
+    (and (exists? file) (.canRead file))))
+
+(defn writeable?
+  "Returns true, if the given file is writeable."
+  [file]
+  (let [file (as-file file)]
+    (and (exists? file) (.canWrite file))))
+
+(defn executable?
+  "Returns true, if the given file is executable."
+  [file]
+  (let [file (as-file file)]
+    (and (exists? file) (.canExecute file))))
+
+(defn- list-files [file]
+  (let [file (as-file file)]
+    (seq (.listFiles file))))
+
+(defn- list-paths [file]
+  (let [file (as-file file)]
+    (seq (.list file))))
+
 (defn file-name
   "Returns the name of the file."
   [file]
   (let [file (as-file file)]
     (.getName file)))
+
+(defn base-name
+  "Returns the name of the file."
+  [file]
+  (let [file-name (.getName (as-file file))]
+    (substring 0 (last-index-of \. file-name) file-name)))
 
 (defn parent-path 
   "Returns the parent path for the file if it exists."
@@ -98,8 +122,9 @@
   (let [file (as-file file)]
     (.getCanonicalFile file)))
 
-(defn relative-path [base-path file]
+(defn relative-path
   "Returns the path of the file relative to the base-path."
+  [base-path file]
   (let [cpath (canonical-path file)
         cbase-path (canonical-path (as-file base-path))]
     (if (starts-with cbase-path cpath)
@@ -126,7 +151,7 @@
 
 (defn files
   "Returns a sequence of the files in a directory given as file.
-If the given file is not a directory, it is returned as only file in the sequence."
+   If the given file is not a directory, it is returned as only file in the sequence."
   [file]
   (if (exists? file)
     (if (is-dir? file)
@@ -134,28 +159,38 @@ If the given file is not a directory, it is returned as only file in the sequenc
         files)
       [file])))
 
-(defn all-files [file]
+(defn all-files
   "Returns a sequence of the files in a directory given as file and its sub directories.
-If the given file is not a directory, it is returned as only file in the sequence."
+   If the given file is not a directory, it is returned as only file in the sequence."
+  [file]
   (if (exists? file)
     (if (is-dir? file)
       (let [files (conj [] file)]
         (concat files (flatten (map all-files (list-files file)))))
       [file])))
 
-(defn all-files-by-extension [ext file]
+(defn all-files-by-extension
+  "Returns a sequence of the files with the extension ext in a directory given as file and its sub directories.
+   If the given file is not a directory, it is returned as only file in the sequence."
+  [ext file]
   (filter (partial has-extension? ext) (all-files file)))
 
-(defn all-files-by-pattern [pattern file]
+(defn all-files-by-pattern
+  "Returns a sequence of the files that match the pattern in a directory given as file and its sub directories.
+   If the given file is not a directory, it is returned as only file in the sequence."
+  [pattern file]
   (filter (partial matches? pattern) (all-files file)))
 
-(defn delete-file [file]
+(defn delete-file
+  "Deletes the file."
+  [file]
   (let [file (as-file file)]
     (when (exists? file)
       (.delete file))))
 
-(defn delete-dir [file]
-  "Deletes the directory and any subdirectories"
+(defn delete-dir 
+  "Deletes the directory and any subdirectories."
+  [file]
   (let [file (as-file file)]
     (doseq [f (reverse (all-files file))]
       (delete-file f))))

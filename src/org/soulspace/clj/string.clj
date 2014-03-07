@@ -15,7 +15,7 @@
   [s1 s2]
   (> (.compareTo s1 s2) 0))
 
-(defn ge 
+(defn ge
   "Greater or equal string comparison."
   [s1 s2]
   (>= (.compareTo s1 s2) 0))
@@ -53,16 +53,16 @@
 (defn index-of
   "Returns the index of the first occurence of the char in string."
   ([c s]
-    (.indexOf s c))
+    (.indexOf s (int c)))
   ([c from-idx s]
-    (.indexOf s c from-idx)))
+    (.indexOf s (int c) from-idx)))
 
 (defn last-index-of
   "Returns the index of the last occurence of the char in string."
   ([c s]
-    (.lastIndexOf s c))
+    (.lastIndexOf s (int c)))
   ([c from-idx s]
-    (.lastIndexOf s c from-idx)))
+    (.lastIndexOf s (int c) from-idx)))
 
 (defn substring 
   "Returns a substring of string defined by the indices."

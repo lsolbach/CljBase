@@ -39,7 +39,7 @@
 (defn file-to-ns
   "Converts a filename into a namespace."
   [file]
- (str/replace (str/replace file \_ \-) \/ \.))
+  (str/replace (str/replace file \_ \-) \/ \.))
 
 (defn call-by-name
   "Resolves a function by name and calls it."
@@ -58,5 +58,3 @@
   ([^String ns ^String name & args]
     (when-let [func (ns-resolve (symbol ns) (symbol name))]
       (if (fn? func) (apply func args)))))
-
-
