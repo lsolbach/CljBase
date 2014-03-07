@@ -7,34 +7,35 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 ;
-(ns org.soulspace.clj.java.reflection)
+(ns org.soulspace.clj.java.reflection
+  (:refer-clojure :exclude [methods]))
 
-(defn annotation-seq
+(defn annotations
   "Returns a sequence of the annotations of the class."
   [cl]
   (seq (.getAnnotations cl)))
 
-(defn declared-annotation-seq
+(defn declared-annotations
   "Returns a sequence of the declared annotations of the class."
   [cl]
   (seq (.getDeclaredAnnotations cl)))
 
-(defn field-seq
+(defn fields
   "Returns a sequence of the fields of the class."
   [cl]
   (seq (.getFields cl)))
 
-(defn declared-field-seq
+(defn declared-fields
   "Returns a sequence of the declared fields of the class."
   [cl]
   (seq (.getDeclaredFields cl)))
 
-(defn method-seq
+(defn methods
   "Returns a sequence of the methods of the class."
   [cl]
   (seq (.getMethods cl)))
 
-(defn declared-method-seq
+(defn declared-methods
     "Returns a sequence of the declared methods of the class."
   [cl]
   (seq (.getDeclaredMethods cl)))
@@ -42,11 +43,13 @@
 (defn find-method
   "Returns the method of the given name if found on class."
   [cl method-name]
-  (filter #(= (.getName %) method-name) (method-seq cl)))
+  (filter #(= (.getName %) method-name) (methods cl)))
 
-(defn method-params [method]
-  (.getParameterTypes method))
+(defn parameter-types
+  "Returns a sequence with the parameter types of the method."
+  [method]
+  (seq (.getParameterTypes method)))
 
-; (map #(.getName %) (method-seq (.getClass (javax.swing.JTextField.))))
-; (filter getter? (method-seq (.getClass (javax.swing.JTextField.))))
-; (map #(.getName %) (filter getter? (method-seq (.getClass (javax.swing.JTextField.)))))
+; (map #(.getName %) (methods (.getClass (javax.swing.JTextField.))))
+; (filter getter? (methods (.getClass (javax.swing.JTextField.))))
+; (map #(.getName %) (filter getter? (methods (.getClass (javax.swing.JTextField.)))))
