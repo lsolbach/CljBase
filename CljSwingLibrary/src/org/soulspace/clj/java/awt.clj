@@ -9,7 +9,7 @@
 ;
 (ns org.soulspace.clj.java.awt
   (:use [org.soulspace.clj.java beans])
-  (:import [java.awt BasicStroke Color Dimension Event Font GradientPaint Insets TexturePaint]))
+  (:import [java.awt BasicStroke Color Dimension Event Font GradientPaint Graphics2D Insets TexturePaint]))
 
 ; AWT
 
@@ -46,21 +46,6 @@
   ([r g b a]
     (Color. r g b a)))
 
-; Paint
-(defn gradient-paint
-  ([p1 color1 p2 color2]
-  (GradientPaint. p1 color1 p2 color2))
-  ([p1 color1 p2 color2 cyclic]
-  (GradientPaint. p1 color1 p2 color2 cyclic))
-  ([x1 y1 color1 x2 y2 color2]
-  (GradientPaint. x1 y1 color1 x2 y2 color2))
-  ([x1 y1 color1 x2 y2 color2 cyclic]
-  (GradientPaint. x1 y1 color1 x2 y2 color2 cyclic)))
-
-(defn texture-paint
-  [texture anchor]
-  (TexturePaint. texture anchor))
-
 ; Font
 (def font-styles {:bold Font/BOLD
                   :italic Font/ITALIC
@@ -86,26 +71,3 @@
     (.derive font (reduce + style-vec)))
   ([fontname style-vec size]
     (.derive font (reduce + style-vec) size)))
-
-; Stroke
-(def stroke-cap-styles {:cap_butt BasicStroke/CAP_BUTT
-                        :cap_round BasicStroke/CAP_ROUND
-                        :cap_square BasicStroke/CAP_SQUARE})
-
-(def stroke-join-styles {:join_miter BasicStroke/JOIN_MITER
-                         :join_round BasicStroke/JOIN_ROUND
-                         :join_bevel BasicStroke/JOIN_BEVEL})
-
-(defn basic-stroke
-  ([]
-    (BasicStroke.))
-  ([width]
-    (BasicStroke. width))
-  ([width cap-style join-style]
-    (BasicStroke. width cap-style join-style))
-  ([width cap-style join-style miter-limit]
-    (BasicStroke. width cap-style join-style miter-limit))
-  ([width cap-style join-style miter-limit dash dash-phase]
-    ; TODO check that into-array works as expected
-    (BasicStroke. width cap-style join-style miter-limit (into-array dash) dash-phase))
-  )
