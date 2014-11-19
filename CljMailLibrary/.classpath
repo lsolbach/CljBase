@@ -5,11 +5,6 @@
 	<classpathentry kind="lib" path="build/lib/runtime/CljJavaLibrary.jar"/>
 	<classpathentry kind="lib" path="build/lib/runtime/CljLibrary.jar"/>
 	<classpathentry kind="lib" path="build/lib/runtime/clojure.jar"/>
-	<classpathentry exported="true" kind="lib" path="classes">
-		<attributes>
-			<attribute name="optional" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="build/lib/runtime/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
