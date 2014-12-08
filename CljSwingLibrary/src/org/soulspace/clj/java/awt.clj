@@ -13,17 +13,7 @@
 
 ; AWT
 
-; Dimension
-(defn dimension
-  [width height]
-  (Dimension. width height))
-
-; Insets
-(defn insets
-  [top left bottom right]
-  (Insets. top left bottom right))
-
-; Color
+; constant maps
 (def color-by-name {:black Color/BLACK
                     :blue Color/BLUE
                     :cyan Color/CYAN
@@ -38,15 +28,6 @@
                     :white Color/WHITE
                     :yellow Color/YELLOW})
 
-(defn color
-  ([value]
-    (Color. value))
-  ([r g b]
-    (Color. r g b))
-  ([r g b a]
-    (Color. r g b a)))
-
-; Font
 (def font-styles {:bold Font/BOLD
                   :italic Font/ITALIC
                   :plain Font/PLAIN
@@ -60,13 +41,38 @@
                  :sans-serif Font/SANS_SERIF
                  :serif Font/SERIF})
 
+; dimension
+(defn dimension
+  "Creates a dimension."
+  [width height]
+  (Dimension. width height))
+
+; insets
+(defn insets
+  "Creates insets."
+  [top left bottom right]
+  (Insets. top left bottom right))
+
+; color
+(defn color
+  "Creates a color."
+  ([value]
+    (Color. value))
+  ([r g b]
+    (Color. r g b))
+  ([r g b a]
+    (Color. r g b a)))
+
+; font
 (defn font
+  "Creates a font."
   ([font]
     (Font. font))
   ([font-name style-vec size]
     (Font. font-name (reduce + style-vec) size)))
 
 (defn derive-font
+  "Derives a font from the given font."
   ([font style-vec]
     (.derive font (reduce + style-vec)))
   ([fontname style-vec size]
