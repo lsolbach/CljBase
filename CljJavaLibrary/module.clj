@@ -2,7 +2,7 @@
  :module "CljJavaLibrary"
  :project "org.soulspace.clj"
  :type :library
- :version "0.5.0"
+ :version "0.6.0"
  :description "The CljJavaLibrary contains various functions for Clojure/Java integration."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"
