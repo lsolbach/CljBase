@@ -47,6 +47,7 @@
            (.isAssignableFrom expected actual)))) ;assignment compatibility
 
 (defn getter?
+  "Returns true if the given method is a property getter method."
   ([method]
     (and
       (or
@@ -58,6 +59,7 @@
     ))
 
 (defn setter?
+  "Returns true if the given method is a property setter method."
   ([method]
     (and
       (starts-with "set" (.getName method))
@@ -85,6 +87,7 @@
                      (methods cl))))))
 
 (defn setter-methods
+  "Returns a sequence of the setter methods for this property."
   ([cl property]
     (let [pname (str "set" (first-upper-case property))]
       (filter #(and (= pname (.getName %))
@@ -92,6 +95,7 @@
               (methods cl)))))
 
 (defn adder-methods
+  "Returns a sequence of the adder methods for this property."
   ([cl property]
     (let [pname (str "add" (first-upper-case property))]
       (filter #(and (= pname (.getName %))
@@ -99,6 +103,7 @@
               (methods cl)))))
 
 (defn remover-methods
+  "Returns a sequence of the remover methods for this property."
   ([cl property]
     (let [pname (str "remove" (first-upper-case property))]
       (filter #(and (= pname (.getName %))
