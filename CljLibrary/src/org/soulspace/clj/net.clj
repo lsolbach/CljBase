@@ -67,4 +67,3 @@
   [host port]
     (set-system-property "socksProxyHost" host)
     (set-system-property "socksProxyPort" port))
-
