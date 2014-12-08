@@ -16,6 +16,14 @@
 
 (def ^{:dynamic true} *graphics*)
 
+(def stroke-cap-styles {:cap_butt BasicStroke/CAP_BUTT
+                        :cap_round BasicStroke/CAP_ROUND
+                        :cap_square BasicStroke/CAP_SQUARE})
+
+(def stroke-join-styles {:join_miter BasicStroke/JOIN_MITER
+                         :join_round BasicStroke/JOIN_ROUND
+                         :join_bevel BasicStroke/JOIN_BEVEL})
+
 ; Paint
 (defn gradient-paint
   "Create a gradient paint."
@@ -34,14 +42,6 @@
   (TexturePaint. texture anchor))
 
 ; Stroke
-(def stroke-cap-styles {:cap_butt BasicStroke/CAP_BUTT
-                        :cap_round BasicStroke/CAP_ROUND
-                        :cap_square BasicStroke/CAP_SQUARE})
-
-(def stroke-join-styles {:join_miter BasicStroke/JOIN_MITER
-                         :join_round BasicStroke/JOIN_ROUND
-                         :join_bevel BasicStroke/JOIN_BEVEL})
-
 (defn basic-stroke
   "Creates basic strokes."
   ([]
@@ -54,8 +54,7 @@
     (BasicStroke. width cap-style join-style miter-limit))
   ([width cap-style join-style miter-limit dash dash-phase]
     ; TODO check that into-array works as expected
-    (BasicStroke. width cap-style join-style miter-limit (into-array dash) dash-phase))
-  )
+    (BasicStroke. width cap-style join-style miter-limit (into-array dash) dash-phase)))
 
 (defn arc2d
   "Creates a 2d arc."
@@ -69,9 +68,10 @@
   [x1 y1 ctrlx1 ctrly1 ctrlx2 ctrly2 x2 y2]
   (CubicCurve2D$Double. x1 y1 ctrlx1 ctrly1 ctrlx2 ctrly2 x2 y2))
 
-(defn ellipse2d [x y w h]
-    "Creates a 2d ellipse."
-    (Ellipse2D$Double. x y w h))
+(defn ellipse2d
+  "Creates a 2d ellipse."
+  [x y w h]
+  (Ellipse2D$Double. x y w h))
 
 (defn line2d
   "Creates a 2d line."
@@ -80,20 +80,24 @@
   ([x1 y1 x2 y2]
     (Line2D$Double. x1 y1 x2 y2)))
 
-(defn point2d [x y]
-    "Creates a 2d point."
+(defn point2d
+  "Creates a 2d point."
+  [x y]
   (Point2D$Double. x y))
 
-(defn quad-curve2d [x1 y1 ctrlx ctrly x2 y2]
+(defn quad-curve2d
   "Creates a 2d quadratic curve."
+  [x1 y1 ctrlx ctrly x2 y2]
   (QuadCurve2D$Double. x1 y1 ctrlx ctrly x2 y2))
 
-(defn rectangle2d [x y w h]
+(defn rectangle2d
   "Creates a 2d rectangle."
+  [x y w h]
   (Rectangle2D$Double. x y w h))
 
-(defn round-rectangle2d [x y w h arc-w arc-h]
+(defn round-rectangle2d
   "Creates a 2d rounded rectangle."
+  [x y w h arc-w arc-h]
   (RoundRectangle2D$Double. x y w h arc-w arc-h))
 
 (defn draw
