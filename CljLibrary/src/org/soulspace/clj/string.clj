@@ -92,6 +92,7 @@
   (str (lower-case (substring 0 1 s)) (substring 1 s)))
 
 (defn to-camel-case
+  "Converts a string into camel case. Removes occurences of 'c' and converts the next character to upper case."
   [c s]
   (loop [chars (seq s) cc-chars []]
     (if (seq chars)
@@ -101,6 +102,7 @@
       (apply str cc-chars))))
 
 (defn from-camel-case
+  "Converts a string from camel case to a lower case string with the spacer character 'c' inserted in front of any intra word uppercase char."
   [c s]
   (loop [chars (seq s) r-chars [] begin true]
     (if (seq chars)
@@ -109,19 +111,23 @@
         (recur (rest chars) (conj r-chars (first chars)) false))
       (apply str r-chars))))
 
-(defn hyphen-to-camel-case 
+(defn hyphen-to-camel-case
+  "Converts hyphenized strings to camel case strings."
   [s]
   (to-camel-case \- s))
 
 (defn camel-case-to-hyphen 
+  "Converts camel case strings to hyphenized strings."
   [s]
   (from-camel-case \- s))
 
 (defn underscore-to-camel-case
+  "Converts underscored strings to camel case strings."
   [s]
   (to-camel-case \_ s))
 
 (defn camel-case-to-underscore
+  "Converts camel case strings to underscored strings."
   [s]
   (from-camel-case \_ s))
 
@@ -130,4 +136,3 @@
   [s]
   (if (re-find #"^-?\d+\.?\d*([Ee]\+\d+|[Ee]-\d+|[Ee]\d+)?$" (.trim s))
     (read-string s)))
-
