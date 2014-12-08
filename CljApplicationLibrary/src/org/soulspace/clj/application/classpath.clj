@@ -15,12 +15,14 @@
 
 ; TODO move into CljAppFramework
 
-(defn context-classloader []
+(defn context-classloader
   "Returns the context class loader of the current thread."
+  []
   (.getContextClassLoader (java.lang.Thread/currentThread)))
 
-(defn system-classloader []
+(defn system-classloader
   "Returns the system class loader."
+  []
   (ClassLoader/getSystemClassLoader))
 
 (defn classloader-hierarchy
@@ -56,6 +58,7 @@
     (dp/add-classpath-url cl (as-url url))))
 
 (defn add-urls
+  "Adds a collection of classpath URLs to a dynamic classloader."
   ([urls]
     (add-urls (context-classloader) urls))
   ([cl urls]
@@ -71,13 +74,14 @@
 
 
 (defn set-dynamic-classloader
-  "Sets a dynamic context classloader on the current thread,
-if it is not dynamic already."
+  "Sets a dynamic context classloader on the current thread, if the current classloader is not dynamic already."
   []
   (let [cl (context-classloader)]
     (if (or (= (type cl) URLClassLoader) (= (type cl) DynamicClassLoader))
       (let [dyn-cl (create-dynamic-classloader cl)]
         (.setContextClassLoader (java.lang.Thread/currentThread) dyn-cl)))))
 
-(defn system-resource-url [resource]
+(defn system-resource-url
+  "Loads a system resource."
+  [resource]
   (ClassLoader/getSystemResource resource))
