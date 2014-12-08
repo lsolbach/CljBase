@@ -11,17 +11,21 @@
   (:import [javax.xml.bind DatatypeConverter]))
 
 (defn encode-hex
+  "Encode the bytes as hexadecimal string."
   [bytes]
   (DatatypeConverter/printHexBinary bytes))
 
 (defn decode-hex
+  "Parse a hexadecimal string into bytes."
   [s]
   (DatatypeConverter/parseHexBinary s))
 
 (defn encode-base64
+  "Encode the bytes as Base64 string."
   [bytes]
   (DatatypeConverter/printBase64Binary bytes))
 
 (defn decode-base64
+  "Parse a Base64 string into bytes."
   [s]
   (DatatypeConverter/parseBase64Binary s))
