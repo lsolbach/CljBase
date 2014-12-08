@@ -4,6 +4,8 @@
            [javax.mail.internet MimeMessage MimeUtility])
   (:use [org.soulspace.clj.java beans]))
 
+(def ^:dynamic *mail-session*)
+
 (defn properties
   "Creates properties from a map."
   ([m]
@@ -18,6 +20,8 @@
 
 (defn mime-message
   "Creates a mime message."
+  ([props]
+    (mime-message *mail-session* props))
   ([session props]
     (let [msg (MimeMessage. session)]
       (set-properties! msg props)
@@ -29,3 +33,10 @@
     (Transport/send message))
   ([message user pw]
     (Transport/send message user pw)))
+
+(defmacro with-mail-session
+  "Executes the body in the context of a mail session."
+  [props & body]
+  `(binding [*mail-session* (session ~props)]
+     ~@body
+     ))
