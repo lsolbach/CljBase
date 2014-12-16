@@ -14,8 +14,6 @@
             Line2D$Double Point2D$Double Rectangle2D$Double RoundRectangle2D$Double QuadCurve2D$Double]
            [javax.imageio ImageIO]))
 
-(def ^{:dynamic true} *graphics*)
-
 (def stroke-cap-styles {:cap_butt BasicStroke/CAP_BUTT
                         :cap_round BasicStroke/CAP_ROUND
                         :cap_square BasicStroke/CAP_SQUARE})
@@ -102,34 +100,52 @@
 
 (defn draw
   "Draws an element."
-  [e]
-  (.draw *graphics* e))
+  ([^java.awt.Graphics2D gfx e]
+    (.draw gfx e))
+  ([^java.awt.Graphics2D gfx e color]
+    (.draw gfx e color)))
 
 (defn fill
   "Draws a filled element."
-  [e]
-  (.fill *graphics* e))
+  ([^java.awt.Graphics2D gfx e]
+    (.fill gfx e))
+  ([^java.awt.Graphics2D gfx e color]
+    (.setColor gfx color)
+    (.fill gfx e)))
 
 (defn draw-point
   "Draws a point."
-  ([p]
-    (.draw *graphics* p))
-  ([x y]
-    (.draw *graphics* (point2d x y))))
+  ([^java.awt.Graphics2D gfx x y]
+    (.draw gfx (point2d x y)))
+  ([^java.awt.Graphics2D gfx x y color]
+    (.setColor gfx color)
+    (.draw gfx (point2d x y)))
+  )
 
 (defn draw-line
-  "Draw a line with the given graphics context."
-  ([p1 p2]
-    (.draw *graphics* (line2d p1 p2)))
-  ([x1 y1 x2 y2]
-    (.draw *graphics* (line2d x1 y1 x2 y2))))
+  "Draws a line."
+  ([^java.awt.Graphics2D gfx p1 p2]
+    (.draw gfx (line2d p1 p2)))
+  ([^java.awt.Graphics2D gfx x1 y1 x2 y2]
+    (.draw gfx (line2d x1 y1 x2 y2)))
+  ([^java.awt.Graphics2D gfx x1 y1 x2 y2 color]
+    (.setColor gfx color)
+    (.draw gfx (line2d x1 y1 x2 y2)))
+  )
 
-;Graphics context
-(defmacro with-graphics-context
-  "Macro to execute functions with a graphics context"
-  [gc & body]
-  `(binding [*graphics* gc]
-            ~@body))
+(defn fill-rect
+  "Draws a filled rectangle."
+  ([^java.awt.Graphics2D gfx x y width height]
+    (.fillRect gfx x y width height))
+  ([^java.awt.Graphics2D gfx x y width height color]
+    (.setColor gfx color)
+    (.fillRect gfx x y width height)))
+
+(defn fill-colored-rect
+  "Draws a filled rectangle with the given color."
+  ([^java.awt.Graphics2D gfx x y width height color]
+    (.setColor gfx color)
+    (.fillRect gfx x y width height)))
 
 ;Image IO
 (defn write-image

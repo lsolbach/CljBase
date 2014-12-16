@@ -90,7 +90,7 @@
     (let [action (proxy [AbstractAction] []
                    (actionPerformed [evt] (f evt)))]
       (doseq [[k v] args]
-        (println (str k " : " (action-keys k) " -> " v))
+        ;(println (str k " : " (action-keys k) " -> " v))
         (.putValue action (action-keys k) v))
       (.setEnabled action true)
       action)))
@@ -346,10 +346,8 @@
   (init-swing
     (proxy [javax.swing.JPanel] []
       (paintComponent [^java.awt.Graphics g]
-                      (proxy-super paintComponent g)
-                      (let [^java.awt.Graphics2D g2d (.create g)]
-                        (paint-fn g2d)
-                        (.dispose g2d))))
+        (proxy-super paintComponent g)
+        (paint-fn g)))
     args items))
 
 
