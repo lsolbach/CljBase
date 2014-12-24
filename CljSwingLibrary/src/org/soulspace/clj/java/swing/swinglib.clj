@@ -157,6 +157,11 @@
   [args]
   (init-swing (JFormattedTextField. (NumberFormat/getIntegerInstance)) args))
 
+(defn decimal-field
+  "Creates a number field."
+  [fmt args]
+  (init-swing (JFormattedTextField. fmt) args))
+
 (defn text-field
   "Creates a text field."
   [args]
