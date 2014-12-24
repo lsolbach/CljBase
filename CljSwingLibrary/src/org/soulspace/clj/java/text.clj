@@ -72,4 +72,3 @@
     (let [f (SimpleDateFormat. fmt locale)]
       (set-properties! f args)
       f)))
-
