@@ -27,9 +27,9 @@
             RowSorterListener TableColumnModelListener TableModelListener
             TreeExpansionListener TreeModelListener TreeSelectionListener TreeWillExpandListener
             UndoableEditListener]
-           [javax.swing.table AbstractTableModel]
+           [javax.swing.table AbstractTableModel DefaultTableCellRenderer]
            [javax.swing.tree DefaultMutableTreeNode]
-           [java.text NumberFormat DateFormat]
+           [java.text Format NumberFormat DateFormat]
            [net.miginfocom.swing MigLayout]))
 
 ; Helpers
@@ -62,19 +62,22 @@
   (proxy [ChangeListener] []
     (stateChanged [event] (f event args))))
 
-(defn hyperlink-listener [f args]
+(defn hyperlink-listener
   "Creates a hyperlink listener. Calls function 'f' on hyperlink updates."
+  [f args]
   (proxy [HyperlinkListener] []
     (hyperlinkUpdate [event] (f event args))))
 
-(defn list-selection-listener [f args]
+(defn list-selection-listener
   "Creates a list selection listener. Calls function 'f' on value changes."
+  [f args]
   (proxy [ListSelectionListener] []
     (valueChanged [event] (f event args))))
 
 ; InputVerifier
-(defn input-verifier [vf yf & args]
+(defn input-verifier
   "Creates an input verifier with the verify function 'vf' and the yield function 'yf'."
+  [vf yf & args]
   (proxy [InputVerifier] []
     (verify [component] (vf component))
     (shouldYieldFocus [component] (yf component args))))
@@ -157,10 +160,12 @@
   [args]
   (init-swing (JFormattedTextField. (NumberFormat/getIntegerInstance)) args))
 
-(defn decimal-field
-  "Creates a number field."
-  [fmt args]
-  (init-swing (JFormattedTextField. fmt) args))
+(defn formatted-text-field
+  "Creates a text field."
+  ([args]
+    (init-swing (JFormattedTextField.) args))
+  ([^Format fmt args]
+    (init-swing (JFormattedTextField. fmt) args)))
 
 (defn text-field
   "Creates a text field."
@@ -430,6 +435,18 @@
   "Creates an option pane dialog."
   [args]
   (init-swing (JOptionPane.) args))
+
+; Renderer
+(defn table-cell-renderer
+  "Creates a cell renderer with the rebder function 'rf'."
+  ([rf args]
+    (proxy [DefaultTableCellRenderer] []
+      (getTableCellRendererComponent [table value isSelected hasFocus row column]
+        (let [result (proxy-super getTableCellRendererComponent table value isSelected hasFocus row column)]
+          (set-properties! this args)
+          (.setText this (rf value))
+          result)))))
+
 
 ; mapseq ColumnSpec
 ;[{:label "Text" :key :text :edit false :converter function}]
