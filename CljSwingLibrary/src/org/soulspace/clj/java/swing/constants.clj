@@ -10,7 +10,7 @@
 (ns org.soulspace.clj.java.swing.constants
   (:import [java.awt Event]
            [java.awt.event ActionEvent]
-           [javax.swing Action JFileChooser JOptionPane SwingConstants WindowConstants]))
+           [javax.swing Action JFileChooser JOptionPane JTextField ListSelectionModel SwingConstants WindowConstants]))
 
 ; Constant maps
 (def swing-keys {:bottom     SwingConstants/BOTTOM
@@ -31,14 +31,12 @@
                  :top        SwingConstants/TOP
                  :trailing   SwingConstants/TRAILING
                  :vertical   SwingConstants/VERTICAL
-                 :west       SwingConstants/WEST
-                 })
+                 :west       SwingConstants/WEST})
 
 (def window-keys {:nothing WindowConstants/DO_NOTHING_ON_CLOSE
                   :dispose WindowConstants/DISPOSE_ON_CLOSE
                   :hide    WindowConstants/HIDE_ON_CLOSE
-                  :exit    WindowConstants/EXIT_ON_CLOSE
-                  })
+                  :exit    WindowConstants/EXIT_ON_CLOSE})
 
 (def action-keys {:name        Action/NAME
                   :accelerator Action/ACCELERATOR_KEY
@@ -46,28 +44,29 @@
                   :long-desc   Action/LONG_DESCRIPTION
                   :short-desc  Action/SHORT_DESCRIPTION
                   :mnemonic    Action/MNEMONIC_KEY
-                  :icon        Action/SMALL_ICON
-                  })
+                  :icon        Action/SMALL_ICON})
 
 (def modifier-mask-keys {:ctrl  ActionEvent/CTRL_MASK
                          :shift ActionEvent/CTRL_MASK
                          :alt   ActionEvent/ALT_MASK})
+
+(def list-selection-keys {:single ListSelectionModel/SINGLE_SELECTION
+                          :single-interval ListSelectionModel/SINGLE_INTERVAL_SELECTION
+                          :multiple-interval ListSelectionModel/MULTIPLE_INTERVAL_SELECTION})
 
 (def filechooser-keys {:approve               JFileChooser/APPROVE_OPTION
                        :cancel                JFileChooser/CANCEL_OPTION
                        :error                 JFileChooser/ERROR_OPTION
                        :directories-only      JFileChooser/DIRECTORIES_ONLY
                        :files-only            JFileChooser/FILES_ONLY
-                       :files-and-directories JFileChooser/FILES_AND_DIRECTORIES
-                       })
+                       :files-and-directories JFileChooser/FILES_AND_DIRECTORIES})
 
 ; TODO use in message dialogs
 (def option-pane-message-keys {:error    JOptionPane/ERROR_MESSAGE
                                :warning  JOptionPane/WARNING_MESSAGE
                                :question JOptionPane/QUESTION_MESSAGE
                                :info     JOptionPane/INFORMATION_MESSAGE
-                               :plain    JOptionPane/PLAIN_MESSAGE
-                               })
+                               :plain    JOptionPane/PLAIN_MESSAGE})
 
 (def option-pane-keys {:default       JOptionPane/DEFAULT_OPTION
                        :yes-no        JOptionPane/YES_NO_OPTION
@@ -77,5 +76,4 @@
                        :no            JOptionPane/NO_OPTION
                        :cancel        JOptionPane/CANCEL_OPTION
                        :ok            JOptionPane/OK_OPTION
-                       :closed        JOptionPane/CLOSED_OPTION
-                       })
+                       :closed        JOptionPane/CLOSED_OPTION})
