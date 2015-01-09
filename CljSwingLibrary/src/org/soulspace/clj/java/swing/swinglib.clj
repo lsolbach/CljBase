@@ -48,32 +48,6 @@
           (.add c item))))
     c))
 
-; Listeners
-; TODO add adapters for multi listeners and add listener functions
-(defn caret-listener
-  "Creates a caret listener. Calls function 'f' on caret updates."
-  [f args]
-  (proxy [CaretListener] []
-    (caretUpdate [event] (f event args))))
-
-(defn change-listener
-  "Creates a change listener. Calls function 'f' on state changes."
-  [f args]
-  (proxy [ChangeListener] []
-    (stateChanged [event] (f event args))))
-
-(defn hyperlink-listener
-  "Creates a hyperlink listener. Calls function 'f' on hyperlink updates."
-  [f args]
-  (proxy [HyperlinkListener] []
-    (hyperlinkUpdate [event] (f event args))))
-
-(defn list-selection-listener
-  "Creates a list selection listener. Calls function 'f' on value changes."
-  [f args]
-  (proxy [ListSelectionListener] []
-    (valueChanged [event] (f event args))))
-
 ; InputVerifier
 (defn input-verifier
   "Creates an input verifier with the verify function 'vf' and the yield function 'yf'."
@@ -104,6 +78,22 @@
     (KeyStroke/getKeyStroke keycode))
   ([keycode & modifiers]
     (KeyStroke/getKeyStroke keycode (reduce + (map modifier-mask-keys modifiers)))))
+
+(defn get-input-map
+  "Returns the input map of the component."
+  ([c]
+    (.getInputMap c))
+  ([c k]
+    (.getInputMap c k)))
+
+(defn add-key-binding
+  "Adds a key binding for an action to the input map of the component."
+  ([c binding-name stroke action]
+    (.put (.getActionMap c) binding-name action)
+    (.put (get-input-map c) stroke binding-name))
+  ([c focus-key binding-name stroke action]
+    (.put (.getActionMap c) binding-name action)
+    (.put (get-input-map c focus-key) stroke binding-name)))
 
 ; Look and feel
 (defn set-look-and-feel
@@ -334,22 +324,6 @@
   [args items]
   (init-swing (JToolBar.) args items))
 
-(defn frame
-  "Creates a frame."
-  [args cp-items]
-  (let [c (JFrame.)]
-    (set-properties! c args)
-    (if (not (nil? cp-items))
-      (doseq [item cp-items]
-        (.add (.getContentPane c) item)))
-    c))
-
-; TODO check relevance
-(defn window
-  "Creates a window."
-  [args items]
-  (init-swing (JLabel.) args items))
-
 (defn canvas-panel
   "Creates a panel into which the paint function can paint using the provided graphics context."
   [paint-fn args items]
@@ -360,6 +334,45 @@
         (paint-fn g)))
     args items))
 
+(defn frame
+  "Creates a frame."
+  [args cp-items]
+  (let [c (JFrame.)]
+    (set-properties! c args)
+    (if (not (nil? cp-items))
+      (doseq [item cp-items]
+        (.add (.getContentPane c) item)))
+    c))
+
+(defn window
+  "Creates a window."
+  [args cp-items]
+  (let [c (JWindow.)]
+    (set-properties! c args)
+    (if (not (nil? cp-items))
+      (doseq [item cp-items]
+        (.add (.getContentPane c) item)))
+    c))
+
+(defn dialog
+  "Creates a dialog. If a frame is provided, the dialog is centered on the frame."
+  ([args cp-items]
+    (let [c (JDialog.)]
+      (set-properties! c args)
+      (if (not (nil? cp-items))
+        (doseq [item cp-items]
+          (.add (.getContentPane c) item)))
+      (.pack c)
+      c))
+  ([frame args cp-items]
+    (let [c (JDialog.)]
+      (set-properties! c args)
+      (if (not (nil? cp-items))
+        (doseq [item cp-items]
+          (.add (.getContentPane c) item)))
+      (.pack c)
+      (.setLocationRelativeTo c frame)
+      c)))
 
 ; standard dialogs
 ; TODO add frame parameter to the dialogs
@@ -385,16 +398,6 @@
   "Creates a color choose dialog."
   ([c title color]
     (JColorChooser/showDialog c title color)))
-
-(defn dialog
-  "Creates a dialog."
-  [args cp-items]
-  (let [c (JDialog.)]
-    (set-properties! c args)
-    (if (not (nil? cp-items))
-      (doseq [item cp-items]
-        (.add (.getContentPane c) item)))
-    c))
 
 (defn message-dialog
   "Creates a message dialog."

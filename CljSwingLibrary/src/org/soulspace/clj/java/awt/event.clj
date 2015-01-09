@@ -8,7 +8,8 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.java.awt.event
-  (:import [java.awt.event
+  (:import [java.beans PropertyChangeListener]
+           [java.awt.event
             ActionListener AdjustmentListener ComponentAdapter ComponentListener
             ContainerAdapter ContainerListener FocusAdapter FocusListener
             HierarchyBoundsAdapter HierarchyBoundsListener HierarchyListener
@@ -234,3 +235,71 @@
   [f args]
   (proxy [WindowListener] []
     (windowStateChanged [event] (f event args))))
+
+; Add listeners
+(defn add-action-listener
+  "Adds an action listener to the component."
+  [c ^java.awt.event.ActionListener l]
+  (.addActionListener c l))
+
+(defn add-component-listener
+  "Adds a component listener to the component."
+  [^java.awt.Component c ^java.awt.event.ComponentListener l]
+  (.addComponentListener c l))
+
+(defn add-focus-listener
+  "Adds a focus listener to the component."
+  [^java.awt.Component c ^java.awt.event.FocusListener l]
+  (.addFocusListener c l))
+
+(defn add-hierarchy-bounds-listener
+  "Adds a hierarchy bounds listener to the component."
+  [^java.awt.Component c ^java.awt.event.HierarchyBoundsListener l]
+  (.addHierarchyBoundsListener c l))
+
+(defn add-hierarchy-listener
+  "Adds a hierarchy listener to the component."
+  [^java.awt.Component c ^java.awt.event.HierarchyListener l]
+  (.addHierarchyListener c l))
+
+(defn add-input-method-listener
+  "Adds a input method listener to the component."
+  [^java.awt.Component c ^java.awt.event.InputMethodListener l]
+  (.addInputMethodListener c l))
+
+(defn add-item-listener
+  "Adds an item listener to the component."
+  [c ^java.awt.event.ItemListener l]
+  (.addItemListener c l))
+
+(defn add-key-listener
+  "Adds a key listener to the component."
+  [^java.awt.Component c ^java.awt.event.KeyListener l]
+  (.addKeyListener c l))
+
+(defn add-mouse-listener
+  "Adds a mouse listener to the component."
+  [^java.awt.Component c ^java.awt.event.MouseListener l]
+  (.addMouseListener c l))
+
+(defn add-mouse-motion-listener
+  "Adds a mouse motion listener to the component."
+  [^java.awt.Component c ^java.awt.event.MouseMotionListener l]
+  (.addMouseMotionListener c l))
+
+(defn add-mouse-wheel-listener
+  "Adds a mouse wheel listener to the component."
+  [^java.awt.Component c ^java.awt.event.MouseWheelListener l]
+  (.addMouseWheelListener c l))
+
+(defn add-property-change-listener
+  "Adds a property change listener to the component."
+  ([^java.awt.Component c ^java.beans.PropertyChangeListener l]
+    (.addPropertyChangeListener c l))
+  ([^java.awt.Component c ^java.lang.String p ^java.beans.PropertyChangeListener l]
+    (.addPropertyChangeListener c p l)))
+
+(defn add-container-listener
+  "Adds a container listener to the container."
+  [^java.awt.Container c ^java.awt.event.ContainerListener l]
+  (.addContainerListener c l))

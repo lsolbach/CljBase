@@ -10,7 +10,7 @@
 (ns org.soulspace.clj.java.swing.constants
   (:import [java.awt Event]
            [java.awt.event ActionEvent]
-           [javax.swing Action JFileChooser JOptionPane JTextField ListSelectionModel SwingConstants WindowConstants]))
+           [javax.swing Action JComponent JFileChooser JOptionPane JTextField ListSelectionModel SwingConstants WindowConstants]))
 
 ; Constant maps
 (def swing-keys {:bottom     SwingConstants/BOTTOM
@@ -37,6 +37,12 @@
                   :dispose WindowConstants/DISPOSE_ON_CLOSE
                   :hide    WindowConstants/HIDE_ON_CLOSE
                   :exit    WindowConstants/EXIT_ON_CLOSE})
+
+(def focus-condition-keys {:undefined                          JComponent/UNDEFINED_CONDITION ; used by some of the APIs to mean that no condition is defined.
+                           :when-ancestor-of-focused-component JComponent/WHEN_ANCESTOR_OF_FOCUSED_COMPONENT ; used for registerKeyboardAction that means that the command should be invoked when the receiving component is an ancestor of the focused component or is itself the focused component.
+                           :when-focused                       JComponent/WHEN_FOCUSED ; used for registerKeyboardAction that means that the command should be invoked when the component has the focus.
+                           :when-in-focused-window             JComponent/WHEN_IN_FOCUSED_WINDOW ; used for registerKeyboardAction that means that the command should be invoked when the receiving component is in the window that has the focus or is itself the focused component.
+                           })
 
 (def action-keys {:name        Action/NAME
                   :accelerator Action/ACCELERATOR_KEY
