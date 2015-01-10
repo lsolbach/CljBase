@@ -84,3 +84,10 @@
   (let [print-job (create-print-job print-service)
         doc (simple-doc data doc-flavor attr-set)]
     (print-document print-job doc attr-set)))
+
+(defn create-printable
+  "Creates a Printable object."
+  [f]
+  (proxy [Printable] []
+    (print [gfx page-format page-idx]
+      (f gfx page-format page-idx))))
