@@ -44,7 +44,7 @@
     (URLClassLoader. urls parent-cl)))
 
 (defn create-dynamic-classloader
-  "Creates an URLClassLoader with the given array of URLs."
+  "Creates a DynamicClassLoader using a parent classloader if given."
   ([]
     (DynamicClassLoader.))
   ([parent-cl]
@@ -58,7 +58,7 @@
     (dp/add-classpath-url cl (as-url url))))
 
 (defn add-urls
-  "Adds a collection of classpath URLs to a dynamic classloader."
+  "Adds a collection of classpath URLs to the context classloader or a dynamic classloader if given as cl."
   ([urls]
     (add-urls (context-classloader) urls))
   ([cl urls]
@@ -71,7 +71,6 @@
     (urls (context-classloader)))
   ([cl]
     (dp/classpath-urls cl)))
-
 
 (defn set-dynamic-classloader
   "Sets a dynamic context classloader on the current thread, if the current classloader is not dynamic already."
