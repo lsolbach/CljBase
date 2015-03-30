@@ -9,9 +9,10 @@
 ;
 (ns org.soulspace.clj.java.awt.graphics
   (:use [org.soulspace.clj.java beans])
-  (:import [java.awt BasicStroke Color Dimension Font GradientPaint Graphics2D RenderingHints TexturePaint]
+  (:import [java.awt BasicStroke Color Dimension Font GradientPaint Graphics2D Image Point RenderingHints TexturePaint]
            [java.awt.geom Arc2D$Double CubicCurve2D$Double Dimension2D Ellipse2D$Double
             Line2D$Double Point2D$Double Rectangle2D$Double RoundRectangle2D$Double QuadCurve2D$Double]
+           [java.awt.image BufferedImage]
            [javax.imageio ImageIO]))
 
 (def stroke-cap-styles {:cap_butt BasicStroke/CAP_BUTT
@@ -83,6 +84,21 @@
                            :on RenderingHints/VALUE_TEXT_ANTIALIAS_ON ; text rendering is done with some form of antialiasing.                            
                            })
 
+(def image-type {:rgb BufferedImage/TYPE_INT_RGB ; Represents an image with 8-bit RGB color components packed into integer pixels.
+                 :argb BufferedImage/TYPE_INT_ARGB ; Represents an image with 8-bit RGBA color components packed into integer pixels.
+                 :argb-pre BufferedImage/TYPE_INT_ARGB_PRE ; Represents an image with 8-bit RGBA color components packed into integer pixels.
+                 :indexed BufferedImage/TYPE_BYTE_INDEXED ; Represents an indexed byte image.
+                 :gray BufferedImage/TYPE_BYTE_GRAY ; Represents a unsigned byte grayscale image, non-indexed.
+                 :binary BufferedImage/TYPE_BYTE_BINARY ; Represents an opaque byte-packed 1, 2, or 4 bit image.
+                 :custom BufferedImage/TYPE_CUSTOM ; Image type is not recognized so it must be a customized image.
+                 :3byte-bgr BufferedImage/TYPE_3BYTE_BGR ; Represents an image with 8-bit RGB color components, corresponding to a Windows-style BGR color model) with the colors Blue, Green, and Red stored in 3 bytes.
+                 :4byte-abgr BufferedImage/TYPE_4BYTE_ABGR ; Represents an image with 8-bit RGBA color components with the colors Blue, Green, and Red stored in 3 bytes and 1 byte of alpha.
+                 :4byte-abgr-pre BufferedImage/TYPE_4BYTE_ABGR_PRE ; Represents an image with 8-bit RGBA color components with the colors Blue, Green, and Red stored in 3 bytes and 1 byte of alpha.
+                 :ushort-gray BufferedImage/TYPE_USHORT_GRAY ; Represents an unsigned short grayscale image, non-indexed).
+                 :ushort-555-rgb BufferedImage/TYPE_USHORT_555_RGB ; Represents an image with 5-5-5 RGB color components (5-bits red, 5-bits green, 5-bits blue) with no alpha.
+                 :ushort-565-rgb BufferedImage/TYPE_USHORT_565_RGB ; Represents an image with 5-6-5 RGB color components (5-bits red, 6-bits green, 5-bits blue) with no alpha.
+                 })
+
 ; Paint
 (defn gradient-paint
   "Create a gradient paint."
@@ -149,6 +165,11 @@
   "Creates a 2d point."
   [x y]
   (Point2D$Double. x y))
+
+(defn point-coordinates
+  "Returns the x/y coordinates of the point."
+  [point]
+  [(.getX point) (.getY point)])
 
 (defn quad-curve2d
   "Creates a 2d quadratic curve."
@@ -263,8 +284,44 @@
     (.setColor gfx color)
     (.drawString gfx s x y)))
 
+(defn draw-image
+  "Draws an image using the graphics context."
+  ([^Graphics2D gfx ^Image img x y]
+    (.drawImage gfx img x y nil)))
+
+(defn buffered-image
+  "Creates a buffered image."
+  ([src]
+    (ImageIO/read src))
+  ([width height type]
+    (BufferedImage. width height type)))
+
+(defn create-graphics-from-image
+  "Creates a graphics context from the a buffered image."
+  [img]
+  (.createGraphics img))
+
+(defn get-rgb
+  "Returns the rgb value of the pixel at the coordinates x,y in the image."
+  ([img [x y]]
+    (.getRGB img x y))
+  ([img x y]
+    (.getRGB img x y)))
+
+(defn set-rgb
+  "Sets the rgb value of the pixel at the coordinates x,y in the image."
+  ([^BufferedImage img [x y] v]
+    (.setRGB img x y v))
+  ([^BufferedImage img x y v]
+    (.setRGB img x y v)))
+
 ;Image IO
 (defn write-image
   "Writes an image in the given format to the file."
-  [image format file]
-  (ImageIO/write image format file))
+  [img format file]
+  (ImageIO/write img format file))
+
+(defn read-image
+  "Reads an image."
+  [src]
+  (ImageIO/read src))
