@@ -15,26 +15,39 @@
             HierarchyBoundsAdapter HierarchyBoundsListener HierarchyListener
             ItemListener KeyAdapter KeyEvent
             MouseAdapter MouseListener MouseMotionAdapter MouseMotionListener MouseWheelListener
-            TextListener WindowAdapter WindowFocusListener WindowListener WindowStateListener]))
+            TextListener WindowAdapter WindowFocusListener WindowListener WindowStateListener]
+           [java.awt.dnd DragSourceListener DragSourceAdapter DropTargetListener DropTargetAdapter]))
+
+(defn no-operation-fn
+  ""
+  [])
+
+; TODO create adapter macro to create an adapter proxy with the given named methods implemented
+; (defadapter ComponentAdapter args :componentResized f-resized :componentMoved f-moved)
+
+(defmacro defadapter
+  ""
+  [adapter args & fn-bindings]
+  )
 
 ; Listeners
 (defn action-listener
   "Creates an action listener. Calls function 'f' on performing the action."
-  [f args]  
+  [f & args]  
   (proxy [ActionListener] []
     (actionPerformed [event] (apply f event args))))
 
 (defn adjustment-listener
   "Creates an adjustment listener. Calls function 'f' on adjustment value changes."
-  [f args]
+  [f & args]
   (proxy [AdjustmentListener] []
-    (adjustmentValueChanged [event] (f event args))))
+    (adjustmentValueChanged [event] (apply f event args))))
 
 (defn component-hidden-listener
   "Creates a component hidden listener. Calls function 'f' on component hidden."
-  [f args]
+  [f & args]
   (proxy [ComponentAdapter] []
-    (componentHidden [event] (f event args))))
+    (componentHidden [event] (apply f event args))))
 
 (defn component-moved-listener
   "Creates a component moved listener. Calls function 'f' on component moved."
@@ -52,7 +65,16 @@
   "Creates a component shown listener. Calls function 'f' on component shown."
   [f args]
   (proxy [ComponentAdapter] []
-    (componentResized [event] (f event args))))
+    (componentShown [event] (f event args))))
+
+(defn component-adapter
+  "Creates a component adaper. Calls the appropriate functions on events."
+  [f-hidden f-moved f-resized f-shown args]
+    (proxy [ComponentAdapter] []
+    (componentHidden [event] (f-hidden event args))
+    (componentMoved [event] (f-moved event args))
+    (componentResized [event] (f-resized event args))
+    (componentShown [event] (f-shown event args))))
 
 (defn container-added-listener
   "Creates a container added listener. Calls function 'f' on container added."
@@ -124,9 +146,9 @@
 
 (defn mouse-clicked-listener
   "Creates a mouse clicked listener. Calls function 'f' on mouse clicked event."
-  [f args]
+  [f & args]
   (proxy [MouseAdapter] []
-    (mouseClicked [event] (f event args))))
+    (mouseClicked [event] (apply f event args))))
 
 (defn mouse-entered-listener
   "Creates a mouse entered listener. Calls function 'f' on mouse entered event."

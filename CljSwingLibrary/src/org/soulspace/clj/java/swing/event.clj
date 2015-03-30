@@ -10,7 +10,7 @@
 (ns org.soulspace.clj.java.swing.event
   (:import [javax.swing.event AncestorListener CaretListener CellEditorListener ChangeListener DocumentListener
             HyperlinkListener InternalFrameListener ListDataListener ListSelectionListener
-            MenuDragMouseListener MenuKeyListener MenuListener MouseInputListener PopupMenuListener
+            MenuDragMouseListener MenuKeyListener MenuListener MouseInputAdapter MouseInputListener PopupMenuListener
             RowSorterListener TableColumnModelListener TableModelListener
             TreeExpansionListener TreeModelListener TreeSelectionListener TreeWillExpandListener
             UndoableEditListener]))
@@ -73,6 +73,14 @@
   [f args]
   (proxy [ListSelectionListener] []
     (valueChanged [event] (f event args))))
+
+(comment
+(defn mouse-clicked-listener
+  "Creates a mouse input listener. Calls function 'f' on mouse clicks."
+  [f args]
+  (proxy [MouseInputAdapter] []
+    (mouseClicked [event] (f event args))))
+)
 
 ; Add listeners
 (defn add-ancestor-listener
