@@ -365,7 +365,7 @@
       (.pack c)
       c))
   ([frame args cp-items]
-    (let [c (JDialog.)]
+    (let [c (JDialog. frame)]
       (set-properties! c args)
       (if (not (nil? cp-items))
         (doseq [item cp-items]
