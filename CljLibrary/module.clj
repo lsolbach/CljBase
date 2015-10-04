@@ -2,7 +2,7 @@
  :module "CljLibrary"
  :project "org.soulspace.clj"
  :type :library
- :version "0.6.0"
+ :version "0.6.1"
  :description "The CljLibrary is a library for clojure providing convenience functions with no other dependencies than java and clojure."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"
@@ -12,5 +12,5 @@
            ["org.soulspace.baumeister/ClojurePlugin"]
            ["org.soulspace.baumeister/ClojureTestPlugin"]
            ["org.soulspace.baumeister/PackagePlugin"]]
- :dependencies [["org.clojure/clojure, 1.5.1"]]
+ :dependencies [["org.clojure/clojure, 1.7.0"]]
  ]

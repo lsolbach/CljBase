@@ -134,6 +134,16 @@
   [field]
   (.parse (NumberFormat/getIntegerInstance) (.getText field)))
 
+(defn show-component
+  "Shows the component by setting its visibility to true."
+  [c]
+  (.setVisible c true))
+
+(defn hide-component
+  "Hides the component by setting its visibility to false."
+  [c]
+  (.setVisible c false))
+
 ; Components
 (defn label
   "Creates a label."

@@ -33,7 +33,7 @@
 ; Listeners
 (defn action-listener
   "Creates an action listener. Calls function 'f' on performing the action."
-  [f & args]  
+  [f & args]
   (proxy [ActionListener] []
     (actionPerformed [event] (apply f event args))))
 
