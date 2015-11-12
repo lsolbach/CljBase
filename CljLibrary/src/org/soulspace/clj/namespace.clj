@@ -9,7 +9,7 @@
 ;
 (ns org.soulspace.clj.namespace
   (:require [clojure.string :as str])
-  (:use [org.soulspace.clj file]))
+  (:use [org.soulspace.clj file string]))
 
 (defn ns-to-path 
   "Converts a namespace into a path."
@@ -40,6 +40,15 @@
   "Converts a filename into a namespace."
   [file]
   (str/replace (str/replace file \_ \-) \/ \.))
+
+(defn symbol-name [s]
+  "Converts s to hyphened clojure symbol name"
+  (str/lower-case (camel-case-to-hyphen s)))
+
+(defn record-name [s]
+  "Converts s to hyphened clojure name"
+  (first-upper-case (hyphen-to-camel-case-to s)))
+
 
 (defn call-by-name
   "Resolves a function by name and calls it."
