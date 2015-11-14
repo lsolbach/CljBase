@@ -20,61 +20,62 @@
 
 (defn ancestor-listener
   "Creates an ancestor listener. Calls function 'f' on ancestor updates."
-  [added-f moved-f removed-f args]
+  [added-f moved-f removed-f & args]
   (proxy [AncestorListener] []
-    (ancestorAdded [event] (added-f event args))
-    (ancestorMoved [event] (moved-f event args))
-    (ancestorRemoved [event] (removed-f event args))))
+    (ancestorAdded [event] (apply added-f event args))
+    (ancestorMoved [event] (apply moved-f event args))
+    (ancestorRemoved [event] (apply removed-f event args))))
 
 (defn ancestor-added-listener
   "Creates an ancestor listener. Calls function 'f' on ancestor updates."
-  [f args]
+  [f & args]
   (proxy [AncestorListener] []
-    (ancestorAdded [event] (f event args))
+    (ancestorAdded [event] (apply f event args))
     (ancestorMoved [_] nil)
     (ancestorRemoved [_] nil)))
 
 (defn ancestor-moved-listener
   "Creates an ancestor listener. Calls function 'f' on ancestor updates."
-  [f args]
+  [f & args]
   (proxy [AncestorListener] []
     (ancestorAdded [_] nil)
-    (ancestorMoved [event] (f event args))
+    (ancestorMoved [event] (apply f event args))
     (ancestorRemoved [_] nil)))
 
 (defn ancestor-removed-listener
   "Creates an ancestor listener. Calls function 'f' on ancestor updates."
-  [f args]
+  [f & args]
   (proxy [AncestorListener] []
     (ancestorAdded [_] nil)
     (ancestorMoved [_] nil)
-    (ancestorRemoved [event] (f event args))))
+    (ancestorRemoved [event] (apply f event args))))
 
 (defn caret-listener
   "Creates a caret listener. Calls function 'f' on caret updates."
-  [f args]
+  [f & args]
   (proxy [CaretListener] []
-    (caretUpdate [event] (f event args))))
+    (caretUpdate [event] (apply f event args))))
 
 (defn change-listener
   "Creates a change listener. Calls function 'f' on state changes."
-  [f args]
+  [f & args]
   (proxy [ChangeListener] []
-    (stateChanged [event] (f event args))))
+    (stateChanged [event] (apply f event args))))
 
 (defn hyperlink-listener
   "Creates a hyperlink listener. Calls function 'f' on hyperlink updates."
-  [f args]
+  [f & args]
   (proxy [HyperlinkListener] []
-    (hyperlinkUpdate [event] (f event args))))
+    (hyperlinkUpdate [event] (apply f event args))))
 
 (defn list-selection-listener
   "Creates a list selection listener. Calls function 'f' on value changes."
-  [f args]
+  [f & args]
   (proxy [ListSelectionListener] []
-    (valueChanged [event] (f event args))))
+    (valueChanged [event] (apply f event args))))
 
 (comment
+  ; duplicate from awt events
 (defn mouse-clicked-listener
   "Creates a mouse input listener. Calls function 'f' on mouse clicks."
   [f args]
