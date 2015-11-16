@@ -13,15 +13,16 @@
 
 ; supports multiple indications of the same option, which org.clojure/tools.cli does not at the moment.
 
-(def spec-entry-format
-  {:name "define"
-   :option "--define"
-   :short "-D"
-   :doc "Define a var"
-   :parse-fn identity
-   :flag false
-   :default nil
-   })
+(comment
+  (def spec-entry-format
+    {:name "define"
+     :option "--define"
+     :short "-D"
+     :doc "Define a var"
+     :parse-fn identity
+     :multi false
+     :default nil
+     }))
 
 (defn flag-spec? [arg]
   (starts-with "--[no-]" arg))

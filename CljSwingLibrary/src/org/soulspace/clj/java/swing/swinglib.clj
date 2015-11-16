@@ -470,18 +470,18 @@
   [col-spec data]
   (proxy [AbstractTableModel] []
     (getColumnCount [] (count col-spec))
-    (getRowCount [] (count @data))
+    (getRowCount [] (count data))
     (isCellEditable [_ col] (:edit (nth col-spec col) false))
     (getColumnName [col] (:label (nth col-spec col) (str "Label " col)))
     (getValueAt [row col] ((:converter (nth col-spec col) identity)
-                            ((:key (nth col-spec col)) (nth @data row))))))
+                            ((:key (nth col-spec col)) (nth data row))))))
 
 (defn seq-list-model
   "Creates a list model backed with the 'data' sequence."
   [data]
   (proxy [AbstractListModel] []
-    (getElementAt [idx] (nth @data idx))
-    (getSize [] (count @data))))
+    (getElementAt [idx] (nth data idx))
+    (getSize [] (count data))))
 
 ; DefaultMutableTreeNode
 (defn tree-node

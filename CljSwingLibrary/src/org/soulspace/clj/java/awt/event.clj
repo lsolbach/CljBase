@@ -51,96 +51,96 @@
 
 (defn component-moved-listener
   "Creates a component moved listener. Calls function 'f' on component moved."
-  [f args]
+  [f & args]
   (proxy [ComponentAdapter] []
-    (componentMoved [event] (f event args))))
+    (componentMoved [event] (apply f event args))))
 
 (defn component-resized-listener
   "Creates a component resized listener. Calls function 'f' on component resized."
-  [f args]
+  [f & args]
   (proxy [ComponentAdapter] []
-    (componentResized [event] (f event args))))
+    (componentResized [event] (apply f event args))))
 
 (defn component-shown-listener
   "Creates a component shown listener. Calls function 'f' on component shown."
-  [f args]
+  [f & args]
   (proxy [ComponentAdapter] []
-    (componentShown [event] (f event args))))
+    (componentShown [event] (apply f event args))))
 
 (defn component-adapter
   "Creates a component adaper. Calls the appropriate functions on events."
-  [f-hidden f-moved f-resized f-shown args]
+  [f-hidden f-moved f-resized f-shown & args]
     (proxy [ComponentAdapter] []
-    (componentHidden [event] (f-hidden event args))
-    (componentMoved [event] (f-moved event args))
-    (componentResized [event] (f-resized event args))
-    (componentShown [event] (f-shown event args))))
+    (componentHidden [event] (apply f-hidden event args))
+    (componentMoved [event] (apply f-moved event args))
+    (componentResized [event] (apply f-resized event args))
+    (componentShown [event] (apply f-shown event args))))
 
 (defn container-added-listener
   "Creates a container added listener. Calls function 'f' on container added."
-  [f args]
+  [f & args]
   (proxy [ContainerAdapter] []
-    (componentAdded [event] (f event args))))
+    (componentAdded [event] (apply f event args))))
 
 (defn container-removed-listener
   "Creates a container removed listener. Calls function 'f' on container removed."
-  [f args]
+  [f & args]
   (proxy [ContainerAdapter] []
-    (componentRemoved [event] (f event args))))
+    (componentRemoved [event] (apply f event args))))
 
 (defn focus-gained-listener
   "Creates a focus gained listener. Calls function 'f' on focus gained event."
-  [f args]
+  [f & args]
   (proxy [FocusAdapter] []
-    (focusGained [event] (f event args))))
+    (focusGained [event] (apply f event args))))
 
 (defn focus-lost-listener
   "Creates a focus lost listener. Calls function 'f' on focus lost event."
-  [f args]
+  [f & args]
   (proxy [FocusAdapter] []
-    (focusLost [event] (f event args))))
+    (focusLost [event] (apply f event args))))
 
 (defn hierarchy-bounds-moved-listener
   "Creates a hierarchy bounds moved listener. Calls function 'f' on hierarchy bounds moved event."
-  [f args]
+  [f & args]
   (proxy [HierarchyBoundsAdapter] []
-    (ancestorMoved [event] (f event args))))
+    (ancestorMoved [event] (apply f event args))))
 
 (defn hierarchy-bounds-resized-listener
   "Creates a hierarchy bounds resized listener. Calls function 'f' on hierarchy bounds resized event."
-  [f args]
+  [f & args]
   (proxy [HierarchyBoundsAdapter] []
-    (ancestorResized [event] (f event args))))
+    (ancestorResized [event] (apply f event args))))
 
 (defn hierarchy-listener
   "Creates a hierarchy listener. Calls function 'f' on hierarchy changed event."
-  [f args]
+  [f & args]
   (proxy [HierarchyListener] []
-    (hierarchyChanged [event] (f event args))))
+    (hierarchyChanged [event] (apply f event args))))
 
 ; TODO input method (create adapter in clojure so there's a common programming model)
 
 (defn item-listener
   "Creates an item listener. Calls function 'f' on item state changed event."
-  [f args]
+  [f & args]
   (proxy [ItemListener] []
-    (itemStateChanged [event] (f event args))))
+    (itemStateChanged [event] (apply f event args))))
 
 (defn key-pressed-listener
   "Creates a key pressed listener. Calls function 'f' on key pressed event."
-  [f args]
+  [f & args]
   (proxy [KeyAdapter] []
     (keyPressed [event] (apply f event args))))
 
 (defn key-released-listener
   "Creates a key released listener. Calls function 'f' on key released event."
-  [f args]
+  [f & args]
   (proxy [KeyAdapter] []
     (keyReleased [event] (apply f event args))))
 
 (defn key-typed-listener
   "Creates a key typed listener. Calls function 'f' on key typed event."
-  [f args]
+  [f & args]
   (proxy [KeyAdapter] []
     (keyTyped [event] (apply f event args))))
 
@@ -152,111 +152,111 @@
 
 (defn mouse-entered-listener
   "Creates a mouse entered listener. Calls function 'f' on mouse entered event."
-  [f args]
+  [f & args]
   (proxy [MouseAdapter] []
-    (mouseEntered [event] (f event args))))
+    (mouseEntered [event] (apply f event args))))
 
 (defn mouse-exited-listener
   "Creates a mouse exited listener. Calls function 'f' on mouse exited event."
-  [f args]
+  [f & args]
   (proxy [MouseAdapter] []
-    (mouseExited [event] (f event args))))
+    (mouseExited [event] (apply f event args))))
 
 (defn mouse-pressed-listener
   "Creates a mouse pressed listener. Calls function 'f' on mouse pressed event."
-  [f args]
+  [f & args]
   (proxy [MouseAdapter] []
-    (mousePressed [event] (f event args))))
+    (mousePressed [event] (apply f event args))))
 
 (defn mouse-released-listener
   "Creates a mouse released listener. Calls function 'f' on mouse released event."
-  [f args]
+  [f & args]
   (proxy [MouseAdapter] []
-    (mouseReleased [event] (f event args))))
+    (mouseReleased [event] (apply f event args))))
 
 (defn mouse-motion-dragged-listener
   "Creates a mouse motion dragged listener. Calls function 'f' on mouse dragged event."
-  [f args]
+  [f & args]
   (proxy [MouseMotionAdapter] []
-    (mouseDragged [event] (f event args))))
+    (mouseDragged [event] (apply f event args))))
 
 (defn mouse-motion-moved-listener
   "Creates a mouse motion moved listener. Calls function 'f' on mouse moved event."
-  [f args]
+  [f & args]
   (proxy [MouseMotionAdapter] []
-    (mouseMoved [event] (f event args))))
+    (mouseMoved [event] (apply f event args))))
 
 (defn mouse-wheel-listener
   "Creates a mouse wheel listener. Calls function 'f' on mouse wheel moved event."
-  [f args]
+  [f & args]
   (proxy [MouseWheelListener] []
-    (mouseWheelMoved [event] (f event args))))
+    (mouseWheelMoved [event] (apply f event args))))
 
 (defn text-listener
   "Creates a text listener. Calls function 'f' on text value changed event."
-  [f args]
+  [f & args]
   (proxy [TextListener] []
-    (textValueChanged [event] (f event args))))
+    (textValueChanged [event] (apply f event args))))
 
 (defn window-focus-gained-listener
   "Creates a window focus gained listener. Calls function 'f' on window focus gained event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowGainedFocus [event] (f event args))))
+    (windowGainedFocus [event] (apply f event args))))
 
 (defn window-focus-lost-listener
   "Creates a window focus lost listener. Calls function 'f' on window focus lost event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowLostFocus [event] (f event args))))
+    (windowLostFocus [event] (apply f event args))))
 
 (defn window-activated-listener
   "Creates a window activated listener. Calls function 'f' on window activated event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowActivated [event] (f event args))))
+    (windowActivated [event] (apply f event args))))
 
 (defn window-closed-listener
   "Creates a window closed listener. Calls function 'f' on window closed event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowClosed [event] (f event args))))
+    (windowClosed [event] (apply f event args))))
 
 (defn window-closing-listener
   "Creates a window closing listener. Calls function 'f' on window closing event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowClosing [event] (f event args))))
+    (windowClosing [event] (apply f event args))))
 
 (defn window-deactivated-listener
   "Creates a window deactivated listener. Calls function 'f' on window deactivated event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowDeactivated [event] (f event args))))
+    (windowDeactivated [event] (apply f event args))))
 
 (defn window-deiconified-listener
   "Creates a window deiconified listener. Calls function 'f' on window deiconified event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowDeiconified [event] (f event args))))
+    (windowDeiconified [event] (apply f event args))))
 
 (defn window-iconified-listener
   "Creates a window iconified listener. Calls function 'f' on window iconified event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowIconified [event] (f event args))))
+    (windowIconified [event] (apply f event args))))
 
 (defn window-opened-listener
   "Creates a window opened listener. Calls function 'f' on window opened event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowOpened [event] (f event args))))
+    (windowOpened [event] (apply f event args))))
 
 (defn window-state-changed-listener
   "Creates a window state changed listener. Calls function 'f' on window state changed event."
-  [f args]
+  [f & args]
   (proxy [WindowListener] []
-    (windowStateChanged [event] (f event args))))
+    (windowStateChanged [event] (apply f event args))))
 
 ; Add listeners
 (defn add-action-listener

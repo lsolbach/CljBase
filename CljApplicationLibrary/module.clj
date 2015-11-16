@@ -5,7 +5,6 @@
  :version "0.5.2"
  :description "The CljApplicationLibrary contains abstractions and functions for building applications in clojure."
  :plugins ["global"
-           ["org.soulspace.baumeister/DependencyPlugin"]
            ["org.soulspace.baumeister/ClojurePlugin"]
            ["org.soulspace.baumeister/ClojureTestPlugin"]
            ["org.soulspace.baumeister/PackagePlugin"]]
