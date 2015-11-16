@@ -10,9 +10,11 @@
 (ns org.soulspace.clj.application.i18n)
 
 (defn bundle
-  "Returns the resource bundle of the name."
-  [bundle-name]
-  (java.util.ResourceBundle/getBundle "resources"))
+  "Returns the resource bundle of the name (default name is resources)."
+  ([]
+    (java.util.ResourceBundle/getBundle "resources"))
+  ([bundle-name]
+    (java.util.ResourceBundle/getBundle bundle-name)))
 
 (defn bundle-lookup
   "Looks up the key in the resource bundle and returns the resulting string."

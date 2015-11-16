@@ -11,6 +11,10 @@
   (:require [clojure.string :as str])
   (:use [org.soulspace.clj file]))
 
+;
+; Contains functions to help working with namespaces.
+;
+
 (defn ns-to-path 
   "Converts a namespace into a path."
   [ns]
