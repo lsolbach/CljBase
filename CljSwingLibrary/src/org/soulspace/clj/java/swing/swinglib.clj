@@ -489,6 +489,33 @@
   [obj args items]
   (init-swing (DefaultMutableTreeNode. obj) args items))
 
+; CardLayout
+(defn card-layout
+  "Creates a card layout."
+  [args items]
+  (init-swing (CardLayout.) args items))
+
+(defn first-card
+  "Shows the first card on the container."
+  [container])
+
+(defn next-card
+  "Shows the next card on the container."
+  [container])
+
+(defn previous-card
+  "Shows the previous card on the container."
+  [container])
+
+(defn last-card
+  "Shows the last card on the container."
+  [container])
+
+(defn show-card
+  "Shows the card on the container with the given name."
+  [container name])
+
+
 ; MigLayout
 (defn mig-layout
   "Creates a mig layout."
