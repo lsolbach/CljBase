@@ -51,8 +51,7 @@
 
 (defn record-name [s]
   "Converts s to hyphened clojure name"
-  (first-upper-case (hyphen-to-camel-case-to s)))
-
+  (first-upper-case (hyphen-to-camel-case s)))
 
 (defn call-by-name
   "Resolves a function by name and calls it."
