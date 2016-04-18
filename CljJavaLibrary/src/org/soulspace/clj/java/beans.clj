@@ -9,7 +9,8 @@
 ;
 (ns org.soulspace.clj.java.beans
   (:refer-clojure :exclude [methods])
-  (:use [org.soulspace.clj string]
+  (:require [clojure.string :as str])
+  (:use [org.soulspace.clj.string :only [first-upper-case]]
         [org.soulspace.clj.java reflection type-conversion]))
 
 ;
@@ -51,8 +52,8 @@
   ([method]
     (and
       (or
-        (starts-with "get" (.getName method))
-        (starts-with "is" (.getName method)))
+        (str/starts-with? "get" (.getName method))
+        (str/starts-with? "is" (.getName method)))
       (= 0 (count (parameter-types method)))))
   ([method property-name]
     ; TODO check against property name
@@ -62,7 +63,7 @@
   "Returns true if the given method is a property setter method."
   ([method]
     (and
-      (starts-with "set" (.getName method))
+      (str/starts-with? "set" (.getName method))
       (= 1 (count (parameter-types method)))))
     ([method property-name]
     ; TODO check against property name
