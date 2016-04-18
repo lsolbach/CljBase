@@ -6,6 +6,7 @@
  :description "The CljJavaLibrary contains various functions for Clojure/Java integration."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"
+ :scm-url "https://github.com/lsolbach/CljBase"
  :license ["Eclipse Public License 1.0" "http://www.eclipse.org/legal/epl-v10.html"]
  :plugins ["global"
            ["org.soulspace.baumeister/ClojurePlugin"]
