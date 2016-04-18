@@ -83,3 +83,11 @@
                        :cancel        JOptionPane/CANCEL_OPTION
                        :ok            JOptionPane/OK_OPTION
                        :closed        JOptionPane/CLOSED_OPTION})
+
+(def look-and-feel-names {:metal "Metal"
+                          :nimbus "Nimbus"
+                          :synth "Synth"
+                          :gtk "GTK"
+                          :cde-motif "CDE/Motif"
+                          :windows "Windows"
+                          :windows-classic "Windows Classic"})

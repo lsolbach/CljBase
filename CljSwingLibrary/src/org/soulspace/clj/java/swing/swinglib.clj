@@ -12,7 +12,8 @@
         [org.soulspace.clj.java awt]
         [org.soulspace.clj.java.awt event]
         [org.soulspace.clj.java.swing constants])
-  (:import [javax.swing AbstractAction AbstractListModel Action BorderFactory ButtonGroup
+  (:import [java.awt CardLayout]
+           [javax.swing AbstractAction AbstractListModel Action BorderFactory ButtonGroup
             ImageIcon InputVerifier
             JButton JCheckBox JCheckBoxMenuItem JColorChooser JComboBox JDesktopPane JDialog
             JEditorPane JFileChooser JFormattedTextField JFrame JLabel JLayeredPane JList
@@ -95,21 +96,29 @@
     (.put (.getActionMap c) binding-name action)
     (.put (get-input-map c focus-key) stroke binding-name)))
 
+(defn installed-look-and-feels
+  "Returns the installed look anf feels as a sequence of maps from names to class names."
+  []
+  (->>
+    (UIManager/getInstalledLookAndFeels)
+    (map (fn [lnf] [(.getName lnf) (.getClassName lnf)]))
+    (reduce (fn [map [k v]] (assoc map k v)) {})))
+
+(defn look-and-feel-available?
+  "Checks the availability of the given look and feel by name."
+  ([lnf]
+    (look-and-feel-available? (installed-look-and-feels) lnf))
+  ([installed-lnfs lnf]
+    (contains? installed-lnfs lnf)))
+
 ; Look and feel
 (defn set-look-and-feel
-  "Sets the look and feel for the given frame."
-  [frame look]
-  (cond (= look :metal)
-        (UIManager/setLookAndFeel "javax.swing.plaf.metal.MetalLookAndFeel")
-        (= look :nimbus)
-        (UIManager/setLookAndFeel "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel")
-        (= look :synth)
-        (UIManager/setLookAndFeel "javax.swing.plaf.synth.SynthLookAndFeel")
-        ; (= look :windows)
-        ; (UIManager/setLookAndFeel "com.sun.java.swing.plaf.windows.WindowsLookAndFeel")
-        (= look :gtk)
-        (UIManager/setLookAndFeel "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"))
-  (SwingUtilities/updateComponentTreeUI frame))
+  "Sets the look and feel given by for the given frame (if it is available)."
+  [frame lnf]
+  (let [installed-lnfs (installed-look-and-feels)]
+    (when (look-and-feel-available? installed-lnfs lnf)
+      (UIManager/setLookAndFeel (installed-lnfs lnf))
+      (SwingUtilities/updateComponentTreeUI frame))))
 
 ; Icons
 (defn image-icon
@@ -478,10 +487,10 @@
 
 (defn seq-list-model
   "Creates a list model backed with the 'data' sequence."
-  [data]
-  (proxy [AbstractListModel] []
-    (getElementAt [idx] (nth data idx))
-    (getSize [] (count data))))
+  ([data]
+    (proxy [AbstractListModel] []
+      (getElementAt [idx] (nth data idx))
+      (getSize [] (count data)))))
 
 ; DefaultMutableTreeNode
 (defn tree-node
