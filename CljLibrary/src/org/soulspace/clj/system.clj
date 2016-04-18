@@ -8,7 +8,7 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.system
-  (:use [org.soulspace.clj.string :as str]))
+  (:require [clojure.string :as str]))
 
 (defn get-environment-variable
   "Returns the environment variable named var.
@@ -56,8 +56,10 @@
 
 (defn exit
   "Terminates the currently running JVM."
-  [status]
-  (System/exit status))
+  ([]
+    (exit 0))
+  ([status]
+    (System/exit status)))
 
 (defn os-name
   []
@@ -67,37 +69,37 @@
   ([]
     (os-windows? (os-name)))
   ([os]
-    (starts-with "Windows" os)))
+    (str/starts-with? "Windows" os)))
 
 (defn os-linux?
   ([]
     (os-linux? (os-name)))
   ([os]
-    (starts-with "Linux" os)))
+    (str/starts-with? "Linux" os)))
 
 (defn os-mac-os?
   ([]
     (os-mac-os? (os-name)))
   ([os]
-    (starts-with "Mac OS" os)))
+    (str/starts-with? "Mac OS" os)))
 
 (defn os-sun-os?
   ([]
     (os-sun-os? (os-name)))
   ([os]
-    (starts-with "SunOS" os)))
+    (str/starts-with? "SunOS" os)))
 
 (defn os-freebsd?
   ([]
     (os-freebsd? (os-name)))
   ([os]
-    (starts-with "FreeBSD" os)))
+    (str/starts-with? "FreeBSD" os)))
 
 (defn os-aix?
   ([]
     (os-aix? (os-name)))
   ([os]
-    (starts-with "AIX" os)))
+    (str/starts-with? "AIX" os)))
 
 (defn os-unix?
   []

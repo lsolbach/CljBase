@@ -40,30 +40,6 @@
   [s1 s2]
   (not= s1 s2))
 
-(defn starts-with 
-  "Returns true if the string starts with the pattern."
-  [pattern s]
-  (.startsWith s pattern))
-
-(defn ends-with 
-  "Returns true if the string ends with the pattern."
-  [pattern s]
-  (.endsWith s pattern))
-
-(defn index-of
-  "Returns the index of the first occurence of the char in string."
-  ([c s]
-    (.indexOf s (int c)))
-  ([c from-idx s]
-    (.indexOf s (int c) from-idx)))
-
-(defn last-index-of
-  "Returns the index of the last occurence of the char in string."
-  ([c s]
-    (.lastIndexOf s (int c)))
-  ([c from-idx s]
-    (.lastIndexOf s (int c) from-idx)))
-
 (defn substring 
   "Returns a substring of string defined by the indices."
   ([begin-idx s]

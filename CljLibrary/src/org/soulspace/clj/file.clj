@@ -11,7 +11,7 @@
   (:require [clojure.string :as str])
   (:use [clojure.core :exclude [name]]
         [clojure.java.io :exclude [delete-file]]
-        [org.soulspace.clj string])
+        [org.soulspace.clj.string :only [substring]])
   (:import [java.io File]))
 
 (defn exists?
@@ -68,7 +68,7 @@
   "Returns the name of the file."
   [file]
   (let [file-name (.getName (as-file file))]
-    (substring 0 (last-index-of \. file-name) file-name)))
+    (substring 0 (str/last-index-of \. file-name) file-name)))
 
 (defn parent-path 
   "Returns the parent path for the file if it exists."
@@ -127,8 +127,8 @@
   [base-path file]
   (let [cpath (canonical-path file)
         cbase-path (canonical-path (as-file base-path))]
-    (if (starts-with cbase-path cpath)
-      (if (ends-with "/" cbase-path)
+    (if (str/starts-with? cbase-path cpath)
+      (if (str/ends-with? "/" cbase-path)
         (substring (count cbase-path) cpath)
         (substring (+ (count cbase-path) 1) cpath))
       (path file))))
@@ -136,7 +136,7 @@
 (defn has-extension?
   "Returns true if the path of the file ends with the given extension."
   [ext file]
-  (and (exists? file) (ends-with (str "." ext) (path file))))
+  (and (exists? file) (str/ends-with? (str "." ext) (path file))))
 
 (defn matches?
   "Returns true if the path of the file matches the given pattern."
