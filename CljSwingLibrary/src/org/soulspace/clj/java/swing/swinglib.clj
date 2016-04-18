@@ -132,17 +132,6 @@
   [title]
   (BorderFactory/createTitledBorder title))
 
-; getter for typed field values
-(defn get-number
-  "Returns the field value as a number."
-  [field]
-  (.parse (NumberFormat/getNumberInstance) (.getText field)))
-
-(defn get-integer
-  "Returns the field value as an integer."
-  [field]
-  (.parse (NumberFormat/getIntegerInstance) (.getText field)))
-
 (defn show-component
   "Shows the component by setting its visibility to true."
   [c]
@@ -158,6 +147,27 @@
   "Creates a label."
   [args]
   (init-swing (JLabel.) args))
+
+; getter and setter for (typed) field values
+(defn get-text
+  "Returns the field value as a string."
+  [field]
+  (.getText field))
+
+(defn set-text
+  "Sets the field value to text."
+  [field text]
+  (.setText field text))
+
+(defn get-number
+  "Returns the field value as a number."
+  [field]
+  (.parse (NumberFormat/getNumberInstance) (.getText field)))
+
+(defn get-integer
+  "Returns the field value as an integer."
+  [field]
+  (.parse (NumberFormat/getIntegerInstance) (.getText field)))
 
 (defn number-field
   "Creates a number field."
