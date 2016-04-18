@@ -7,7 +7,8 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 ;
-(ns org.soulspace.clj.system)
+(ns org.soulspace.clj.system
+  (:use [org.soulspace.clj.string :as str]))
 
 (defn get-environment-variable
   "Returns the environment variable named var.
@@ -57,3 +58,12 @@
   "Terminates the currently running JVM."
   [status]
   (System/exit status))
+
+(defn os-name
+  []
+  (get-system-property "os.name"))
+
+(defn os-windows?
+  []
+  (starts-with "windows" (str/ (os-name)))
+
