@@ -8,8 +8,7 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.application.cli
-  (:require [clojure.string :as str])
-  (:use [org.soulspace.clj string file]))
+  (:require [clojure.string :as str]))
 
 ; supports multiple indications of the same option, which org.clojure/tools.cli does not at the moment.
 
@@ -25,21 +24,21 @@
      }))
 
 (defn flag-spec? [arg]
-  (starts-with "--[no-]" arg))
+  (str/starts-with? "--[no-]" arg))
 
 (defn long-option? [arg]
   "Tests if the string is a long option, which starts with the string '--'."
-  (starts-with "--" arg))
+  (str/starts-with? "--" arg))
 
 (defn option? [arg]
   "Tests if the string is an option, which starts with the character '-'."
-  (starts-with "-" arg))
+  (str/starts-with? "-" arg))
 
 (defn matches-option? [arg spec]
   "Returns true, if the arg starts with an option switch of this spec"
   (if (long-option? arg)
-    (and (not (nil? (:long spec))) (starts-with (:long spec) arg))
-    (and (not (nil? (:short spec))) (starts-with (:short spec) arg))))
+    (and (not (nil? (:long spec))) (str/starts-with? (:long spec) arg))
+    (and (not (nil? (:short spec))) (str/starts-with? (:short spec) arg))))
 
 (defn option-name [opt]
   (str/replace opt #"^--\[no\]-|^--no-|^--|^-" ""))
