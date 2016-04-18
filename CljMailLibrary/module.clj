@@ -2,7 +2,7 @@
  :module "CljMailLibrary"
  :project "org.soulspace.clj"
  :type :library
- :version "0.1.1"
+ :version "0.2.0"
  :description "The CljMailLibrary is a clojure wrapper library for the JavaMail api."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"
@@ -11,8 +11,8 @@
            ["org.soulspace.baumeister/ClojurePlugin"]
            ["org.soulspace.baumeister/ClojureTestPlugin"]
            ["org.soulspace.baumeister/PackagePlugin"]]
- :dependencies [["org.clojure/clojure, 1.7.0"]
+ :dependencies [["org.clojure/clojure, 1.8.0"]
                 ; ["javax.mail/javax.mail-api, 1.5.1"]
                 ["com.sun.mail/javax.mail, 1.5.1"]
-                ["org.soulspace.clj/CljJavaLibrary, 0.6.1"]]
+                ["org.soulspace.clj/CljJavaLibrary, 0.7.0"]]
  ]
