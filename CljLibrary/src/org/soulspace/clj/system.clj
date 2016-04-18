@@ -64,6 +64,42 @@
   (get-system-property "os.name"))
 
 (defn os-windows?
-  []
-  (starts-with "windows" (str/ (os-name)))
+  ([]
+    (os-windows? (os-name)))
+  ([os]
+    (starts-with "Windows" os)))
 
+(defn os-linux?
+  ([]
+    (os-linux? (os-name)))
+  ([os]
+    (starts-with "Linux" os)))
+
+(defn os-mac-os?
+  ([]
+    (os-mac-os? (os-name)))
+  ([os]
+    (starts-with "Mac OS" os)))
+
+(defn os-sun-os?
+  ([]
+    (os-sun-os? (os-name)))
+  ([os]
+    (starts-with "SunOS" os)))
+
+(defn os-freebsd?
+  ([]
+    (os-freebsd? (os-name)))
+  ([os]
+    (starts-with "FreeBSD" os)))
+
+(defn os-aix?
+  ([]
+    (os-aix? (os-name)))
+  ([os]
+    (starts-with "AIX" os)))
+
+(defn os-unix?
+  []
+  (let [os (os-name)]
+    (or (os-linux? os) (os-mac-os? os) (os-sun-os? os)  (os-freebsd? os) (os-aix? os))))
