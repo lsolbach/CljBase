@@ -36,7 +36,7 @@
 (defn use-system-proxies
   "Tell the JVM that the system proxies should be used."
   []
-  (set-system-property "java.net.useSystemProxies" true))
+  (set-system-property "java.net.useSystemProxies" "true"))
 
 (defn set-http-proxy
   "Set an HTTP proxy for the JVM."
