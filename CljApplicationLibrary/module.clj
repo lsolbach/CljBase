@@ -5,8 +5,7 @@
  :version "0.6.0"
  :description "The CljApplicationLibrary contains abstractions and functions for building applications in clojure."
  :scm-url "https://github.com/lsolbach/CljBase"
- :plugins ["global"
-           ["org.soulspace.baumeister/ClojurePlugin"]
+ :plugins [["org.soulspace.baumeister/ClojurePlugin"]
            ["org.soulspace.baumeister/ClojureTestPlugin"]
            ["org.soulspace.baumeister/PackagePlugin"]]
  :dependencies [["org.clojure/clojure, 1.8.0"]
