@@ -91,10 +91,15 @@
 
 (defn add-change-listener
   "Adds a change listener to the JComponent."
-  [c ^javax.swing.event.ChangeListener l]
+  [^javax.swing.JComponent c ^javax.swing.event.ChangeListener l]
   (.addChangeListener c l))
+
+(defn add-list-selection-listener
+  "Adds a change listener to the JComponent."
+  [^javax.swing.JList c ^javax.swing.event.ListSelectionListener l]
+  (.addListSelectionListener c l))
 
 (defn add-popup-menu-listener
   "Adds a popup menu listener to the component."
-  [c ^javax.swing.event.PopupMenuListener l]
+  [^javax.swing.JComponent c ^javax.swing.event.PopupMenuListener l]
   (.addPopupMenuListener c l))
