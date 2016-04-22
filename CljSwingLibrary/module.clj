@@ -2,7 +2,7 @@
  :module "CljSwingLibrary"
  :project "org.soulspace.clj"
  :type :library
- :version "0.5.0"
+ :version "0.5.1"
  :description "A library for building Java Swing user interfaces in Clojure"
  :scm-url "https://github.com/lsolbach/CljBase"
  :license ["Eclipse Public License 1.0" "http://www.eclipse.org/legal/epl-v10.html"]

@@ -29,18 +29,21 @@
             TreeExpansionListener TreeModelListener TreeSelectionListener TreeWillExpandListener
             UndoableEditListener]
            [javax.swing.table AbstractTableModel DefaultTableCellRenderer]
+           [javax.swing.text MaskFormatter]
            [javax.swing.tree DefaultMutableTreeNode]
-           [java.text Format NumberFormat DateFormat]
+           [java.text DateFormat Format NumberFormat]
            [net.miginfocom.swing MigLayout]))
 
 ; Helpers
 (defn init-swing
   "Intitializes a swing component with the arguments and items."
   ([c args]
-    (set-properties! c args)
+    (if (seq args)
+      (set-properties! c args))
     c)
   ([c args items]
-    (set-properties! c args)
+    (if (seq args)
+      (set-properties! c args))
     (if (seq items)
       (doseq [item items]
         (if (vector? item)
@@ -169,62 +172,87 @@
   [field]
   (.parse (NumberFormat/getIntegerInstance) (.getText field)))
 
+(defn mask-formatter
+  "Creates a mask formatter for the given pattern."
+  [s]
+  (MaskFormatter. s))
+
 (defn number-field
   "Creates a number field."
-  [args]
-  (init-swing (JFormattedTextField. (NumberFormat/getNumberInstance)) args))
+  ([]
+    (JFormattedTextField. (NumberFormat/getNumberInstance)))
+  ([args]
+    (init-swing (JFormattedTextField. (NumberFormat/getNumberInstance)) args)))
 
 (defn integer-field
   "Creates an integer field."
-  [args]
-  (init-swing (JFormattedTextField. (NumberFormat/getIntegerInstance)) args))
+  ([]
+    (JFormattedTextField. (NumberFormat/getIntegerInstance)))
+  ([args]
+    (init-swing (JFormattedTextField. (NumberFormat/getIntegerInstance)) args)))
 
 (defn formatted-text-field
   "Creates a text field."
-  ([args]
-    (init-swing (JFormattedTextField.) args))
+  ([^Format fmt]
+    (JFormattedTextField. fmt))
   ([^Format fmt args]
     (init-swing (JFormattedTextField. fmt) args)))
 
 (defn text-field
   "Creates a text field."
-  [args]
-  (init-swing (JTextField.) args))
+  ([]
+    (JTextField.))
+  ([args]
+    (init-swing (JTextField.) args)))
   
 (defn text-area
   "Creates a text area."
-  [args]
-  (init-swing (JTextArea.) args))
+  ([]
+    (JTextArea.))
+  ([args]
+    (init-swing (JTextArea.) args)))
 
 (defn editor-pane
   "Creates a editor pane."
-  [args]
-  (init-swing (JEditorPane.) args))
+  ([]
+    (JEditorPane.))
+  ([args]
+    (init-swing (JEditorPane.) args)))
 
 (defn text-pane
   "Creates a text pane."
-  [args]
-  (init-swing (JTextPane.) args))
+  ([]
+    (JTextPane.))
+  ([args]
+    (init-swing (JTextPane.) args)))
 
 (defn button
   "Creates a button."
-  [args]
-  (init-swing (JButton.) args))
+  ([]
+    (JButton.))
+  ([args]
+    (init-swing (JButton.) args)))
 
 (defn toggle-button
   "Creates a toggle button."
-  [args]
-  (init-swing (JToggleButton.) args))
+  ([]
+    (JToggleButton.))
+  ([args]
+    (init-swing (JToggleButton.) args)))
 
 (defn check-box
   "Creates a check box."
-  [args]
-  (init-swing (JCheckBox.) args))
+  ([]
+    (JCheckBox.))
+  ([args]
+    (init-swing (JCheckBox.) args)))
 
 (defn radio-button
   "Creates a radio button."
-  [args]
-  (init-swing (JRadioButton.) args))
+  ([]
+    (JRadioButton.))
+  ([args]
+    (init-swing (JRadioButton.) args)))
 
 (defn button-group
   "Creates a button group."
@@ -233,13 +261,17 @@
 
 (defn slider
   "Creates a slider."
-  [args]
-  (init-swing (JSlider.) args))
+  ([]
+    (JSlider.))
+  ([args]
+    (init-swing (JSlider.) args)))
 
 (defn spinner
   "Creates a spinner."
-  [args]
-  (init-swing (JSpinner.) args))
+  ([]
+    (JSpinner.))
+  ([args]
+    (init-swing (JSpinner.) args)))
 
 (defn combo-box
   "Creates a combo box."
@@ -252,28 +284,38 @@
 
 (defn progress-bar
   "Creates a progress bar."
-  [args]
-  (init-swing (JProgressBar.) args))
+  ([]
+    (JProgressBar.))
+  ([args]
+    (init-swing (JProgressBar.) args)))
 
 (defn table
   "Creates a table."
-  [args]
-  (init-swing (JTable.) args))
+  ([]
+    (JTable.))
+  ([args]
+    (init-swing (JTable.) args)))
 
 (defn j-list
   "Creates a swing list component."
-  [args]
-  (init-swing (JList.) args))
+  ([]
+    (JList.))
+  ([args]
+    (init-swing (JList.) args)))
 
 (defn j-tree
   "Creates a swing tree component."
-  [args]
-  (init-swing (JTree.) args))
+  ([]
+    (JTree.))
+  ([args]
+    (init-swing (JTree.) args)))
 
 (defn separator
   "Creates a separator."
-  [args]
-  (init-swing (JSeparator.) args))
+  ([]
+    (JSeparator.))
+  ([args]
+    (init-swing (JSeparator.) args)))
 
 (defn popup-menu
   "Creates a popup menu."
@@ -297,13 +339,17 @@
 
 (defn checkbox-menu-item
   "Creates a check box menu item."
-  [args]
-  (init-swing (JCheckBoxMenuItem.) args))
+  ([]
+    (JCheckBoxMenuItem.))
+  ([args]
+    (init-swing (JCheckBoxMenuItem.) args)))
 
 (defn radio-button-menu-item
   "Creates a radio button menu item."
-  [args]
-  (init-swing (JRadioButtonMenuItem.) args))
+  ([]
+    (JRadioButtonMenuItem.))
+  ([args]
+    (init-swing (JRadioButtonMenuItem.) args)))
 
 (defn panel
   "Creates a panel."
@@ -465,8 +511,10 @@
 
 (defn option-pane
   "Creates an option pane dialog."
-  [args]
-  (init-swing (JOptionPane.) args))
+  ([]
+    (JOptionPane.))
+  ([args]
+    (init-swing (JOptionPane.) args)))
 
 ; Renderer
 (defn table-cell-renderer
@@ -483,9 +531,10 @@
 ; mapseq ColumnSpec
 ;[{:label "Text" :key :text :edit false :converter function}]
 
+; TODO use labeled keyword arguments instead of a map
 ; Default models
 (defn mapseq-table-model
-  "Creates a table model backed with a sequence of maps."
+  "Creates a table model backed with a sequence of maps. The col-spec map may contain "
   [col-spec data]
   (proxy [AbstractTableModel] []
     (getColumnCount [] (count col-spec))
@@ -495,6 +544,7 @@
     (getValueAt [row col] ((:converter (nth col-spec col) identity)
                             ((:key (nth col-spec col)) (nth data row))))))
 
+; TODO add converter like in mapseq-table-model?
 (defn seq-list-model
   "Creates a list model backed with the 'data' sequence."
   ([data]
@@ -508,6 +558,7 @@
   [obj args items]
   (init-swing (DefaultMutableTreeNode. obj) args items))
 
+
 ; CardLayout
 (defn card-layout
   "Creates a card layout."
@@ -516,23 +567,28 @@
 
 (defn first-card
   "Shows the first card on the container."
-  [container])
+  [cl container]
+  (.first cl container))
 
 (defn next-card
   "Shows the next card on the container."
-  [container])
+  [cl container]
+  (.next cl container))
 
 (defn previous-card
   "Shows the previous card on the container."
-  [container])
+  [cl container]
+  (.previous cl container))
 
 (defn last-card
   "Shows the last card on the container."
-  [container])
+  [cl container]
+  (.last cl container))
 
 (defn show-card
   "Shows the card on the container with the given name."
-  [container name])
+  [cl container name]
+  (.show cl container name))
 
 
 ; MigLayout
