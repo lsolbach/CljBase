@@ -10,7 +10,8 @@
 (ns org.soulspace.clj.java.swing.constants
   (:import [java.awt Event]
            [java.awt.event ActionEvent]
-           [javax.swing Action JComponent JFileChooser JOptionPane JTextField ListSelectionModel SwingConstants WindowConstants]))
+           [javax.swing Action JComponent JFileChooser JFormattedTextField JOptionPane JTextField ListSelectionModel
+            SwingConstants WindowConstants]))
 
 ; Constant maps
 (def swing-keys
@@ -68,9 +69,16 @@
 
 (def list-selection-keys
   "Maps keywords to the constants in ListSelectionModel."
-  {:single ListSelectionModel/SINGLE_SELECTION
-   :single-interval ListSelectionModel/SINGLE_INTERVAL_SELECTION
+  {:single            ListSelectionModel/SINGLE_SELECTION
+   :single-interval   ListSelectionModel/SINGLE_INTERVAL_SELECTION
    :multiple-interval ListSelectionModel/MULTIPLE_INTERVAL_SELECTION})
+
+(def commit-edit-keys
+  "Maps keywords to the constants in JFormattedTextField."
+  {:commit           JFormattedTextField/COMMIT
+   :commit-or-revert JFormattedTextField/COMMIT_OR_REVERT
+   :persist          JFormattedTextField/PERSIST
+   :revert           JFormattedTextField/REVERT})
 
 (def filechooser-keys
   "Maps keywords to the constants in JFileChooser."
