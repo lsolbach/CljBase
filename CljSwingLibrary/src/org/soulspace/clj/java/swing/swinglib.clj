@@ -235,6 +235,16 @@
   [c]
   (.getAllowsInvalid c))
 
+(defn to-value
+  "Converts the given string s to a value using the given formatter."
+  [fmt s]
+  (.stringToValue fmt s))
+
+(defn to-string
+  "Converts the given value v to a string using the given formatter."
+  [fmt v]
+  (.valueToString fmt v))
+
 (defn mask-formatter
   "Creates a mask formatter for the given pattern."
   [s]
@@ -267,7 +277,14 @@
     (JTextField.))
   ([args]
     (init-swing (JTextField.) args)))
-  
+
+(defn password-field
+  "Creates a password field."
+  ([]
+    (JPasswordField.))
+  ([args]
+    (init-swing (JPasswordField.) args)))
+
 (defn text-area
   "Creates a text area."
   ([]
