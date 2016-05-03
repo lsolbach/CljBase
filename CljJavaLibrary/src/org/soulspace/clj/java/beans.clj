@@ -168,10 +168,8 @@
 (defn set-property!
   "Sets the value of this property."
   [obj property value]
-  (println obj property value)
   (if-let [property-set (setter-method (class obj) property (type value))]
     (let [param-type (first (.getParameterTypes property-set))]
-      (println property-set param-type)
       (.invoke property-set obj (into-array [(coerce param-type value)])))
     (throw (IllegalArgumentException. (str "No compatible setter for property " property " found.")))))
 
