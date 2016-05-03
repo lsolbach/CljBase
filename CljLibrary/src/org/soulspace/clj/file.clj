@@ -127,8 +127,8 @@
   [base-path file]
   (let [cpath (canonical-path file)
         cbase-path (canonical-path (as-file base-path))]
-    (if (str/starts-with? cbase-path cpath)
-      (if (str/ends-with? "/" cbase-path)
+    (if (str/starts-with? cpath cbase-path)
+      (if (str/ends-with? cbase-path "/")
         (substring (count cbase-path) cpath)
         (substring (+ (count cbase-path) 1) cpath))
       (path file))))
@@ -136,7 +136,7 @@
 (defn has-extension?
   "Returns true if the path of the file ends with the given extension."
   [ext file]
-  (and (exists? file) (str/ends-with? (str "." ext) (path file))))
+  (and (exists? file) (str/ends-with? (path file) (str "." ext))))
 
 (defn matches?
   "Returns true if the path of the file matches the given pattern."

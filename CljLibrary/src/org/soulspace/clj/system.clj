@@ -69,37 +69,37 @@
   ([]
     (os-windows? (os-name)))
   ([os]
-    (str/starts-with? "Windows" os)))
+    (str/starts-with? os "Windows")))
 
 (defn os-linux?
   ([]
     (os-linux? (os-name)))
   ([os]
-    (str/starts-with? "Linux" os)))
+    (str/starts-with? os "Linux")))
 
 (defn os-mac-os?
   ([]
     (os-mac-os? (os-name)))
   ([os]
-    (str/starts-with? "Mac OS" os)))
+    (str/starts-with? os "Mac OS")))
 
 (defn os-sun-os?
   ([]
     (os-sun-os? (os-name)))
   ([os]
-    (str/starts-with? "SunOS" os)))
+    (str/starts-with? os "SunOS")))
 
 (defn os-freebsd?
   ([]
     (os-freebsd? (os-name)))
   ([os]
-    (str/starts-with? "FreeBSD" os)))
+    (str/starts-with? os "FreeBSD")))
 
 (defn os-aix?
   ([]
     (os-aix? (os-name)))
   ([os]
-    (str/starts-with? "AIX" os)))
+    (str/starts-with? os "AIX")))
 
 (defn os-unix?
   []

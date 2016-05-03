@@ -52,8 +52,8 @@
   ([method]
     (and
       (or
-        (str/starts-with? "get" (.getName method))
-        (str/starts-with? "is" (.getName method)))
+        (str/starts-with? (.getName method) "get")
+        (str/starts-with? (.getName method) "is"))
       (= 0 (count (parameter-types method)))))
   ([method property-name]
     ; TODO check against property name
@@ -63,7 +63,7 @@
   "Returns true if the given method is a property setter method."
   ([method]
     (and
-      (str/starts-with? "set" (.getName method))
+      (str/starts-with? (.getName method) "set")
       (= 1 (count (parameter-types method)))))
     ([method property-name]
     ; TODO check against property name
@@ -168,8 +168,10 @@
 (defn set-property!
   "Sets the value of this property."
   [obj property value]
+  (println obj property value)
   (if-let [property-set (setter-method (class obj) property (type value))]
     (let [param-type (first (.getParameterTypes property-set))]
+      (println property-set param-type)
       (.invoke property-set obj (into-array [(coerce param-type value)])))
     (throw (IllegalArgumentException. (str "No compatible setter for property " property " found.")))))
 
