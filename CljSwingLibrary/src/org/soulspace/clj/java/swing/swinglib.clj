@@ -31,7 +31,7 @@
            [javax.swing.table AbstractTableModel DefaultTableCellRenderer]
            [javax.swing.text MaskFormatter]
            [javax.swing.tree DefaultMutableTreeNode]
-           [java.text DateFormat Format NumberFormat]
+           [java.text DateFormat Format NumberFormat ParseException]
            [net.miginfocom.swing MigLayout]))
 
 ; Helpers
@@ -59,6 +59,22 @@
   (proxy [InputVerifier] []
     (verify [component] (vf component))
     (shouldYieldFocus [component] (yf component args))))
+
+
+(defn formatted-text-field-verifier
+  "Creates an input verifier for a formatted text field."
+  []
+  (proxy [InputVerifier] []
+    (verify [c]
+      (let [fmt (.getFormatter c)
+            txt (.getText c)]
+        (try
+          (.stringToValue fmt txt)
+          true
+          (catch ParseException e
+            false))))
+    (shouldYieldFocus [c]
+      (.verify this c))))
 
 ; Actions
 (defn action
@@ -145,22 +161,39 @@
   [c]
   (.setVisible c false))
 
-; Components
+
+; Swing Components
 (defn label
   "Creates a label."
   [args]
   (init-swing (JLabel.) args))
 
+; JTextComponent
+(defn set-editable
+  "Sets whether the user can edit the text component."
+  [c value]
+  (.setEditable c value))
+
+(defn editable?
+  "Checks whether the user can edit text component."
+  [c]
+  (.isEditable c))
+
 ; getter and setter for (typed) field values
 (defn get-text
-  "Returns the field value as a string."
-  [field]
-  (.getText field))
+  "Returns the text component value as a string."
+  [c]
+  (.getText c))
 
 (defn set-text
-  "Sets the field value to text."
-  [field text]
-  (.setText field text))
+  "Sets the text component value to text."
+  [c text]
+  (.setText c text))
+
+(defn select-all
+  "Selects all characters in the text component."
+  [c]
+  (.selectAll c))
 
 (defn get-number
   "Returns the field value as a number."
@@ -171,6 +204,46 @@
   "Returns the field value as an integer."
   [field]
   (.parse (NumberFormat/getIntegerInstance) (.getText field)))
+
+
+(defn set-focus-lost-behaviour
+  "Specifies the outcome of a field losing the focus.
+   Possible values are defined in JFormattedTextField as COMMIT_OR_REVERT (the default),
+   COMMIT (commit if valid, otherwise leave everything the same), PERSIST (do nothing),
+   and REVERT (change the text to reflect the value)."
+  [c value]
+  (.setFocusLostBehaviour c value))
+
+(defn commit-edit
+  "Sets the value to the object represented by the field's text, as determined by the field's formatter.
+   If the text is invalid, the value remains the same and a ParseException is thrown."
+  [c]
+  (.commitValue c))
+
+(defn edit-valid?
+  "Returns true if the formatter considers the current text to be valid, as determined by the field's formatter."
+  [c]
+  (.isEditValid c))
+
+(defn set-allows-invalid
+  "Sets whether the value being edited is allowed to be invalid for a length of time."
+  [c value]
+  (.setAllowsInvalid c))
+
+(defn allows-invalid?
+  "Checks whether the value being edited is allowed to be invalid for a length of time."
+  [c]
+  (.getAllowsInvalid c))
+
+(defn to-value
+  "Converts the given string s to a value using the given formatter."
+  [fmt s]
+  (.stringToValue fmt s))
+
+(defn to-string
+  "Converts the given value v to a string using the given formatter."
+  [fmt v]
+  (.valueToString fmt v))
 
 (defn mask-formatter
   "Creates a mask formatter for the given pattern."
@@ -204,7 +277,14 @@
     (JTextField.))
   ([args]
     (init-swing (JTextField.) args)))
-  
+
+(defn password-field
+  "Creates a password field."
+  ([]
+    (JPasswordField.))
+  ([args]
+    (init-swing (JPasswordField.) args)))
+
 (defn text-area
   "Creates a text area."
   ([]

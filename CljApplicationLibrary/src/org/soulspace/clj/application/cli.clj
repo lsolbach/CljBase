@@ -24,21 +24,21 @@
      }))
 
 (defn flag-spec? [arg]
-  (str/starts-with? "--[no-]" arg))
+  (str/starts-with? arg "--[no-]"))
 
 (defn long-option? [arg]
   "Tests if the string is a long option, which starts with the string '--'."
-  (str/starts-with? "--" arg))
+  (str/starts-with? arg "--"))
 
 (defn option? [arg]
   "Tests if the string is an option, which starts with the character '-'."
-  (str/starts-with? "-" arg))
+  (str/starts-with? arg "-"))
 
 (defn matches-option? [arg spec]
   "Returns true, if the arg starts with an option switch of this spec"
   (if (long-option? arg)
-    (and (not (nil? (:long spec))) (str/starts-with? (:long spec) arg))
-    (and (not (nil? (:short spec))) (str/starts-with? (:short spec) arg))))
+    (and (not (nil? (:long spec))) (str/starts-with? arg (:long spec)))
+    (and (not (nil? (:short spec))) (str/starts-with? arg (:short spec)))))
 
 (defn option-name [opt]
   (str/replace opt #"^--\[no\]-|^--no-|^--|^-" ""))

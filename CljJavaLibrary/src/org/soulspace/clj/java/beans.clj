@@ -52,8 +52,8 @@
   ([method]
     (and
       (or
-        (str/starts-with? "get" (.getName method))
-        (str/starts-with? "is" (.getName method)))
+        (str/starts-with? (.getName method) "get")
+        (str/starts-with? (.getName method) "is"))
       (= 0 (count (parameter-types method)))))
   ([method property-name]
     ; TODO check against property name
@@ -63,7 +63,7 @@
   "Returns true if the given method is a property setter method."
   ([method]
     (and
-      (str/starts-with? "set" (.getName method))
+      (str/starts-with? (.getName method) "set")
       (= 1 (count (parameter-types method)))))
     ([method property-name]
     ; TODO check against property name
