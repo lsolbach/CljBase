@@ -453,21 +453,21 @@
 ; TODO add frame parameter to the dialogs
 (defn file-open-dialog
   "Returns the filename to open or nil if the dialog was aborted."
-  [filename]
-  (let [d (JFileChooser. filename)]
-    (let [state (.showOpenDialog d nil)]
-      (if (= state JFileChooser/APPROVE_OPTION)
-        (.getSelectedFile d)
-        nil))))
+  ([filename]
+    (let [d (JFileChooser. filename)]
+      (let [state (.showOpenDialog d nil)]
+        (if (= state JFileChooser/APPROVE_OPTION)
+          (.getSelectedFile d)
+          nil)))))
 
 (defn file-save-dialog
   "Returns the filename to save or nil if the dialog was aborted."
-  [filename]
-  (let [d (JFileChooser. filename)]
-    (let [state (.showSaveDialog d nil)]
-      (if (= state JFileChooser/APPROVE_OPTION)
-        (.getSelectedFile d)
-        nil))))
+  ([filename]
+    (let [d (JFileChooser. filename)]
+      (let [state (.showSaveDialog d nil)]
+        (if (= state JFileChooser/APPROVE_OPTION)
+          (.getSelectedFile d)
+          nil)))))
 
 (defn color-choose-dialog
   "Creates a color choose dialog."
