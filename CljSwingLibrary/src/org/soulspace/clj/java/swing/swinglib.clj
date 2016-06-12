@@ -494,7 +494,7 @@
   [args cp-items]
   (let [c (JFrame.)]
     (set-properties! c args)
-    (if (not (nil? cp-items))
+    (if (seq cp-items)
       (doseq [item cp-items]
         (.add (.getContentPane c) item)))
     c))
@@ -504,7 +504,7 @@
   [args cp-items]
   (let [c (JWindow.)]
     (set-properties! c args)
-    (if (not (nil? cp-items))
+    (if (seq cp-items)
       (doseq [item cp-items]
         (.add (.getContentPane c) item)))
     c))
@@ -514,7 +514,7 @@
   ([args cp-items]
     (let [c (JDialog.)]
       (set-properties! c args)
-      (if (not (nil? cp-items))
+      (if (seq cp-items)
         (doseq [item cp-items]
           (.add (.getContentPane c) item)))
       (.pack c)
@@ -522,7 +522,7 @@
   ([frame args cp-items]
     (let [c (JDialog. frame)]
       (set-properties! c args)
-      (if (not (nil? cp-items))
+      (if (seq cp-items)
         (doseq [item cp-items]
           (.add (.getContentPane c) item)))
       (.pack c)
