@@ -96,7 +96,7 @@
 
 (defn add-list-selection-listener
   "Adds a change listener to the JComponent."
-  [^javax.swing.JList c ^javax.swing.event.ListSelectionListener l]
+  [^javax.swing.ListSelectionModel c ^javax.swing.event.ListSelectionListener l]
   (.addListSelectionListener c l))
 
 (defn add-popup-menu-listener

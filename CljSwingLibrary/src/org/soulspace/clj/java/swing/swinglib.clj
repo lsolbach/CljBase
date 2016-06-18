@@ -390,6 +390,16 @@
   ([args]
     (init-swing (JTree.) args)))
 
+(defn get-selection-model
+  "Returns the selection model of the component (e.g. table or list)."
+  [c]
+  (.getSelectionModel c))
+
+(defn set-selection-mode
+  "Sets the selection mode."
+  [model mode]
+  (.setSelectionMode model mode))
+
 (defn separator
   "Creates a separator."
   ([]
