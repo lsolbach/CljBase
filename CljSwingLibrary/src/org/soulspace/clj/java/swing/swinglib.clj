@@ -390,6 +390,16 @@
   ([args]
     (init-swing (JTree.) args)))
 
+(defn get-selection-model
+  "Returns the selection model of the component (e.g. table or list)."
+  [c]
+  (.getSelectionModel c))
+
+(defn set-selection-mode
+  "Sets the selection mode."
+  [model mode]
+  (.setSelectionMode model mode))
+
 (defn separator
   "Creates a separator."
   ([]
@@ -494,7 +504,7 @@
   [args cp-items]
   (let [c (JFrame.)]
     (set-properties! c args)
-    (if (not (nil? cp-items))
+    (if (seq cp-items)
       (doseq [item cp-items]
         (.add (.getContentPane c) item)))
     c))
@@ -504,7 +514,7 @@
   [args cp-items]
   (let [c (JWindow.)]
     (set-properties! c args)
-    (if (not (nil? cp-items))
+    (if (seq cp-items)
       (doseq [item cp-items]
         (.add (.getContentPane c) item)))
     c))
@@ -514,7 +524,7 @@
   ([args cp-items]
     (let [c (JDialog.)]
       (set-properties! c args)
-      (if (not (nil? cp-items))
+      (if (seq cp-items)
         (doseq [item cp-items]
           (.add (.getContentPane c) item)))
       (.pack c)
@@ -522,7 +532,7 @@
   ([frame args cp-items]
     (let [c (JDialog. frame)]
       (set-properties! c args)
-      (if (not (nil? cp-items))
+      (if (seq cp-items)
         (doseq [item cp-items]
           (.add (.getContentPane c) item)))
       (.pack c)
