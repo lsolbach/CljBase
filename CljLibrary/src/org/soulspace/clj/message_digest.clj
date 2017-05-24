@@ -38,7 +38,7 @@
   (Files/readAllBytes (Paths/get (.getAbsolutePath val))))
 
 (defn message-digest
-  "Returns an message digest instance configured with the given algorithm."
+  "Returns a message digest instance configured with the given algorithm."
   [algorithm]
   (MessageDigest/getInstance algorithm))
 

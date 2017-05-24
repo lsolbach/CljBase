@@ -15,9 +15,8 @@
   [prop-map [_ t1 t2 t3]]
   (str t1 (get prop-map (keyword t2) (str "${" t2 "}")) t3))
 
-; replace "${build-dir}/report" with (str (get-var (keyword build-dir) "${build-dir}") "/dir") (TODO: recursivly?)
 (defn replace-properties
-  "Replaces properties of the form ${property} in strings contained in input."
+  "Replaces properties of the form of '${property}' in strings given as input with values from prop-map."
   ([prop-map input]
     (cond
       (string? input)
