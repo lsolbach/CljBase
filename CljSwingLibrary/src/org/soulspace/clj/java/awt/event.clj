@@ -27,8 +27,8 @@
 
 (defmacro defadapter
   ""
-  [adapter args & fn-bindings]
-  )
+  [adapter args & fn-bindings])
+
 
 ; Listeners
 (defn action-listener
@@ -70,11 +70,11 @@
 (defn component-adapter
   "Creates a component adaper. Calls the appropriate functions on events."
   [f-hidden f-moved f-resized f-shown & args]
-    (proxy [ComponentAdapter] []
-    (componentHidden [event] (apply f-hidden event args))
-    (componentMoved [event] (apply f-moved event args))
-    (componentResized [event] (apply f-resized event args))
-    (componentShown [event] (apply f-shown event args))))
+  (proxy [ComponentAdapter] []
+   (componentHidden [event] (apply f-hidden event args))
+   (componentMoved [event] (apply f-moved event args))
+   (componentResized [event] (apply f-resized event args))
+   (componentShown [event] (apply f-shown event args))))
 
 (defn container-added-listener
   "Creates a container added listener. Calls function 'f' on container added."
@@ -317,9 +317,9 @@
 (defn add-property-change-listener
   "Adds a property change listener to the component."
   ([^java.awt.Component c ^java.beans.PropertyChangeListener l]
-    (.addPropertyChangeListener c l))
+   (.addPropertyChangeListener c l))
   ([^java.awt.Component c ^java.lang.String p ^java.beans.PropertyChangeListener l]
-    (.addPropertyChangeListener c p l)))
+   (.addPropertyChangeListener c p l)))
 
 (defn add-container-listener
   "Adds a container listener to the container."
