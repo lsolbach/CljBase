@@ -20,8 +20,8 @@
      :doc "Define a var"
      :parse-fn identity
      :multi false
-     :default nil
-     }))
+     :default nil}))
+
 
 (defn flag-spec? [arg]
   (str/starts-with? arg "--[no-]"))
@@ -53,7 +53,7 @@
                           (apply hash-map options))]
           (recur (rest defs) (conj specs spec)))
         specs))))
-  
+
 (defn doc-for-spec [{:keys [long short doc default]}]
   [(str/join ", " [short long])
    (or (str doc "."))
@@ -74,7 +74,7 @@
   (let [option-key (keyword (:name spec))
         multi (true? (:multi spec))]
     (if-let [old-value (option-map option-key)]
-      (cond 
+      (cond
         (and multi (coll? old-value)) (assoc option-map option-key (conj old-value value))
         multi (assoc option-map option-key [old-value value]))
       (assoc option-map option-key value))))
@@ -91,7 +91,7 @@
   (loop [args option-args option-map (default-option-map specs)]
     (if-let [arg (first args)]
       (if-let [result (parse-option-arg specs arg)]
-        (recur (rest args) (add-result option-map result)) ; find option value and assoc [option value] to option map 
+        (recur (rest args) (add-result option-map result)) ; find option value and assoc [option value] to option map
         (recur (rest args) option-map))
       option-map)))
 

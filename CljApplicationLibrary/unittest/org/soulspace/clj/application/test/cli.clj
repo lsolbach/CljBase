@@ -23,10 +23,10 @@
   (is (true? (matches-option? "-Dx=y" {:short "-D"})))
   (is (false? (matches-option? "Dx=y" {:short "-D"})))
   (is (false? (matches-option? "--Dx=y" {:short "-D"})))
-  (is (false? (matches-option? "-Ex=y" {:short "-D"})))
-  )
+  (is (false? (matches-option? "-Ex=y" {:short "-D"}))))
 
-(deftest build-specs-test
-  )
+
+(deftest build-specs-test)
+
 
 ;(run-tests)

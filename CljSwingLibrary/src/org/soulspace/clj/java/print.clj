@@ -7,9 +7,9 @@
                         DocPrintJob PrintService PrintServiceLookup ServiceUI ServiceUIFactory SimpleDoc
                         StreamPrintService StreamPrintServiceFactory]
            [javax.print.attribute Attribute AttributeSet HashPrintRequestAttributeSet]
-           [javax.print.attribute.standard MediaSize MediaSizeName])
+           [javax.print.attribute.standard MediaSize MediaSizeName]))
   ;(:use [org.soulspace.clj.java.awt print])
-  )
+
 
 (def doc-flavors {:byte-array        DocFlavor$BYTE_ARRAY
                   :char-array        DocFlavor$CHAR_ARRAY
@@ -64,13 +64,13 @@
 (defn lookup-print-services
   "Returns the print services compatible with the doc flavour and the attribute set."
   ([^DocFlavor doc-flavor ^AttributeSet attr-set]
-    (PrintServiceLookup/lookupPrintServices doc-flavor attr-set)))
+   (PrintServiceLookup/lookupPrintServices doc-flavor attr-set)))
 
 (defn print-dialog
   "Shows the print dialog and returns the print service. If no print service is returned, the print must be cancelled."
   ([x y #^PrintService print-services ^PrintService default-print-service ^AttributeSet attr-set]
     ; TODO lookup api signatures
-    (ServiceUI/printDialog nil x y print-services default-print-service nil attr-set)))
+   (ServiceUI/printDialog nil x y print-services default-print-service nil attr-set)))
 
 (defn create-print-job
   "Creates a print job on the print service."
@@ -93,4 +93,3 @@
   (let [print-job (create-print-job print-service)
         doc (simple-doc data doc-flavor attr-set)]
     (print-document print-job doc attr-set)))
-

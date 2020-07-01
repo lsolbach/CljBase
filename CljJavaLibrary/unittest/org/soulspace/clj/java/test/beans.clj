@@ -7,9 +7,8 @@
   (.getName method))
 
 (deftest get-method-test
-  (is (= (getter-method javax.swing.JFrame "menuBar") nil))
-  )
+  (is (= (getter-method javax.swing.JFrame "menuBar") nil)))
+
 
 (deftest set-method-test
-  (is (= (method-name (setter-method javax.swing.JFrame "menuBar")) "setMenuBar"))
-  )
+  (is (= (method-name (setter-method javax.swing.JFrame "menuBar")) "setMenuBar")))

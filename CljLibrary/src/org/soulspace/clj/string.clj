@@ -20,32 +20,32 @@
   [s1 s2]
   (>= (.compareTo s1 s2) 0))
 
-(defn lt 
+(defn lt
   "Less than string comparison."
   [s1 s2]
   (< (.compareTo s1 s2) 0))
 
-(defn le 
+(defn le
   "Less or equal string comparison."
   [s1 s2]
   (<= (.compareTo s1 s2) 0))
 
-(defn eq 
+(defn eq
   "Equal string comparison."
   [s1 s2]
   (= s1 s2))
 
-(defn ne 
+(defn ne
   "Not equal string comparison."
   [s1 s2]
   (not= s1 s2))
 
-(defn substring 
+(defn substring
   "Returns a substring of string defined by the indices."
   ([begin-idx s]
-    (.substring s begin-idx))
+   (.substring s begin-idx))
   ([begin-idx end-idx s]
-    (.substring s begin-idx end-idx)))
+   (.substring s begin-idx end-idx)))
 
 (defn upper-case?
   "Returns true if the char is upper case."
@@ -92,7 +92,7 @@
   [s]
   (to-camel-case \- s))
 
-(defn camel-case-to-hyphen 
+(defn camel-case-to-hyphen
   "Converts camel case strings to hyphenized strings."
   [s]
   (from-camel-case \- s))

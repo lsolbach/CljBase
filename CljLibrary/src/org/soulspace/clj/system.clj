@@ -14,12 +14,12 @@
   "Returns the environment variable named var.
    If a default is specified and the environment variable is not set, the default will be returned."
   ([var]
-    (System/getenv (name var)))
+   (System/getenv (name var)))
   ([var default]
-    (let [env (get-environment-variable var)]
-      (if (seq? env)
-        env
-        default))))
+   (let [env (get-environment-variable var)]
+     (if (seq? env)
+       env
+       default))))
 
 (defn set-system-property
   "Sets a system property."
@@ -30,9 +30,9 @@
   "Gets a system property.
    If a default is specified and the property is not set, the default will be returned."
   ([property]
-    (System/getProperty property))
+   (System/getProperty property))
   ([property default]
-    (System/getProperty property default)))
+   (System/getProperty property default)))
 
 (defn clear-system-property
   "Removes the system propery."
@@ -57,9 +57,9 @@
 (defn exit
   "Terminates the currently running JVM."
   ([]
-    (exit 0))
+   (exit 0))
   ([status]
-    (System/exit status)))
+   (System/exit status)))
 
 (defn os-name
   []
@@ -67,39 +67,39 @@
 
 (defn os-windows?
   ([]
-    (os-windows? (os-name)))
+   (os-windows? (os-name)))
   ([os]
-    (str/starts-with? os "Windows")))
+   (str/starts-with? os "Windows")))
 
 (defn os-linux?
   ([]
-    (os-linux? (os-name)))
+   (os-linux? (os-name)))
   ([os]
-    (str/starts-with? os "Linux")))
+   (str/starts-with? os "Linux")))
 
 (defn os-mac-os?
   ([]
-    (os-mac-os? (os-name)))
+   (os-mac-os? (os-name)))
   ([os]
-    (str/starts-with? os "Mac OS")))
+   (str/starts-with? os "Mac OS")))
 
 (defn os-sun-os?
   ([]
-    (os-sun-os? (os-name)))
+   (os-sun-os? (os-name)))
   ([os]
-    (str/starts-with? os "SunOS")))
+   (str/starts-with? os "SunOS")))
 
 (defn os-freebsd?
   ([]
-    (os-freebsd? (os-name)))
+   (os-freebsd? (os-name)))
   ([os]
-    (str/starts-with? os "FreeBSD")))
+   (str/starts-with? os "FreeBSD")))
 
 (defn os-aix?
   ([]
-    (os-aix? (os-name)))
+   (os-aix? (os-name)))
   ([os]
-    (str/starts-with? os "AIX")))
+   (str/starts-with? os "AIX")))
 
 (defn os-unix?
   []

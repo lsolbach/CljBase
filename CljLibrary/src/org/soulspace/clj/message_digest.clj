@@ -57,9 +57,9 @@
 (defn digest
   "Returns the digest of the message digest."
   ([md]
-    (.digest md))
+   (.digest md))
   ([md val]
-    (.digest md val)))
+   (.digest md val)))
 
 (defn get-digest
   "Returns the digest of the val calculated by the given algorithm."

@@ -70,13 +70,13 @@
   (let [file-name (.getName (as-file file))]
     (substring 0 (str/last-index-of \. file-name) file-name)))
 
-(defn parent-path 
+(defn parent-path
   "Returns the parent path for the file if it exists."
   [file]
   (let [file (as-file file)]
     (.getParent file)))
 
-(defn parent-dir 
+(defn parent-dir
   "Returns the parent dir of the file if it exists."
   [file]
   (let [file (as-file file)]
@@ -188,7 +188,7 @@
     (when (exists? file)
       (.delete file))))
 
-(defn delete-dir 
+(defn delete-dir
   "Deletes the directory and any subdirectories."
   [file]
   (let [file (as-file file)]

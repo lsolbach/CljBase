@@ -4,5 +4,4 @@
     [org.soulspace.clj.java.reflection]))
 
 (deftest field-seq-test
-  (is (= true true))
-  )
+  (is (= true true)))

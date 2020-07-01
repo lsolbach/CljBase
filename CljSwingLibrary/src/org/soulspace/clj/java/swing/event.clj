@@ -76,12 +76,12 @@
 
 (comment
   ; duplicate from awt events
-(defn mouse-clicked-listener
-  "Creates a mouse input listener. Calls function 'f' on mouse clicks."
-  [f args]
-  (proxy [MouseInputAdapter] []
-    (mouseClicked [event] (f event args))))
-)
+ (defn mouse-clicked-listener
+   "Creates a mouse input listener. Calls function 'f' on mouse clicks."
+   [f args]
+   (proxy [MouseInputAdapter] []
+     (mouseClicked [event] (f event args)))))
+
 
 ; Add listeners
 (defn add-ancestor-listener

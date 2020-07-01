@@ -15,11 +15,11 @@
 
 ;
 ; Method-based reflective access to Java bean style objects.
-; 
+;
 ; TODO memoize with core.memoize for performance
 ;
 
-(def boxing 
+(def boxing
   {java.lang.Boolean/TYPE java.lang.Boolean
    java.lang.Boolean java.lang.Boolean/TYPE
    java.lang.Byte/TYPE java.lang.Byte
@@ -35,8 +35,8 @@
    java.lang.Float/TYPE java.lang.Float
    java.lang.Float java.lang.Float/TYPE
    java.lang.Double/TYPE java.lang.Double
-   java.lang.Double java.lang.Double/TYPE
-   })
+   java.lang.Double java.lang.Double/TYPE})
+
 
 (defn compatible-type?
   "Checks the compatibility of java types."
@@ -50,24 +50,24 @@
 (defn getter?
   "Returns true if the given method is a property getter method."
   ([method]
-    (and
-      (or
-        (str/starts-with? (.getName method) "get")
-        (str/starts-with? (.getName method) "is"))
-      (= 0 (count (parameter-types method)))))
-  ([method property-name]
+   (and
+     (or
+       (str/starts-with? (.getName method) "get")
+       (str/starts-with? (.getName method) "is"))
+     (= 0 (count (parameter-types method)))))
+  ([method property-name]))
     ; TODO check against property name
-    ))
+
 
 (defn setter?
   "Returns true if the given method is a property setter method."
   ([method]
-    (and
-      (str/starts-with? (.getName method) "set")
-      (= 1 (count (parameter-types method)))))
-    ([method property-name]
+   (and
+     (str/starts-with? (.getName method) "set")
+     (= 1 (count (parameter-types method)))))
+  ([method property-name]))
     ; TODO check against property name
-    ))
+
 
 ; TODO (defn adder?)
 ; TODO (defn remover?)
@@ -80,67 +80,67 @@
 (defn getter-method
   "Returns the getter method for this property. Works for derived properties too."
   ([cl property]
-    (let [pname (first-upper-case property)]
-      (first (filter #(and
-                        (or (= (str "get" pname) (.getName %))
-                            (= (str "is" pname) (.getName %)))
-                        (nil? (.getParameterTypes %)))
-                     (methods cl))))))
+   (let [pname (first-upper-case property)]
+     (first (filter #(and
+                       (or (= (str "get" pname) (.getName %))
+                           (= (str "is" pname) (.getName %)))
+                       (nil? (.getParameterTypes %)))
+                    (methods cl))))))
 
 (defn setter-methods
   "Returns a sequence of the setter methods for this property."
   ([cl property]
-    (let [pname (str "set" (first-upper-case property))]
-      (filter #(and (= pname (.getName %))
-                    (setter? %))
-              (methods cl)))))
+   (let [pname (str "set" (first-upper-case property))]
+     (filter #(and (= pname (.getName %))
+                   (setter? %))
+             (methods cl)))))
 
 (defn adder-methods
   "Returns a sequence of the adder methods for this property."
   ([cl property]
-    (let [pname (str "add" (first-upper-case property))]
-      (filter #(and (= pname (.getName %))
-                    (= 1 (count (parameter-types %))))
-              (methods cl)))))
+   (let [pname (str "add" (first-upper-case property))]
+     (filter #(and (= pname (.getName %))
+                   (= 1 (count (parameter-types %))))
+             (methods cl)))))
 
 (defn remover-methods
   "Returns a sequence of the remover methods for this property."
   ([cl property]
-    (let [pname (str "remove" (first-upper-case property))]
-      (filter #(and (= pname (.getName %))
-                    (= 1 (count (parameter-types %))))
-              (methods cl)))))
+   (let [pname (str "remove" (first-upper-case property))]
+     (filter #(and (= pname (.getName %))
+                   (= 1 (count (parameter-types %))))
+             (methods cl)))))
 
 ; TODO add value as parameter and return the setter based on the type of the value
 (defn setter-method
   "Returns the setter method for this property. Works for derived properties too."
   ([cl property]
-    (first (setter-methods cl property)))
+   (first (setter-methods cl property)))
   ([cl property param-type]
     ;(println param-type "->" (map  #(compatible-type? (parameter-type %) param-type) (setter-methods cl property)))
-    (if-let [setter (first (filter #(compatible-type? (parameter-type %) param-type) (setter-methods cl property)))]
-      setter
-      (setter-method cl property))))
+   (if-let [setter (first (filter #(compatible-type? (parameter-type %) param-type) (setter-methods cl property)))]
+     setter
+     (setter-method cl property))))
 
 ; TODO add value as parameter and return the adder based on the type of the value
 (defn adder-method
   "Returns the add method for this multivalued property."
   ([cl property]
-    (first (adder-methods cl property)))
+   (first (adder-methods cl property)))
   ([cl property param-type]
-    (if-let [adder (first (filter #(compatible-type? (parameter-type %) param-type) (adder-methods cl property)))]
-      adder
-      (adder-method cl property))))
+   (if-let [adder (first (filter #(compatible-type? (parameter-type %) param-type) (adder-methods cl property)))]
+     adder
+     (adder-method cl property))))
 
 ; TODO add value as parameter and return the remover based on the type of the value
 (defn remover-method
   "Returns the remove method for this multivalued property."
   ([cl property]
-    (first (remover-methods cl property)))
+   (first (remover-methods cl property)))
   ([cl property param-type]
-    (if-let [remover (first (filter #(compatible-type? (parameter-type %) param-type) (remover-methods cl property)))]
-      remover
-      (remover-method cl property))))
+   (if-let [remover (first (filter #(compatible-type? (parameter-type %) param-type) (remover-methods cl property)))]
+     remover
+     (remover-method cl property))))
 
 (defn has-get-method?
   [cl property]
@@ -193,12 +193,12 @@
   "Sets the properties given in the map to the instance"
   [obj prop-map]
   (doseq [[k v] prop-map] (set-property! obj (name k) v))
-  obj) 
+  obj)
 
 (defn add-properties!
   "Adds the properties given in the map to the instance"
   [obj prop-map]
-  (doseq [[k v] prop-map] 
+  (doseq [[k v] prop-map]
     (if (coll? v)
       (doseq [value v]
         (add-property! obj (name k) value))
@@ -215,11 +215,11 @@
 
 (defn init-properties!
   ([obj set-props]
-    (set-properties! obj set-props))
+   (set-properties! obj set-props))
   ([obj set-props add-props]
-    (set-properties! obj set-props)
-    (add-properties! obj add-props)
-    obj))
+   (set-properties! obj set-props)
+   (add-properties! obj add-props)
+   obj))
 
 ; TODO works for symbols and strings but not for class names yet
 (defn create
@@ -231,6 +231,6 @@
 (defn create-bean
   "Creates an instance of the given bean and initializes it with the given data."
   ([bean-class set-props]
-    (init-properties! (create bean-class) set-props))
+   (init-properties! (create bean-class) set-props))
   ([bean-class set-props add-props]
-    (init-properties! (create bean-class) set-props add-props)))
+   (init-properties! (create bean-class) set-props add-props)))

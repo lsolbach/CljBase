@@ -12,15 +12,14 @@
 (defn bundle
   "Returns the resource bundle of the name (default name is resources)."
   ([]
-    (java.util.ResourceBundle/getBundle "resources"))
+   (java.util.ResourceBundle/getBundle "resources"))
   ([bundle-name]
-    (java.util.ResourceBundle/getBundle bundle-name)))
+   (java.util.ResourceBundle/getBundle bundle-name)))
 
 (defn bundle-lookup
   "Looks up the key in the resource bundle and returns the resulting string."
   ([bundle str-key]
-    (.getString bundle str-key)))
+   (.getString bundle str-key)))
 
 ; TODO
-(defn switch-locale []
-  )
+(defn switch-locale [])

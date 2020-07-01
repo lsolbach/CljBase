@@ -18,37 +18,36 @@
 (defn replace-properties
   "Replaces properties of the form of '${property}' in strings given as input with values from prop-map."
   ([prop-map input]
-    (cond
-      (string? input)
-      (if-let [tokens (re-seq #"([^$]*)(?:\$\{([^}]*)\}*([^$]*))" input)]
-        (reduce str (map (partial concat-property-tokens prop-map) tokens))
-        input)
-      (coll? input)
-      (map (partial replace-properties prop-map) input)
-      :default
-      input))
+   (cond
+     (string? input)
+     (if-let [tokens (re-seq #"([^$]*)(?:\$\{([^}]*)\}*([^$]*))" input)]
+       (reduce str (map (partial concat-property-tokens prop-map) tokens))
+       input)
+     (coll? input)
+     (map (partial replace-properties prop-map) input)
+     :default
+     input))
   ([prop-map input default]
-    (if-not (nil? input)
-      (replace-properties prop-map input)
-      (replace-properties prop-map default))))
+   (if-not (nil? input)
+     (replace-properties prop-map input)
+     (replace-properties prop-map default))))
 
 
 (defn replace-properties-recursive
   "Recursively replaces properties of the form ${property} in strings contained in input until no further replacement is possible."
   ([prop-map input]
-    (cond
-      (string? input)
-      (loop [in input]
-        (let [replaced (replace-properties prop-map in)]
-          (if-not (= in replaced)
-            (recur replaced)
-            in)))
-      (coll? input)
-      (map (partial replace-properties-recursive prop-map) input)
-      :default
-      input))
+   (cond
+     (string? input)
+     (loop [in input]
+       (let [replaced (replace-properties prop-map in)]
+         (if-not (= in replaced)
+           (recur replaced)
+           in)))
+     (coll? input)
+     (map (partial replace-properties-recursive prop-map) input)
+     :default
+     input))
   ([prop-map input default]
-    (if-not (nil? input)
-      (replace-properties-recursive prop-map input)
-      (replace-properties-recursive prop-map default))))
-    
+   (if-not (nil? input)
+     (replace-properties-recursive prop-map input)
+     (replace-properties-recursive prop-map default))))

@@ -10,7 +10,7 @@
 (ns org.soulspace.clj.function
   (:require [clojure.string :as str]))
 
-(defn not-nil? 
+(defn not-nil?
   "Tests if the argument is not nil. Same as (not (nil? x)) or ((complement nil?) x)."
   [x]
   (not (nil? x)))

@@ -4,7 +4,4 @@
     [org.soulspace.clj.java.type-conversion]))
 
 (deftest get-method-test
-  (is (= true true))
-  )
-
-
+  (is (= true true)))

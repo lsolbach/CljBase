@@ -15,7 +15,7 @@
 ; Contains functions to help working with namespaces.
 ;
 
-(defn ns-to-path 
+(defn ns-to-path
   "Converts a namespace into a path."
   [ns]
   (str/replace ns \. \/))
@@ -25,7 +25,7 @@
   [path]
   (str/replace (normalize-path path) \/ \.))
 
-(defn ns-to-filename 
+(defn ns-to-filename
   "Converts a namespace into a fileneame."
   [ns]
  (str/replace ns \- \_))
@@ -56,17 +56,17 @@
 (defn call-by-name
   "Resolves a function by name and calls it."
   ([^String name]
-    (when-let [func (ns-resolve (symbol name))]
-      (if (fn? func) (func))))
+   (when-let [func (ns-resolve (symbol name))]
+     (if (fn? func) (func))))
   ([^String name & args]
-    (when-let [func (ns-resolve (symbol name))]
-      (if (fn? func) (apply func args)))))
+   (when-let [func (ns-resolve (symbol name))]
+     (if (fn? func) (apply func args)))))
 
 (defn call-by-ns-name
   "Resolves a function by name in the given namespace and calls it."
   ([^String ns ^String name]
-    (when-let [func (ns-resolve (symbol ns) (symbol name))]
-      (if (fn? func) (func))))
+   (when-let [func (ns-resolve (symbol ns) (symbol name))]
+     (if (fn? func) (func))))
   ([^String ns ^String name & args]
-    (when-let [func (ns-resolve (symbol ns) (symbol name))]
-      (if (fn? func) (apply func args)))))
+   (when-let [func (ns-resolve (symbol ns) (symbol name))]
+     (if (fn? func) (apply func args)))))

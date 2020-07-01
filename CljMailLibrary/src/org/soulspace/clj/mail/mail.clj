@@ -17,27 +17,26 @@
 (defn session
   "Gets an instance of the mail session."
   ([props]
-    (Session/getInstance props)))
+   (Session/getInstance props)))
 
 (defn mime-message
   "Creates a mime message."
   ([props]
-    (mime-message *mail-session* props))
+   (mime-message *mail-session* props))
   ([session props]
-    (let [msg (MimeMessage. session)]
-      (set-properties! msg props)
-      msg)))
+   (let [msg (MimeMessage. session)]
+     (set-properties! msg props)
+     msg)))
 
 (defn send-mail
   "Sends a mail message."
   ([message]
-    (Transport/send message))
+   (Transport/send message))
   ([message user pw]
-    (Transport/send message user pw)))
+   (Transport/send message user pw)))
 
 (defmacro with-mail-session
   "Executes the body in the context of a mail session."
   [props & body]
   `(binding [*mail-session* (session ~props)]
-     ~@body
-     ))
+     ~@body))

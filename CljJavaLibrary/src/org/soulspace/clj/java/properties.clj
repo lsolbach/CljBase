@@ -13,9 +13,6 @@
 (defn properties
   "Creates java properties from a map."
   ([m]
-    (let [p (Properties.)]
-      (.putAll p m)
-      p)))
-
-
-
+   (let [p (Properties.)]
+     (.putAll p m)
+     p)))

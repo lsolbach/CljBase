@@ -57,23 +57,23 @@
 (defn color
   "Creates a color."
   ([value]
-    (Color. value))
+   (Color. value))
   ([r g b]
-    (Color. r g b))
+   (Color. r g b))
   ([r g b a]
-    (Color. r g b a)))
+   (Color. r g b a)))
 
 ; font
 (defn font
   "Creates a font."
   ([font]
-    (Font. font))
+   (Font. font))
   ([font-name style-vec size]
-    (Font. font-name (reduce + style-vec) size)))
+   (Font. font-name (reduce + style-vec) size)))
 
 (defn derive-font
   "Derives a font from the given font."
   ([font style-vec]
-    (.derive font (reduce + style-vec)))
+   (.derive font (reduce + style-vec)))
   ([fontname style-vec size]
-    (.derive font (reduce + style-vec) size)))
+   (.derive font (reduce + style-vec) size)))

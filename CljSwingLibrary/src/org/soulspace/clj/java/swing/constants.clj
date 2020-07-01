@@ -43,13 +43,13 @@
    :hide    WindowConstants/HIDE_ON_CLOSE
    :exit    WindowConstants/EXIT_ON_CLOSE})
 
-(def focus-condition-keys 
+(def focus-condition-keys
   "Maps keywords to the constants in JComponent."
   {:undefined                          JComponent/UNDEFINED_CONDITION ; used by some of the APIs to mean that no condition is defined.
    :when-ancestor-of-focused-component JComponent/WHEN_ANCESTOR_OF_FOCUSED_COMPONENT ; used for registerKeyboardAction that means that the command should be invoked when the receiving component is an ancestor of the focused component or is itself the focused component.
    :when-focused                       JComponent/WHEN_FOCUSED ; used for registerKeyboardAction that means that the command should be invoked when the component has the focus.
-   :when-in-focused-window             JComponent/WHEN_IN_FOCUSED_WINDOW ; used for registerKeyboardAction that means that the command should be invoked when the receiving component is in the window that has the focus or is itself the focused component.
-   })
+   :when-in-focused-window             JComponent/WHEN_IN_FOCUSED_WINDOW}) ; used for registerKeyboardAction that means that the command should be invoked when the receiving component is in the window that has the focus or is itself the focused component.
+
 
 (def action-keys
   "Maps keywords to the constants in Action."
@@ -101,11 +101,11 @@
 (def option-pane-keys
   "Maps keywords to the constants in JOptionsPane."
   {:default       JOptionPane/DEFAULT_OPTION
-     :yes-no        JOptionPane/YES_NO_OPTION
-     :yes-no-cancel JOptionPane/YES_NO_CANCEL_OPTION
-     :ok-cancel     JOptionPane/OK_CANCEL_OPTION
-     :yes           JOptionPane/YES_OPTION
-     :no            JOptionPane/NO_OPTION
-     :cancel        JOptionPane/CANCEL_OPTION
-     :ok            JOptionPane/OK_OPTION
-     :closed        JOptionPane/CLOSED_OPTION})
+   :yes-no        JOptionPane/YES_NO_OPTION
+   :yes-no-cancel JOptionPane/YES_NO_CANCEL_OPTION
+   :ok-cancel     JOptionPane/OK_CANCEL_OPTION
+   :yes           JOptionPane/YES_OPTION
+   :no            JOptionPane/NO_OPTION
+   :cancel        JOptionPane/CANCEL_OPTION
+   :ok            JOptionPane/OK_OPTION
+   :closed        JOptionPane/CLOSED_OPTION})

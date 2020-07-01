@@ -12,9 +12,9 @@
 (defn get-env
   "Returns the environment variable named var."
   ([var]
-    (System/getenv (name var)))
+   (System/getenv (name var)))
   ([var default]
-    (let [env (get-env var)]
-      (if-not (nil? env)
-        env
-        default))))
+   (let [env (get-env var)]
+     (if-not (nil? env)
+       env
+       default))))
