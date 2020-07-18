@@ -13,5 +13,4 @@
  :dependencies [["org.clojure/clojure, 1.8.0"]
                 ; ["javax.mail/javax.mail-api, 1.5.1"]
                 ["com.sun.mail/javax.mail, 1.5.1"]
-                ["org.soulspace.clj/CljJavaLibrary, 0.7.0"]]
- ]
+                ["org.soulspace.clj/CljJavaLibrary, 0.7.0"]]]
