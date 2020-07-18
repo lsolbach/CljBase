@@ -10,5 +10,4 @@
            ["org.soulspace.baumeister/PackagePlugin"]]
  :dependencies [["org.clojure/clojure, 1.8.0"]
                 ["org.soulspace.clj/CljLibrary, 0.7.0"]
-                ["org.tcrawley/dynapath, 0.2.3"]] ; dynamic classpath support
- ]
+                ["org.tcrawley/dynapath, 0.2.3"]]] ; dynamic classpath support
