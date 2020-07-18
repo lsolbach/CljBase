@@ -7,8 +7,7 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 ;
-(ns org.soulspace.clj.function
-  (:require [clojure.string :as str]))
+(ns org.soulspace.clj.function)
 
 (defn not-nil?
   "Tests if the argument is not nil. Same as (not (nil? x)) or ((complement nil?) x)."
