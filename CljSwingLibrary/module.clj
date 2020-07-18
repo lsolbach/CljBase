@@ -12,5 +12,4 @@
  :dependencies [["org.clojure/clojure, 1.8.0"]
                 ["swing-utils/swing-utils, 0.2.0"]
                 ["org.soulspace.clj/CljJavaLibrary, 0.7.0"]
-                ["com.miglayout/miglayout, 3.7.4"]]
- ]
+                ["com.miglayout/miglayout, 3.7.4"]]]
