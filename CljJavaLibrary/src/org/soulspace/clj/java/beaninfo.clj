@@ -1,15 +1,19 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
 (ns org.soulspace.clj.java.beaninfo
-  (:use [org.soulspace.clj.java type-conversion])
+  (:require [org.soulspace.clj.java.type-conversion :as tc])
   (:import [java.beans Introspector]))
+
+;;
+;; Functions to set Java bean properties via property descriptors
+;;
 
 (defn property-descriptor
   "Returns the property descriptor for the property with the given name."
@@ -30,7 +34,7 @@
     (if (nil? pd) (throw (IllegalArgumentException. (str "No such property " prop))))
     (let [write-method (.getWriteMethod pd)
           dest-class (get-property-class write-method)]
-      (.invoke write-method inst (into-array [(coerce dest-class value)])))))
+      (.invoke write-method inst (into-array [(tc/coerce dest-class value)])))))
 
 (defn set-properties!
   "Sets the properties given in the map to the instance."

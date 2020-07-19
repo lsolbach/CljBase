@@ -9,12 +9,13 @@
 ;;
 (ns org.soulspace.clj.java.beans
   (:refer-clojure :exclude [methods])
-  (:require [clojure.string :as str])
-  (:use [org.soulspace.clj.string :only [first-upper-case]]
-        [org.soulspace.clj.java reflection type-conversion]))
+  (:require [clojure.string :as str]
+            [org.soulspace.clj.string :as sstr]
+            [org.soulspace.clj.java.reflection :as r]
+            [org.soulspace.clj.java.type-conversion :as tc]))
 
 ;;
-;; Method-based reflective access to Java bean style objects.
+;; Functions for method-based reflective access to Java bean style objects.
 ;;
 ;; TODO memoize with core.memoize for performance
 ;;
@@ -54,7 +55,7 @@
      (or
        (str/starts-with? (.getName method) "get")
        (str/starts-with? (.getName method) "is"))
-     (= 0 (count (parameter-types method)))))
+     (= 0 (count (r/parameter-types method)))))
   ([method property-name]))
     ; TODO check against property name
 
@@ -64,7 +65,7 @@
   ([method]
    (and
      (str/starts-with? (.getName method) "set")
-     (= 1 (count (parameter-types method)))))
+     (= 1 (count (r/parameter-types method)))))
   ([method property-name]))
     ; TODO check against property name
 
@@ -75,41 +76,41 @@
 (defn- parameter-type
   "Returns the first parameter type of a method."
   [method]
-  (first (parameter-types method)))
+  (first (r/parameter-types method)))
 
 (defn getter-method
   "Returns the getter method for this property. Works for derived properties too."
   ([cl property]
-   (let [pname (first-upper-case property)]
+   (let [pname (sstr/first-upper-case property)]
      (first (filter #(and
                        (or (= (str "get" pname) (.getName %))
                            (= (str "is" pname) (.getName %)))
                        (nil? (.getParameterTypes %)))
-                    (methods cl))))))
+                    (r/methods cl))))))
 
 (defn setter-methods
   "Returns a sequence of the setter methods for this property."
   ([cl property]
-   (let [pname (str "set" (first-upper-case property))]
+   (let [pname (str "set" (sstr/first-upper-case property))]
      (filter #(and (= pname (.getName %))
                    (setter? %))
-             (methods cl)))))
+             (r/methods cl)))))
 
 (defn adder-methods
   "Returns a sequence of the adder methods for this property."
   ([cl property]
-   (let [pname (str "add" (first-upper-case property))]
+   (let [pname (str "add" (sstr/first-upper-case property))]
      (filter #(and (= pname (.getName %))
-                   (= 1 (count (parameter-types %))))
-             (methods cl)))))
+                   (= 1 (count (r/parameter-types %))))
+             (r/methods cl)))))
 
 (defn remover-methods
   "Returns a sequence of the remover methods for this property."
   ([cl property]
-   (let [pname (str "remove" (first-upper-case property))]
+   (let [pname (str "remove" (sstr/first-upper-case property))]
      (filter #(and (= pname (.getName %))
-                   (= 1 (count (parameter-types %))))
-             (methods cl)))))
+                   (= 1 (count (r/parameter-types %))))
+             (r/methods cl)))))
 
 ; TODO add value as parameter and return the setter based on the type of the value
 (defn setter-method
@@ -170,7 +171,7 @@
   [obj property value]
   (if-let [property-set (setter-method (class obj) property (type value))]
     (let [param-type (first (.getParameterTypes property-set))]
-      (.invoke property-set obj (into-array [(coerce param-type value)])))
+      (.invoke property-set obj (into-array [(tc/coerce param-type value)])))
     (throw (IllegalArgumentException. (str "No compatible setter for property " property " found.")))))
 
 (defn add-property!
@@ -178,7 +179,7 @@
   [obj property value]
   (if-let [property-add (adder-method (class obj) property (type value))]
     (let [param-type (first (.getParameterTypes property-add))]
-      (.invoke property-add obj (into-array [(coerce param-type value)])))
+      (.invoke property-add obj (into-array [(tc/coerce param-type value)])))
     (throw (IllegalArgumentException. (str "No compatible adder for property " property " found.")))))
 
 (defn remove-property!
