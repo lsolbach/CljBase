@@ -4,5 +4,8 @@
 target
 pom.xml
 .lein-failures
+.nrepl-port
+
+# Eclipse
 .project
 .classpath
