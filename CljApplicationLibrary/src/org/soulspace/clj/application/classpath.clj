@@ -1,17 +1,22 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
+
 (ns org.soulspace.clj.application.classpath
-  (:require [dynapath.util :as dp])
-  (:use [clojure.java.io :only [as-url]])
+  (:require [dynapath.util :as dp]
+            [clojure.java.io :as io])
   (:import [java.net URL URLClassLoader]
            [clojure.lang DynamicClassLoader]))
+
+;;
+;; Functions to manipulate the Java classpath
+;;
 
 (defn context-classloader
   "Returns the context class loader of the current thread."
@@ -53,7 +58,7 @@
   ([url]
    (add-url (context-classloader) url))
   ([cl url]
-   (dp/add-classpath-url cl (as-url url))))
+   (dp/add-classpath-url cl (io/as-url url))))
 
 (defn add-urls
   "Adds a collection of classpath URLs to the context classloader or a dynamic classloader if given as cl."
