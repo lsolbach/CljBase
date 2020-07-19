@@ -1,17 +1,16 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
+
 (ns org.soulspace.clj.java.swing.swinglib
-  (:use [org.soulspace.clj.java beans]
-        [org.soulspace.clj.java awt]
-        [org.soulspace.clj.java.awt event]
-        [org.soulspace.clj.java.swing constants])
+  (:require [org.soulspace.clj.java.beans :as b]
+            [org.soulspace.clj.java.swing.constants :as sc])
   (:import [java.awt CardLayout]
            [javax.swing AbstractAction AbstractListModel Action BorderFactory ButtonGroup
             ImageIcon InputVerifier
@@ -34,21 +33,27 @@
            [java.text DateFormat Format NumberFormat ParseException]
            [net.miginfocom.swing MigLayout]))
 
+;;
+;; Functions to create Swing UIs
+;;
+
 ; Helpers
 (defn init-swing
   "Intitializes a swing component with the arguments and items."
   ([c args]
    (if (seq args)
-     (set-properties! c args))
+     (b/set-properties! c args))
    c)
   ([c args items]
    (if (seq args)
-     (set-properties! c args))
+     (b/set-properties! c args))
    (if (seq items)
      (doseq [item items]
        (if (vector? item)
+         ; vector contains child and constraints for it
          (let [[child constraint] item]
            (.add c child constraint))
+         ; child without constraints
          (.add c item))))
    c))
 
@@ -59,7 +64,6 @@
   (proxy [InputVerifier] []
     (verify [component] (vf component))
     (shouldYieldFocus [component] (yf component args))))
-
 
 (defn formatted-text-field-verifier
   "Creates an input verifier for a formatted text field."
@@ -88,7 +92,7 @@
                   (actionPerformed [evt] (f evt)))]
      (doseq [[k v] args]
        ;(println (str k " : " (action-keys k) " -> " v))
-       (.putValue action (action-keys k) v))
+       (.putValue action (sc/action-keys k) v))
      (.setEnabled action true)
      action)))
 
@@ -97,7 +101,7 @@
   ([keycode]
    (KeyStroke/getKeyStroke keycode))
   ([keycode & modifiers]
-   (KeyStroke/getKeyStroke keycode (reduce + (map modifier-mask-keys modifiers)))))
+   (KeyStroke/getKeyStroke keycode (reduce + (map sc/modifier-mask-keys modifiers)))))
 
 (defn get-input-map
   "Returns the input map of the component."
@@ -454,12 +458,12 @@
 (defn horizontal-split-pane
   "Creates a horizontal split pane."
   [args items]
-  (init-swing (JSplitPane. (swing-keys :horizontal)) args items))
+  (init-swing (JSplitPane. (sc/swing-keys :horizontal)) args items))
 
 (defn vertical-split-pane
   "Creates a vertical split pane."
   [args items]
-  (init-swing (JSplitPane. (swing-keys :vertical)) args items))
+  (init-swing (JSplitPane. (sc/swing-keys :vertical)) args items))
 
 (defn scroll-pane
   "Creates a scroll pane."
@@ -467,7 +471,7 @@
    (JScrollPane. item))
   ([item args]
    (let [c (JScrollPane. item)]
-     (set-properties! c args)
+     (b/set-properties! c args)
      c)))
 
 (defn tabbed-pane
@@ -503,7 +507,7 @@
   "Creates a frame."
   [args cp-items]
   (let [c (JFrame.)]
-    (set-properties! c args)
+    (b/set-properties! c args)
     (if (seq cp-items)
       (doseq [item cp-items]
         (.add (.getContentPane c) item)))
@@ -513,7 +517,7 @@
   "Creates a window."
   [args cp-items]
   (let [c (JWindow.)]
-    (set-properties! c args)
+    (b/set-properties! c args)
     (if (seq cp-items)
       (doseq [item cp-items]
         (.add (.getContentPane c) item)))
@@ -523,7 +527,7 @@
   "Creates a dialog. If a frame is provided, the dialog is centered on the frame."
   ([args cp-items]
    (let [c (JDialog.)]
-     (set-properties! c args)
+     (b/set-properties! c args)
      (if (seq cp-items)
        (doseq [item cp-items]
          (.add (.getContentPane c) item)))
@@ -531,7 +535,7 @@
      c))
   ([frame args cp-items]
    (let [c (JDialog. frame)]
-     (set-properties! c args)
+     (b/set-properties! c args)
      (if (seq cp-items)
        (doseq [item cp-items]
          (.add (.getContentPane c) item)))
@@ -539,8 +543,10 @@
      (.setLocationRelativeTo c frame)
      c)))
 
-; standard dialogs
-; TODO add frame parameter to the dialogs
+;;
+;; standard dialogs
+;; TODO add frame parameter to the dialogs
+;;
 (defn file-open-dialog
   "Returns the filename to open or nil if the dialog was aborted."
   ([filename]
@@ -570,10 +576,10 @@
    (JOptionPane/showMessageDialog nil text))
   ([text title type]
    (JOptionPane/showMessageDialog
-     nil text title (option-pane-message-keys type)))
+     nil text title (sc/option-pane-message-keys type)))
   ([text title type icon]
    (JOptionPane/showMessageDialog
-     nil text title (option-pane-message-keys type) icon)))
+     nil text title (sc/option-pane-message-keys type) icon)))
 
 (defn confirm-dialog
   "Creates a confirm dialog."
@@ -581,10 +587,10 @@
    (JOptionPane/showConfirmDialog nil text title options))
   ([text title options type]
    (JOptionPane/showConfirmDialog
-     nil text title options (option-pane-message-keys type)))
+     nil text title options (sc/option-pane-message-keys type)))
   ([text title options type icon]
    (JOptionPane/showConfirmDialog
-     nil text title options (option-pane-message-keys type) icon)))
+     nil text title options (sc/option-pane-message-keys type) icon)))
 
 (defn input-dialog
   "Creates an input dialog."
@@ -594,10 +600,10 @@
    (JOptionPane/showInputDialog nil text title))
   ([text title type]
    (JOptionPane/showInputDialog
-     nil text title (option-pane-message-keys type)))
+     nil text title (sc/option-pane-message-keys type)))
   ([text title type icon values initial]
    (JOptionPane/showInputDialog
-     nil text title (option-pane-message-keys type) icon (into-array values) initial)))
+     nil text title (sc/option-pane-message-keys type) icon (into-array values) initial)))
 
 (defn option-pane
   "Creates an option pane dialog."
@@ -613,7 +619,7 @@
    (proxy [DefaultTableCellRenderer] []
      (getTableCellRendererComponent [table value isSelected hasFocus row column]
        (let [result (proxy-super getTableCellRendererComponent table value isSelected hasFocus row column)]
-         (set-properties! this args)
+         (b/set-properties! this args)
          (.setText this (rf value))
          result)))))
 
@@ -648,8 +654,11 @@
   [obj args items]
   (init-swing (DefaultMutableTreeNode. obj) args items))
 
+;;
+;; Layouts
+;;
 
-; CardLayout
+;; CardLayout
 (defn card-layout
   "Creates a card layout."
   [args items]
@@ -680,8 +689,7 @@
   [cl container name]
   (.show cl container name))
 
-
-; MigLayout
+;; MigLayout
 (defn mig-layout
   "Creates a mig layout."
   [args]

@@ -1,19 +1,24 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
+
 (ns org.soulspace.clj.java.awt
-  (:use [org.soulspace.clj.java beans])
   (:import [java.awt BasicStroke Color Dimension Event Font GradientPaint Graphics2D Insets TexturePaint]))
 
-; AWT
+;;
+;; Functions and definitions for Java AWT
+;;
 
-; constant maps
+;;
+;; constant maps
+;;
+
 (def color-by-name {:black Color/BLACK
                     :blue Color/BLUE
                     :cyan Color/CYAN
@@ -41,19 +46,23 @@
                  :sans-serif Font/SANS_SERIF
                  :serif Font/SERIF})
 
-; dimension
+;;
+;; Basic constructors
+;;
+
+;; dimension
 (defn dimension
   "Creates a dimension."
   [width height]
   (Dimension. width height))
 
-; insets
+;; insets
 (defn insets
   "Creates insets."
   [top left bottom right]
   (Insets. top left bottom right))
 
-; color
+;; color
 (defn color
   "Creates a color."
   ([value]
@@ -63,7 +72,7 @@
   ([r g b a]
    (Color. r g b a)))
 
-; font
+;; font
 (defn font
   "Creates a font."
   ([font]

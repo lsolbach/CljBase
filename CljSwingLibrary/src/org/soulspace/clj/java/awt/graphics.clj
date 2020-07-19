@@ -1,20 +1,27 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
+
 (ns org.soulspace.clj.java.awt.graphics
-  (:use [org.soulspace.clj.java beans])
   (:import [java.awt BasicStroke Color Dimension Font GradientPaint Graphics2D Image Point RenderingHints TexturePaint]
            [java.awt.geom Arc2D$Double CubicCurve2D$Double Dimension2D Ellipse2D$Double
             Line2D$Double Point2D$Double Rectangle2D$Double RoundRectangle2D$Double QuadCurve2D$Double]
            [java.awt.image BufferedImage]
            [javax.imageio ImageIO]))
 
+;;
+;; Functions for creating graphics with AWT
+;;
+
+;;
+;; Constant maps
+;;
 (def stroke-cap-styles {:cap_butt BasicStroke/CAP_BUTT
                         :cap_round BasicStroke/CAP_ROUND
                         :cap_square BasicStroke/CAP_SQUARE})
@@ -98,6 +105,9 @@
                  :ushort-555-rgb BufferedImage/TYPE_USHORT_555_RGB ; Represents an image with 5-5-5 RGB color components (5-bits red, 5-bits green, 5-bits blue) with no alpha.
                  :ushort-565-rgb BufferedImage/TYPE_USHORT_565_RGB}) ; Represents an image with 5-6-5 RGB color components (5-bits red, 6-bits green, 5-bits blue) with no alpha.
 
+;;
+;; Basic constructors
+;;
 
 ; Paint
 (defn gradient-paint
@@ -185,6 +195,10 @@
   "Creates a 2d rounded rectangle."
   [x y w h arc-w arc-h]
   (RoundRectangle2D$Double. x y w h arc-w arc-h))
+
+;;
+;;
+;;
 
 (defn set-color
   "Sets the color of the graphics context gfx."
@@ -289,6 +303,10 @@
   ([^java.awt.Graphics2D gfx ^java.awt.Image img x y]
    (.drawImage gfx img x y nil)))
 
+;;
+;;
+;;
+
 (defn buffered-image
   "Creates a buffered image."
   ([src]
@@ -300,6 +318,10 @@
   "Creates a graphics context from the a buffered image."
   [img]
   (.createGraphics img))
+
+;;
+;;
+;;
 
 (defn get-rgb
   "Returns the rgb value of the pixel at the coordinates x,y in the image."
@@ -315,7 +337,10 @@
   ([^BufferedImage img x y v]
    (.setRGB img x y v)))
 
-;Image IO
+;;
+;; Image IO
+;;
+
 (defn write-image
   "Writes an image in the given format to the file."
   [img format file]
