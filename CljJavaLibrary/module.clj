@@ -12,5 +12,5 @@
            ["org.soulspace.baumeister/ClojureTestPlugin"]
            ["org.soulspace.baumeister/PackagePlugin"]]
 
- :dependencies [["org.clojure/clojure, 1.8.0"]
+ :dependencies [["org.clojure/clojure, 1.10.1"]
                 ["org.soulspace.clj/CljLibrary, 0.7.0"]]]

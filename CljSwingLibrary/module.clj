@@ -9,7 +9,7 @@
  :plugins [["org.soulspace.baumeister/ClojurePlugin"]
            ;["org.soulspace.baumeister/ClojureTestPlugin"]
            ["org.soulspace.baumeister/PackagePlugin"]]
- :dependencies [["org.clojure/clojure, 1.8.0"]
+ :dependencies [["org.clojure/clojure, 1.10.1"]
                 ["swing-utils/swing-utils, 0.2.0"]
                 ["org.soulspace.clj/CljJavaLibrary, 0.7.0"]
                 ["com.miglayout/miglayout, 3.7.4"]]]
