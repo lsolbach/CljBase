@@ -7,15 +7,15 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 ;
-(ns org.soulspace.clj.message-digest
-  (:use [clojure.java.io])
+(ns org.soulspace.clj.java.message-digest
+  (:require [clojure.java.io :as io])
   (:import [java.nio.file Files Path Paths]
            [java.security MessageDigest]))
 
 ; definition copied from clojure.java.io because it's private
 (def ^{:doc "Type object for a Java primitive byte array."
        :private true}
- byte-array-type (class (make-array Byte/TYPE 0)))
+  byte-array-type (class (make-array Byte/TYPE 0)))
 
 ; Algorithms as defined by http://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html
 ; MD2 not included here because it is considerated insecure.

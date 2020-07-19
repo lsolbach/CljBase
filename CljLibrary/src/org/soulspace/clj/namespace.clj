@@ -8,8 +8,9 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.namespace
-  (:require [clojure.string :as str])
-  (:use [org.soulspace.clj file string]))
+  (:require [clojure.string :as str]
+            [org.soulspace.clj.file :as file]
+            [org.soulspace.clj.string :as s]))
 
 ;
 ; Contains functions to help working with namespaces.
@@ -23,7 +24,7 @@
 (defn path-to-ns
   "Converts a path into a namespace."
   [path]
-  (str/replace (normalize-path path) \/ \.))
+  (str/replace (file/normalize-path path) \/ \.))
 
 (defn ns-to-filename
   "Converts a namespace into a fileneame."
@@ -47,11 +48,11 @@
 
 (defn symbol-name [s]
   "Converts s to hyphened clojure symbol name"
-  (str/lower-case (camel-case-to-hyphen s)))
+  (str/lower-case (s/camel-case-to-hyphen s)))
 
 (defn record-name [s]
   "Converts s to hyphened clojure name"
-  (first-upper-case (hyphen-to-camel-case s)))
+  (s/first-upper-case (s/hyphen-to-camel-case s)))
 
 (defn call-by-name
   "Resolves a function by name and calls it."

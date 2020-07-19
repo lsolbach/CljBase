@@ -8,84 +8,83 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.file
-  (:require [clojure.string :as str])
-  (:use [clojure.core :exclude [name]]
-        [clojure.java.io :exclude [delete-file]]
-        [org.soulspace.clj.string :only [substring]])
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io]
+            [org.soulspace.clj.string :refer [substring]])
   (:import [java.io File]))
 
 (defn exists?
   "Returns true, if the given file exists."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (and (not (nil? file)) (.exists file))))
 
 (defn is-dir?
   "Returns true, if the given file exists and is a directory."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (and (exists? file) (.isDirectory file))))
 
 (defn is-file?
   "Returns true, if the given file exists and is a directory."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (and (exists? file) (.isFile file))))
 
 (defn readable?
   "Returns true, if the given file is readable."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (and (exists? file) (.canRead file))))
 
 (defn writeable?
   "Returns true, if the given file is writeable."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (and (exists? file) (.canWrite file))))
 
 (defn executable?
   "Returns true, if the given file is executable."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (and (exists? file) (.canExecute file))))
 
 (defn- list-files [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (seq (.listFiles file))))
 
 (defn- list-paths [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (seq (.list file))))
 
 (defn file-name
   "Returns the name of the file."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getName file)))
 
 (defn base-name
   "Returns the name of the file."
   [file]
-  (let [file-name (.getName (as-file file))]
+  (let [file-name (.getName (io/as-file file))]
     (substring 0 (str/last-index-of \. file-name) file-name)))
 
 (defn parent-path
   "Returns the parent path for the file if it exists."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getParent file)))
 
 (defn parent-dir
   "Returns the parent dir of the file if it exists."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getParentFile file)))
 
 (defn path
   "Returns the path of the file."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getPath file)))
 
 (defn normalize-path
@@ -101,32 +100,32 @@
 (defn absolute-path
   "Returns the absolute path of the file."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getAbsolutePath file)))
 
 (defn absolute-file
   "Returns the file as absolute file."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getAbsoluteFile file)))
 
 (defn canonical-path
   "Returns the canonical path of the file."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getCanonicalPath file)))
 
 (defn canonical-file
   "Returns the canonical file of the file."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (.getCanonicalFile file)))
 
 (defn relative-path
   "Returns the path of the file relative to the base-path."
   [base-path file]
   (let [cpath (canonical-path file)
-        cbase-path (canonical-path (as-file base-path))]
+        cbase-path (canonical-path (io/as-file base-path))]
     (if (str/starts-with? cpath cbase-path)
       (if (str/ends-with? cbase-path "/")
         (substring (count cbase-path) cpath)
@@ -184,13 +183,13 @@
 (defn delete-file
   "Deletes the file."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (when (exists? file)
       (.delete file))))
 
 (defn delete-dir
   "Deletes the directory and any subdirectories."
   [file]
-  (let [file (as-file file)]
+  (let [file (io/as-file file)]
     (doseq [f (reverse (all-files file))]
       (delete-file f))))

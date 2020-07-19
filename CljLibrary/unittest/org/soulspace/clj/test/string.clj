@@ -1,7 +1,6 @@
 (ns org.soulspace.clj.test.string
-  (:use
-    [clojure.test]
-    [org.soulspace.clj.string]))
+  (:require [clojure.test :refer :all]
+            [org.soulspace.clj.string :refer :all]))
 
 (deftest gt-test
   (is (true? (gt "b" "a")))
@@ -34,3 +33,41 @@
   (is (true? (le "aa" "aa")))
   (is (true? (le "a" "b")))
   (is (true? (le "aa" "ab"))))
+
+(deftest eq-test
+  (is (true? (eq "" "")))
+  (is (true? (eq "aa" "aa")))
+  (is (false? (eq "aa" "ab")))
+  (is (false? (eq "ab" "aa")))
+  (is (false? (eq "aA" "aa"))))
+
+(deftest ne-test
+  (is (false? (ne "" "")))
+  (is (false? (ne "aa" "aa")))
+  (is (true? (ne "aa" "ab")))
+  (is (true? (ne "ab" "aa")))
+  (is (true? (ne "aA" "aa"))))
+
+(deftest substring-test
+  (is (= (substring 0 1 "clojure") "c"))
+  (is (= (substring 2 5 "clojure") "oju")))
+
+(deftest first-upper-case-test
+  (is (= (first-upper-case "heLLo") "HeLLo")))
+
+(deftest first-lower-case-test
+  (is (= (first-lower-case "HeLLo") "heLLo")))
+
+(deftest hyphen-to-camel-case-test
+  (is (= (hyphen-to-camel-case "hyphen-to-camel-case") "hyphenToCamelCase")))
+
+(deftest camel-case-to-hyphen-test
+  (is (= (camel-case-to-hyphen "camelCaseToHyphen") "camel-Case-To-Hyphen")))
+
+(deftest underscore-to-camel-case-test
+  (is (= (underscore-to-camel-case "underscore_to_camel_case") "underscoreToCamelCase")))
+
+(deftest camel-case-to-underscore-test
+  (is (= (camel-case-to-underscore "camelCaseToUnderscore") "camel_Case_To_Underscore")))
+
+

@@ -2,7 +2,7 @@
  :module "CljLibrary"
  :project "org.soulspace.clj"
  :type :library
- :version "0.7.0"
+ :version "0.8.0"
  :description "The CljLibrary is a library for clojure providing convenience functions with no other dependencies than Java and Clojure."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"

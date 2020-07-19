@@ -7,9 +7,9 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 ;
-(ns org.soulspace.clj.application.test.cli
+(ns org.soulspace.clj.test.cli
   (:use [clojure.test]
-        [org.soulspace.clj.application.cli]))
+        [org.soulspace.clj.cli]))
 
 (def opt-def1 [["--define" "-D" "Define a variable"]
                ["--help" "-h" "Display help"]

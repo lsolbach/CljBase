@@ -8,7 +8,7 @@
 ;   You must not remove this notice, or any other, from this software.
 ;
 (ns org.soulspace.clj.string
-  (:use [clojure.string :only [upper-case lower-case]]))
+  (:require [clojure.string :refer [upper-case lower-case]]))
 
 (defn gt
   "Greater than string comparison."
@@ -68,7 +68,8 @@
   (str (lower-case (substring 0 1 s)) (substring 1 s)))
 
 (defn to-camel-case
-  "Converts a string into camel case. Removes occurences of 'c' and converts the next character to upper case."
+  "Converts a string s into camel case. Removes occurences of 'c' and converts
+  the next character to upper case."
   [c s]
   (loop [chars (seq s) cc-chars []]
     (if (seq chars)
@@ -78,7 +79,8 @@
       (apply str cc-chars))))
 
 (defn from-camel-case
-  "Converts a string from camel case to a lower case string with the spacer character 'c' inserted in front of any intra word uppercase char."
+  "Converts a string s from camel case to a lower case string with the spacer character
+  'c' inserted in front of any intra word uppercase char."
   [c s]
   (loop [chars (seq s) r-chars [] begin true]
     (if (seq chars)

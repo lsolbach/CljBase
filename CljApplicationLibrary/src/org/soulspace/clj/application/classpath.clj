@@ -13,8 +13,6 @@
   (:import [java.net URL URLClassLoader]
            [clojure.lang DynamicClassLoader]))
 
-; TODO move into CljAppFramework
-
 (defn context-classloader
   "Returns the context class loader of the current thread."
   []

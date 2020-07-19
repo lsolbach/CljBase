@@ -7,7 +7,7 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 ;
-(ns org.soulspace.clj.application.i18n)
+(ns org.soulspace.clj.java.i18n)
 
 (defn bundle
   "Returns the resource bundle of the name (default name is resources)."

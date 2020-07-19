@@ -1,13 +1,17 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
-(ns org.soulspace.clj.application.string-property)
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
+(ns org.soulspace.clj.property-replacement)
+
+;;
+;; Functions for property replacements in the form of ${property}
+;;
 
 ; concatenate the tokens matched by the pattern of replace-properties
 ; if no property is found, replace with
@@ -31,7 +35,6 @@
    (if-not (nil? input)
      (replace-properties prop-map input)
      (replace-properties prop-map default))))
-
 
 (defn replace-properties-recursive
   "Recursively replaces properties of the form ${property} in strings contained in input until no further replacement is possible."

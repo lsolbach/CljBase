@@ -7,8 +7,12 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 ;
-(ns org.soulspace.clj.codec
+(ns org.soulspace.clj.java.codec
   (:import [javax.xml.bind DatatypeConverter]))
+
+;;
+;; Functions to encode/decode to Hex and Base64
+;;
 
 (defn encode-hex
   "Encode the bytes as hexadecimal string."

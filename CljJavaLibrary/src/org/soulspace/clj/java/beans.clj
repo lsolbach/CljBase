@@ -1,23 +1,23 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
 (ns org.soulspace.clj.java.beans
   (:refer-clojure :exclude [methods])
   (:require [clojure.string :as str])
   (:use [org.soulspace.clj.string :only [first-upper-case]]
         [org.soulspace.clj.java reflection type-conversion]))
 
-;
-; Method-based reflective access to Java bean style objects.
-;
-; TODO memoize with core.memoize for performance
-;
+;;
+;; Method-based reflective access to Java bean style objects.
+;;
+;; TODO memoize with core.memoize for performance
+;;
 
 (def boxing
   {java.lang.Boolean/TYPE java.lang.Boolean
