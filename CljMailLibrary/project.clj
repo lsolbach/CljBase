@@ -4,7 +4,6 @@
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.1"]
-                 [javax.mail/javax.mail-api "1.5.1"]
-                 [com.sun.mail/javax.mail "1.5.1"]
+                 [javax.mail/javax.mail-api "1.6.2"]
                  [org.soulspace.clj/CljJavaLibrary "0.8.0"]]
   :test-paths ["unittest"])

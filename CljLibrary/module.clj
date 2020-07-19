@@ -1,9 +1,9 @@
 [
- :module "CljLibrary"
+ :module "clj-base"
  :project "org.soulspace.clj"
  :type :library
  :version "0.8.0"
- :description "The CljLibrary is a library for clojure providing convenience functions with no other dependencies than Java and Clojure."
+ :description "clj-base is a library for Clojure providing functions with no other dependencies than Clojure."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"
  :scm-url "https://github.com/lsolbach/CljBase"
