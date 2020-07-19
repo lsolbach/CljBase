@@ -4,3 +4,8 @@
 target
 pom.xml
 .lein-failures
+
+# Eclipse
+.classpath
+.project
+
