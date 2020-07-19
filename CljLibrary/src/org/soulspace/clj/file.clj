@@ -1,17 +1,26 @@
-;
-;   Copyright (c) Ludger Solbach. All rights reserved.
-;   The use and distribution terms for this software are covered by the
-;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;   which can be found in the file license.txt at the root of this distribution.
-;   By using this software in any fashion, you are agreeing to be bound by
-;   the terms of this license.
-;   You must not remove this notice, or any other, from this software.
-;
+;;
+;;   Copyright (c) Ludger Solbach. All rights reserved.
+;;   The use and distribution terms for this software are covered by the
+;;   Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+;;   which can be found in the file license.txt at the root of this distribution.
+;;   By using this software in any fashion, you are agreeing to be bound by
+;;   the terms of this license.
+;;   You must not remove this notice, or any other, from this software.
+;;
+
 (ns org.soulspace.clj.file
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
-            [org.soulspace.clj.string :refer [substring]])
+            [org.soulspace.clj.string :as sstr])
   (:import [java.io File]))
+
+;;
+;; Functions for working with files
+;;
+
+;;
+;; File predicates
+;;
 
 (defn exists?
   "Returns true, if the given file exists."
@@ -49,6 +58,10 @@
   (let [file (io/as-file file)]
     (and (exists? file) (.canExecute file))))
 
+;;
+;; File name and path
+;;
+
 (defn- list-files [file]
   (let [file (io/as-file file)]
     (seq (.listFiles file))))
@@ -67,7 +80,7 @@
   "Returns the name of the file."
   [file]
   (let [file-name (.getName (io/as-file file))]
-    (substring 0 (str/last-index-of \. file-name) file-name)))
+    (sstr/substring 0 (str/last-index-of \. file-name) file-name)))
 
 (defn parent-path
   "Returns the parent path for the file if it exists."
@@ -128,9 +141,38 @@
         cbase-path (canonical-path (io/as-file base-path))]
     (if (str/starts-with? cpath cbase-path)
       (if (str/ends-with? cbase-path "/")
-        (substring (count cbase-path) cpath)
-        (substring (+ (count cbase-path) 1) cpath))
+        (sstr/substring (count cbase-path) cpath)
+        (sstr/substring (+ (count cbase-path) 1) cpath))
       (path file))))
+
+;;
+;; Creation and deletion
+;;
+
+(defn create-dir
+  "Creates a directory including missing parent directories."
+  [file]
+  (if-not (exists? file)
+    (.mkdirs file)))
+
+(defn delete-file
+  "Deletes the file."
+  [file]
+  (let [file (io/as-file file)]
+    (when (exists? file)
+      (.delete file))))
+
+(defn delete-dir
+  "Deletes the directory and any subdirectories."
+  [file]
+  (let [file (io/as-file file)]
+    (doseq [f (reverse (all-files file))]
+      (delete-file f))))
+
+
+;;
+;; Searching, listing and matching
+;;
 
 (defn has-extension?
   "Returns true if the path of the file ends with the given extension."
@@ -141,12 +183,6 @@
   "Returns true if the path of the file matches the given pattern."
   [pattern file]
   (and (exists? file) (re-matches pattern (normalized-path (path file)))))
-
-(defn create-dir
-  "Creates a directory including missing parent directories."
-  [file]
-  (if-not (exists? file)
-    (.mkdirs file)))
 
 (defn files
   "Returns a sequence of the files in a directory given as file.
@@ -180,16 +216,3 @@
   [pattern file]
   (filter (partial matches? pattern) (all-files file)))
 
-(defn delete-file
-  "Deletes the file."
-  [file]
-  (let [file (io/as-file file)]
-    (when (exists? file)
-      (.delete file))))
-
-(defn delete-dir
-  "Deletes the directory and any subdirectories."
-  [file]
-  (let [file (io/as-file file)]
-    (doseq [f (reverse (all-files file))]
-      (delete-file f))))
