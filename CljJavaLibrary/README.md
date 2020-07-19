@@ -1,20 +1,29 @@
-CljJavaLibrary
-==============
-The CljJavaLibrary contains various functions for Clojure/Java integration.
+clj-java
+========
+The clj-java library contains various functions for Clojure/Java integration.
+clj-java only requires classes from the JDK. It does not have external dependencies.
+The functions in this library are expected to provide an idiomatic API for Clojure and some additional value over plain Java interop.
 
-It contains
-* Java reflection functions
-* Java Bean functions
-* BeanInfo functions
-* Java type coercion/conversion functions
+clj-java contains the following namespaces
+* beaninfo - functions to set Java bean properties via property descriptors
+* beans- functions for method-based reflective access to Java bean style objects
+* codec- functions to encode/decode to Hex and Base64
+* i18n - functions for internationalization via Java resource bundles
+* message-digest - functions to create message digests
+* net - functions for network access
+* properties - function to create Java Properties from a Clojure map
+* reflection - functions for reflective introspection of Java classes
+* system - functions for interacting with java.lang.System
+* type-conversion - Java type coercion/conversion functions
 
-Author/Project Lead
--------------------
-Ludger Solbach
+Usage
+-----
+Leiningen
+[org.soulspace.clj/clj-java "0.8.0"]
 
 Copyright
 ---------
-© 2011-2013 Ludger Solbach
+© 2011-2020 Ludger Solbach
 
 License
 -------
@@ -22,28 +31,5 @@ License
 
 Code Repository
 ---------------
-[https://github.com/lsolbach/CljJavaLibrary] (https://github.com/lsolbach/CljJavaLibrary)
+[CljBase on GitHub](https://github.com/lsolbach/CljBase)
 
-History
--------
-
-Version 0.4.0 (--.--.2014)
---------------------------
-* updated CljLibrary dependency
-* added copyright header in source files
-* updated module files
-* enhanced type coercions
-
-Version 0.3.0 (05.08.2013)
---------------------------
-* enhanced doc strings
-* updated to CljLibrary 0.4.0
-* updated module files
-
-Version 0.2.0 (03.08.2013)
---------------------------
-* added new type conversions from Integers to other numeric types
-* added license.txt
-* updated module files
-* initial github import
-* initial git import
