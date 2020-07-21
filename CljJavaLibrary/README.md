@@ -1,7 +1,7 @@
-clj-java
+clj.java
 ========
-The clj-java library contains various functions for Clojure/Java integration.
-clj-java only requires classes from the JDK. It does not have external dependencies.
+The clj.java library contains various functions for Clojure/Java integration.
+clj.java only requires classes from the JDK. It does not have external dependencies.
 The functions in this library are expected to provide an idiomatic API for Clojure and some additional value over plain Java interop.
 
 clj-java contains the following namespaces
@@ -16,10 +16,12 @@ clj-java contains the following namespaces
 * system - functions for interacting with java.lang.System
 * type-conversion - Java type coercion/conversion functions
 
+clj.java uses clj.base.
+
 Usage
 -----
-Leiningen
-[org.soulspace.clj/clj-java "0.8.0"]
+Leiningen:
+[org.soulspace.clj/clj.java "0.8.0"]
 
 Copyright
 ---------
@@ -27,7 +29,7 @@ Copyright
 
 License
 -------
-[Eclipse Public License 1.0] (http://www.eclipse.org/legal/epl-v10.html "EPL 1.0")
+[Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
 
 Code Repository
 ---------------

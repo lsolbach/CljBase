@@ -7,6 +7,7 @@
 ;;   the terms of this license.
 ;;   You must not remove this notice, or any other, from this software.
 ;;
+
 (ns org.soulspace.clj.mail.mail
   (:require [org.soulspace.clj.java.beans :as b])
   (:import [javax.mail MessageRemovedException Session Transport]

@@ -1,9 +1,9 @@
 [
- :module "clj-app"
+ :module "clj.app"
  :project "org.soulspace.clj"
  :type :library
  :version "0.7.0"
- :description "The clj-app library contains abstractions and functions for building applications in Clojure"
+ :description "The clj.app library contains abstractions and functions for building applications in Clojure"
  :scm-url "https://github.com/lsolbach/CljBase"
  :plugins [["org.soulspace.baumeister/ClojurePlugin"]
            ["org.soulspace.baumeister/ClojureTestPlugin"]

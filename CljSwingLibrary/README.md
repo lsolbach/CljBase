@@ -1,12 +1,12 @@
-clj-swing
+clj.swing
 =========
-clj-swing is a Clojure library for the creation of Java Swing user interfaces.
+clj.swing is a Clojure library for the creation of Java Swing user interfaces.
 
 
 Usage
 -----
-Leiningen
-
+Leiningen:
+[org.soulspace.clj/clj.swing "0.7.0"]
 
 Copyright
 ---------
@@ -14,8 +14,8 @@ Copyright
 
 License
 -------
-[Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html "EPL 1.0")
+[Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
 
 Code Repository
 ---------------
-[CljBase on GitHub](https://github.com/lsolbach/CljSwingLibrary)
+[CljBase on GitHub](https://github.com/lsolbach/CljBase)

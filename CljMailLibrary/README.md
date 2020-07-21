@@ -1,15 +1,20 @@
-clj-mail
+clj.mail
 ========
-The clj-mail library is a clojure wrapper library for the JavaMail API.
+The clj.mail library is a clojure wrapper library for the JavaMail API.
+
+Usage
+-----
+Leiningen:
+[org.soulspace.clj/clj.mail "0.3.0"]
 
 Copyright
 ---------
-© 2014 Ludger Solbach
+© 2014-2020 Ludger Solbach
 
 License
 -------
-[Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html "EPL 1.0")
+[Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
 
 Code Repository
 ---------------
-[CljBase on GitHub](https://github.com/lsolbach/CljMailLibrary)
+[CljBase on GitHub](https://github.com/lsolbach/CljBase)

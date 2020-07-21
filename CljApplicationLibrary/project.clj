@@ -1,5 +1,5 @@
-(defproject org.soulspace.clj/clj-app "0.7.0"
-  :description "The clj-app library  contains abstractions and functions for building applications in clojure"
+(defproject org.soulspace.clj/clj.app "0.7.0"
+  :description "The clj.app library  contains abstractions and functions for building applications in Clojure"
   :url "https://github.com/lsolbach/CljBase"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
