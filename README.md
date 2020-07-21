@@ -1,17 +1,23 @@
 CljBase Repository
 ==================
 
-This repository contains clojure libraries with dependencies to clojure, java and partially on libraries in this repository.
+This repository contains some Clojure libraries.
 
 It contains these modules
- * CljLibrary
- * CljJavaLibrary
- * CljSwingLibrary
- * CljApplicationLibrary
- * CljMailLibrary
+ * clj.base
+ * clj.java
+ * clj.swing
+ * clj.app
+ * clj.mail
 
-The modules can be build with Baumeister which is available at [http://downloads.soulspace.org/Baumeister/] (http://downloads.soulspace.org/Baumeister/).
+Copyright
+---------
+© 2011-2020 Ludger Solbach
 
+License
+-------
+[Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
 
-
-
+Code Repository
+---------------
+[CljBase on GitHub](https://github.com/lsolbach/CljBase)
