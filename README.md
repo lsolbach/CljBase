@@ -10,13 +10,13 @@ It contains these modules
  * clj.app
  * clj.mail
 
+Licence
+-------
+See the license section in the individual modules.
+
 Copyright
 ---------
 © 2011-2020 Ludger Solbach
-
-License
--------
-[Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
 
 Code Repository
 ---------------
