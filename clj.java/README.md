@@ -21,7 +21,7 @@ clj.java uses clj.base.
 Usage
 -----
 Leiningen:
-[org.soulspace.clj/clj.java "0.8.1-SNAPSHOT"]
+[org.soulspace.clj/clj.java "0.8.0"]
 
 Copyright
 ---------

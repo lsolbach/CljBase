@@ -1,12 +1,9 @@
 ChangeLog
 =========
 
-Version 0.8.1
--------------
-* updated clj.base dependency, added, deps.edn, updated project files
-
 Version 0.8.0
 ------------- 
+* updated clj.base dependency, added, deps.edn, updated project files
 * renamed to clj.java to make the library compatible with clojars
 * updated project files accordingly
 * made the code compliant to current Clojure coding practice (e.g. require over use)
