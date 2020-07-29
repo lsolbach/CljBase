@@ -1,15 +1,16 @@
 *.*~
 
 ## Clojure
-**/.nrepl-port
+.nrepl-port
 
 ## Leiningen
-**/target
-**/.lein-failures
+target/
+.lein-failures
 # only for Leiningen projects, remove for Maven projects
 **/pom.xml
 
 ## Eclipse
-**/.classpath
-**/.project
-**/.settings
+.classpath
+.project
+.settings/
+bin/
