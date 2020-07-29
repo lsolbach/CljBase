@@ -2,10 +2,9 @@ clj.base
 ========
 The clj.base library provides functions with no other dependencies than Clojure.
 
-clj.base contains the following namespaces
+clj.base contains the following namespaces:
 * cli - functions to define and parse command line options
-* file - functions for working with files
-* file-search - functions to build search paths and search files
+* file - functions for working with files, search paths and file search
 * function - functions
 * namespace - functions to help working with namespaces
 * property-replacement - functions for property replacements in the form of ${property}
@@ -13,9 +12,11 @@ clj.base contains the following namespaces
 
 Usage
 -----
-Leiningen: 
-[org.soulspace.clj/clj.base "0.8.0"]
+Leiningen dependency: 
 
+```
+[org.soulspace.clj/clj.base "0.8.1"]
+```
 
 Copyright
 ---------
