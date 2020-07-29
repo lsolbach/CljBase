@@ -1,6 +1,14 @@
 ChangeLog
 =========
 
+Version 0.8.1
+-------------
+* merged file-search into file namespace
+* enhanced from-camel-case, added to-kebab-case
+* added unqualify-keyword and unqualify-map
+* renamed unittest folder to test
+* fixed function definition order
+
 Version 0.8.0
 ------------- 
 * added Leiningen project file
