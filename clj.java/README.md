@@ -21,7 +21,7 @@ clj.java uses clj.base.
 Usage
 -----
 Leiningen:
-[org.soulspace.clj/clj.java "0.8.0"]
+[org.soulspace.clj/clj.java "0.8.1-SNAPSHOT"]
 
 Copyright
 ---------
@@ -34,4 +34,3 @@ License
 Code Repository
 ---------------
 [CljBase on GitHub](https://github.com/lsolbach/CljBase)
-
