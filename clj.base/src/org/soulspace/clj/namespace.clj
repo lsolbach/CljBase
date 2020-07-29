@@ -17,35 +17,56 @@
 ;; Functions to help working with namespaces
 ;;
 
+;;
+;; Strip namespace from namespace qualified keywords 
+;;
+
+(defn unqualify-keyword
+  "Strips the namespace of keyword 'k' and returns it as an unqualified keyword."
+  [k]
+  (keyword (name k)))
+
+(defn unqualify-map
+  "Returns a copy of the given map m, in which all qualified keys have been replaced with their unqualified variant."
+  [m]
+  (into {} (map (fn [[k v]] [(if (qualified-keyword? k)
+                               (unqualify-keyword k)
+                               k)
+                               v]) m)))
+
+;;
+;; Namespace/path conversions 
+;;
+
 (defn ns-to-path
-  "Converts a namespace into a path."
-  [ns]
-  (str/replace ns \. \/))
+  "Converts a namespace 'nsp' into a path."
+  [nsp]
+  (str/replace nsp \. \/))
 
 (defn path-to-ns
-  "Converts a path into a namespace."
+  "Converts a 'path' into a namespace."
   [path]
   (str/replace (file/normalize-path path) \/ \.))
 
 (defn ns-to-filename
-  "Converts a namespace into a fileneame."
-  [ns]
-  (str/replace ns \- \_))
+  "Converts a namespace 'nsp' into a filename."
+  [nsp]
+  (str/replace nsp \- \_))
 
 (defn filename-to-ns
   "Converts a filename into a namespace."
-  [file]
-  (str/replace file \_ \-))
+  [filename]
+  (str/replace filename \_ \-))
 
 (defn ns-to-file
   "Converts a namespace into a fileneame."
-  [ns]
-  (str/replace (str/replace ns \- \_) \. \/))
+  [nsp]
+  (str/replace (str/replace nsp \- \_) \. \/))
 
 (defn file-to-ns
   "Converts a filename into a namespace."
-  [file]
-  (str/replace (str/replace file \_ \-) \/ \.))
+  [filename]
+  (str/replace (str/replace filename \_ \-) \/ \.))
 
 (defn symbol-name
   "Converts s to hyphened clojure symbol name"
@@ -58,19 +79,19 @@
   (s/first-upper-case (s/hyphen-to-camel-case s)))
 
 (defn call-by-name
-  "Resolves a function by name and calls it."
-  ([^String name]
-   (when-let [func (ns-resolve (symbol name))]
+  "Resolves a function by name 's' and calls it."
+  ([^String s]
+   (when-let [func (ns-resolve (symbol s))]
      (if (fn? func) (func))))
-  ([^String name & args]
-   (when-let [func (ns-resolve (symbol name))]
+  ([^String s & args]
+   (when-let [func (ns-resolve (symbol s))]
      (if (fn? func) (apply func args)))))
 
 (defn call-by-ns-name
-  "Resolves a function by name in the given namespace and calls it."
-  ([^String ns ^String name]
-   (when-let [func (ns-resolve (symbol ns) (symbol name))]
+  "Resolves a function by name 's' in the given namespace 'nsp' and calls it."
+  ([^String nsp ^String s]
+   (when-let [func (ns-resolve (symbol nsp) (symbol s))]
      (if (fn? func) (func))))
-  ([^String ns ^String name & args]
-   (when-let [func (ns-resolve (symbol ns) (symbol name))]
+  ([^String nsp ^String s & args]
+   (when-let [func (ns-resolve (symbol nsp) (symbol s))]
      (if (fn? func) (apply func args)))))

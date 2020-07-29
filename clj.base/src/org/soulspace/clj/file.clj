@@ -146,31 +146,6 @@
       (path file))))
 
 ;;
-;; Creation and deletion
-;;
-
-(defn create-dir
-  "Creates a directory including missing parent directories."
-  [file]
-  (if-not (exists? file)
-    (.mkdirs file)))
-
-(defn delete-file
-  "Deletes the file."
-  [file]
-  (let [file (io/as-file file)]
-    (when (exists? file)
-      (.delete file))))
-
-(defn delete-dir
-  "Deletes the directory and any subdirectories."
-  [file]
-  (let [file (io/as-file file)]
-    (doseq [f (reverse (all-files file))]
-      (delete-file f))))
-
-
-;;
 ;; Searching, listing and matching
 ;;
 
@@ -215,4 +190,28 @@
    If the given file is not a directory, it is returned as only file in the sequence."
   [pattern file]
   (filter (partial matches? pattern) (all-files file)))
+
+;;
+;; Creation and deletion
+;;
+
+(defn create-dir
+  "Creates a directory including missing parent directories."
+  [file]
+  (if-not (exists? file)
+    (.mkdirs file)))
+
+(defn delete-file
+  "Deletes the file."
+  [file]
+  (let [file (io/as-file file)]
+    (when (exists? file)
+      (.delete file))))
+
+(defn delete-dir
+  "Deletes the directory and any subdirectories."
+  [file]
+  (let [file (io/as-file file)]
+    (doseq [f (reverse (all-files file))]
+      (delete-file f))))
 

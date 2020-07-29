@@ -2,7 +2,7 @@
  :module "clj.base"
  :project "org.soulspace.clj"
  :type :library
- :version "0.8.0"
+ :version "0.8.1"
  :description "The clj.base library provides functions with no other dependencies than Clojure."
  :project-lead "Ludger Solbach"
  :provider "soulspace.org"
