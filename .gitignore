@@ -3,6 +3,7 @@
 ## Clojure
 .nrepl-port
 .cpcache/
+.rebl/
 
 ## Leiningen
 target/
@@ -15,3 +16,4 @@ target/
 .project
 .settings/
 bin/
+hs_err_pid*.log
