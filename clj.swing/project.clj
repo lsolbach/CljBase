@@ -1,4 +1,4 @@
-(defproject org.soulspace.clj/clj.swing "0.7.0"
+(defproject org.soulspace.clj/clj.swing "0.7.1-SNAPHOT"
   :description "clj.swing is a library for building Java Swing user interfaces in Clojure"
   :url "https://github.com/lsolbach/CljBase"
   :license {:name "Eclipse Public License"
