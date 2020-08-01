@@ -5,8 +5,11 @@ clj.swing is a Clojure library for the creation of Java Swing user interfaces.
 
 Usage
 -----
-Leiningen:
+Leiningen dependency
+
+```
 [org.soulspace.clj/clj.swing "0.7.0"]
+```
 
 Copyright
 ---------
