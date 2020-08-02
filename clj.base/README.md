@@ -10,12 +10,14 @@ clj.base contains the following namespaces:
 * property-replacement - functions for property replacements in the form of ${property}
 * string - functions to supplement clojure.string
 
+[![Clojars Project](https://img.shields.io/clojars/v/org.soulspace.clj/clj.base.svg)](https://clojars.org/org.soulspace.clj/clj.base)
+
 Usage
 -----
 Leiningen dependency: 
 
 ```
-[org.soulspace.clj/clj.base "0.8.1"]
+[org.soulspace.clj/clj.base "0.8.2"]
 ```
 
 Copyright
