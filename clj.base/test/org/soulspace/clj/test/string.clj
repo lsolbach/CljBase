@@ -65,9 +65,20 @@
   (is (= (camel-case-to-hyphen "camelCaseToHyphen") "camel-Case-To-Hyphen")))
 
 (deftest underscore-to-camel-case-test
+  (is (= (underscore-to-camel-case "underscore2camel_case") "underscore2camelCase"))
   (is (= (underscore-to-camel-case "underscore_to_camel_case") "underscoreToCamelCase")))
 
 (deftest camel-case-to-underscore-test
+  (is (= (camel-case-to-underscore "camelCase2Underscore") "camel_Case2_Underscore"))
   (is (= (camel-case-to-underscore "camelCaseToUnderscore") "camel_Case_To_Underscore")))
 
+(deftest kebab-case-test
+  (is (= (to-kebab-case "toKebabCase") "to-kebab-case"))
+  (is (= (to-kebab-case "getHTTPRequest") "get-http-request"))
+  (is (= (to-kebab-case "RDF") "rdf"))
+  (is (= (to-kebab-case "table-column") "table-column"))
+  (is (= (to-kebab-case "table column") "table-column"))
+  (is (= (to-kebab-case "table_column") "table-column"))
+  (is (= (to-kebab-case "_table_column") "-table-column"))
+  (is (= (to-kebab-case "table_123") "table-123")))
 

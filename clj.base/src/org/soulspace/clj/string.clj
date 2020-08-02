@@ -104,26 +104,29 @@
   (loop [chars (seq s) r-chars [] start? true in-upper? false]
     (if (seq chars)
       (let [current-char (first chars)]
-        (if (lower-case? current-char)
-          ;; lower case, don't add spacer char
-          (recur (rest chars) (conj r-chars current-char) false false)
-          (if start?
-            ;; start of word, don't add spacer
-            (recur (rest chars) (conj r-chars current-char) false true)
-            (if-not (seq (rest chars))
-              ;; last char, dont add spacer
+        (if (not (or (Character/isDigit current-char) (Character/isLetter current-char)))
+          ;; special char or white space, replace with hyphen
+          (recur (rest chars) (conj r-chars \-) false false)
+          (if (or (lower-case? current-char) (Character/isDigit current-char))
+            ;; lower case or digit, don't add spacer char
+            (recur (rest chars) (conj r-chars current-char) false false)
+            (if start?
+              ;; start of word, don't add spacer
               (recur (rest chars) (conj r-chars current-char) false true)
-              ;; not the last char of the string
-              (if in-upper?
-                (if (upper-case? (fnext chars))
-                  ;; in an upper case word and the next char is upper case too
-                  ;; don't add spacer here
-                  (recur (rest chars) (conj r-chars current-char) false true)
-                  ;; in an upper case word but the next char is lower case
-                  ;; add a spacer char in front of the last upper case char
-                  (recur (rest chars) (conj r-chars c current-char) false true))
-                ;; first upper case char after a lower case char, add spacer char
-                (recur (rest chars) (conj r-chars c current-char) false true))))))
+              (if-not (seq (rest chars))
+                ;; last char, dont add spacer
+                (recur (rest chars) (conj r-chars current-char) false true)
+                ;; not the last char of the string
+                (if in-upper?
+                  (if (upper-case? (fnext chars))
+                    ;; in an upper case word and the next char is upper case too
+                    ;; don't add spacer here
+                    (recur (rest chars) (conj r-chars current-char) false true)
+                    ;; in an upper case word but the next char is lower case
+                    ;; add a spacer char in front of the last upper case char
+                    (recur (rest chars) (conj r-chars c current-char) false true))
+                  ;; first upper case char after a lower case char, add spacer char
+                  (recur (rest chars) (conj r-chars c current-char) false true)))))))
       (apply str r-chars))))
 
 (defn hyphen-to-camel-case

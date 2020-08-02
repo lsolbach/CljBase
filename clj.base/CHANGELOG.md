@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+Version 0.8.2
+-------------
+* fixed from-camel-case to handle digits, whitespace and special chars
+
 Version 0.8.1
 -------------
 * merged file-search into file namespace
