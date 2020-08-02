@@ -9,7 +9,8 @@
 ;;
 
 (ns org.soulspace.clj.java.swing.swinglib
-  (:require [org.soulspace.clj.java.beans :as b]
+  (:require [org.soulspace.clj.function :as fn]
+            [org.soulspace.clj.java.beans :as b]
             [org.soulspace.clj.java.swing.constants :as sc])
   (:import [java.awt CardLayout]
            [javax.swing AbstractAction AbstractListModel Action BorderFactory ButtonGroup

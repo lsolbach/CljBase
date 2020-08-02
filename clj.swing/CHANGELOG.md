@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 0.7.2
+-------------
+* fixed missing require declaration
+
 Version 0.7.1
 -------------
 * updated clj.base to 0.8.3
