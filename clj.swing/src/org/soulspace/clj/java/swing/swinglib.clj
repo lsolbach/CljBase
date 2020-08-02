@@ -614,7 +614,7 @@
 
 ; Renderer
 (defn table-cell-renderer
-  "Creates a cell renderer with the rebder function 'rf'."
+  "Creates a cell renderer with the render function 'rf'."
   ([rf args]
    (proxy [DefaultTableCellRenderer] []
      (getTableCellRendererComponent [table value isSelected hasFocus row column]
@@ -634,19 +634,28 @@
   [col-spec data]
   (proxy [AbstractTableModel] []
     (getColumnCount [] (count col-spec))
-    (getRowCount [] (count data))
+    (getRowCount [] (if (fn/reftype? data)
+                      (count @data)
+                      (count data)))
     (isCellEditable [_ col] (:edit (nth col-spec col) false))
     (getColumnName [col] (:label (nth col-spec col) (str "Label " col)))
     (getValueAt [row col] ((:converter (nth col-spec col) identity)
-                           ((:key (nth col-spec col)) (nth data row))))))
+                           ((:key (nth col-spec col))
+                             (if (fn/reftype? data)
+                               (nth @data row)
+                               (nth data row)))))))
 
 ; TODO add converter like in mapseq-table-model?
 (defn seq-list-model
   "Creates a list model backed with the 'data' sequence."
   ([data]
    (proxy [AbstractListModel] []
-     (getElementAt [idx] (nth data idx))
-     (getSize [] (count data)))))
+     (getElementAt [idx] (if (fn/reftype? data)
+                           (nth @data idx)
+                           (nth data idx)))
+     (getSize [] (if (fn/reftype? data)
+                   (count @data)
+                   (count data))))))
 
 ; DefaultMutableTreeNode
 (defn tree-node

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.7.1
+-------------
+* updated clj.base to 0.8.3
+* added conditional dereferencing of data in mapseq-table-model and seq-list-model
+
 Version 0.7.0
 -------------
 * changed project name
