@@ -3,7 +3,8 @@ ChangeLog
 
 Version 0.8.3
 -------------
-
+* added atom?, ref?, agent? and reftype? methods to test for reference types.
+* 
 
 Version 0.8.2
 -------------

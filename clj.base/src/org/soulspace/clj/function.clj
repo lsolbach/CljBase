@@ -11,6 +11,29 @@
 (ns org.soulspace.clj.function)
 
 (defn not-nil?
-  "Tests if the argument is not nil. Same as (not (nil? x)) or ((complement nil?) x)."
+  "Tests if 'x' is not nil.
+
+  Same as (not (nil? x)) or ((complement nil?) x).
+  If 'x' is sequable, use (seq x) instead."
   [x]
   (not (nil? x)))
+
+(defn ^:static atom?
+  "Returns true, if 'x' is an Atom."
+  [x]
+  (instance? clojure.lang.Atom x))
+
+(defn ^:static ref?
+  "Returns true, if 'x' is a Ref."
+  [x]
+  (instance? clojure.lang.Ref x))
+
+(defn ^:static agent?
+  "Returns true, if 'x' is an Agent."
+  [x]
+  (instance? clojure.lang.Agent x))
+
+(defn ^:static reftype?
+  "Returns true, if 'x' is an Atom, a Ref or an Agent."
+  [x]
+  (or (atom? x) (ref? x) (agent? x)))
