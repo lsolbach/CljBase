@@ -191,9 +191,14 @@
   (.getText c))
 
 (defn set-text
-  "Sets the text component value to text."
-  [c text]
-  (.setText c text))
+  "Sets the text component value to 's'."
+  [c s]
+  (.setText c s))
+
+(defn set-value
+  "Sets the formatted text field value to the formatted value 'v'."
+  [c v]
+  (.setValue c v))
 
 (defn select-all
   "Selects all characters in the text component."
@@ -209,7 +214,6 @@
   "Returns the field value as an integer."
   [field]
   (.parse (NumberFormat/getIntegerInstance) (.getText field)))
-
 
 (defn set-focus-lost-behaviour
   "Specifies the outcome of a field losing the focus.

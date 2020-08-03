@@ -9,7 +9,7 @@ Usage
 Leiningen dependency
 
 ```
-[org.soulspace.clj/clj.swing "0.7.2"]
+[org.soulspace.clj/clj.swing "0.7.3"]
 ```
 
 Copyright

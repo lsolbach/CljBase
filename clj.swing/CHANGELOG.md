@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 0.7.3
+-------------
+* added a set-value method for formatted text fields
+
 Version 0.7.2
 -------------
 * fixed missing require declaration
