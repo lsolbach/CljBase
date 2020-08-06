@@ -12,7 +12,8 @@
   (:require [clojure.string :as str]
             [org.soulspace.clj.string :as sstr]
             [org.soulspace.clj.java.reflection :as r]
-            [org.soulspace.clj.java.type-conversion :as tc]))
+            [org.soulspace.clj.java.type-conversion :as tc])
+  (:import [java.lang.reflect Method]))
 
 ;;
 ;; Functions for method-based reflective access to Java bean style objects.
@@ -20,7 +21,7 @@
 ;; TODO memoize with core.memoize for performance
 ;;
 
-(set! *warn-on-reflection* true)
+;(set! *warn-on-reflection* true)
 
 (def boxing
   {java.lang.Boolean/TYPE java.lang.Boolean
@@ -43,7 +44,7 @@
 
 (defn compatible-type?
   "Checks the compatibility of java types."
-  [expected actual]
+  [^Class expected ^Class actual]
   (and (not (nil? expected))
        (not (nil? actual))
        (or (= expected actual)
@@ -52,23 +53,23 @@
 
 (defn getter?
   "Returns true if the given method is a property getter method."
-  ([^java.lang.reflect.Method method]
+  ([^Method method]
    (and
      (or
-       (str/starts-with? (.getName method) "get")
-       (str/starts-with? (.getName method) "is"))
+       (str/starts-with? (r/method-name method) "get")
+       (str/starts-with? (r/method-name method) "is"))
      (= 0 (count (r/parameter-types method)))))
-  ([^java.lang.reflect.Method method property-name]))
+  ([^Method method property-name]))
     ; TODO check against property name
 
 
 (defn setter?
   "Returns true if the given method is a property setter method."
-  ([^java.lang.reflect.Method method]
+  ([^Method method]
    (and
-     (str/starts-with? (.getName method) "set")
+     (str/starts-with? (r/method-name method) "set")
      (= 1 (count (r/parameter-types method)))))
-  ([^java.lang.reflect.Method method property-name]))
+  ([^Method method property-name]))
     ; TODO check against property name
 
 
@@ -77,49 +78,49 @@
 
 (defn- parameter-type
   "Returns the first parameter type of a method."
-  [^java.lang.reflect.Method method]
+  [^Method method]
   (first (r/parameter-types method)))
 
 (defn getter-method
   "Returns the getter method for this property. Works for derived properties too."
-  ([^Class cl property]
-   (let [pname (sstr/first-upper-case property)]
-     (first (filter #(and
-                       (or (= (str "get" pname) (.getName %))
-                           (= (str "is" pname) (.getName %)))
-                       (nil? (.getParameterTypes %)))
-                    (r/methods cl))))))
+  ^Method [^Class cl property]
+  (let [pname (sstr/first-upper-case property)]
+    (first (filter #(and
+                      (or (= (str "get" pname) (r/method-name %))
+                          (= (str "is" pname) (r/method-name %)))
+                      (nil? (r/parameter-types %)))
+                   (r/methods cl)))))
 
 (defn setter-methods
   "Returns a sequence of the setter methods for this property."
-  ([^Class cl property]
-   (let [pname (str "set" (sstr/first-upper-case property))]
-     (filter #(and (= pname (.getName %))
-                   (setter? %))
-             (r/methods cl)))))
+  ^Method [^Class cl property]
+  (let [pname (str "set" (sstr/first-upper-case property))]
+    (filter #(and (= pname (r/method-name %))
+                  (setter? %))
+            (r/methods cl))))
 
 (defn adder-methods
   "Returns a sequence of the adder methods for this property."
-  ([^Class cl property]
-   (let [pname (str "add" (sstr/first-upper-case property))]
-     (filter #(and (= pname (.getName %))
-                   (= 1 (count (r/parameter-types %))))
-             (r/methods cl)))))
+  ^Method [^Class cl property]
+  (let [pname (str "add" (sstr/first-upper-case property))]
+    (filter #(and (= pname (r/method-name %))
+                  (= 1 (count (r/parameter-types %))))
+            (r/methods cl))))
 
 (defn remover-methods
   "Returns a sequence of the remover methods for this property."
-  ([^Class cl property]
-   (let [pname (str "remove" (sstr/first-upper-case property))]
-     (filter #(and (= pname (.getName %))
-                   (= 1 (count (r/parameter-types %))))
-             (r/methods cl)))))
+  ^Method [^Class cl property]
+  (let [pname (str "remove" (sstr/first-upper-case property))]
+    (filter #(and (= pname (r/method-name %))
+                  (= 1 (count (r/parameter-types %))))
+            (r/methods cl))))
 
 ; TODO add value as parameter and return the setter based on the type of the value
 (defn setter-method
   "Returns the setter method for this property. Works for derived properties too."
-  ([^Class cl property]
+  (^Method [^Class cl property]
    (first (setter-methods cl property)))
-  ([^Class cl property param-type]
+  (^Method [^Class cl property param-type]
     ;(println param-type "->" (map  #(compatible-type? (parameter-type %) param-type) (setter-methods cl property)))
    (if-let [setter (first (filter #(compatible-type? (parameter-type %) param-type) (setter-methods cl property)))]
      setter
@@ -128,9 +129,9 @@
 ; TODO add value as parameter and return the adder based on the type of the value
 (defn adder-method
   "Returns the add method for this multivalued property."
-  ([^Class cl property]
+  (^Method [^Class cl property]
    (first (adder-methods cl property)))
-  ([^Class cl property param-type]
+  (^Method [^Class cl property param-type]
    (if-let [adder (first (filter #(compatible-type? (parameter-type %) param-type) (adder-methods cl property)))]
      adder
      (adder-method cl property))))
@@ -138,9 +139,9 @@
 ; TODO add value as parameter and return the remover based on the type of the value
 (defn remover-method
   "Returns the remove method for this multivalued property."
-  ([^Class cl property]
+  (^Method [^Class cl property]
    (first (remover-methods cl property)))
-  ([^Class cl property param-type]
+  (^Method [^Class cl property param-type]
    (if-let [remover (first (filter #(compatible-type? (parameter-type %) param-type) (remover-methods cl property)))]
      remover
      (remover-method cl property))))
@@ -172,7 +173,7 @@
   "Sets the value of this property."
   [obj property value]
   (if-let [property-set (setter-method (class obj) property (type value))]
-    (let [param-type (first (.getParameterTypes property-set))]
+    (let [param-type (first (r/parameter-types property-set))]
       (.invoke property-set obj (into-array [(tc/coerce param-type value)])))
     (throw (IllegalArgumentException. (str "No compatible setter for property " property " found.")))))
 
@@ -180,7 +181,7 @@
   "Adds the value to the property collection."
   [obj property value]
   (if-let [property-add (adder-method (class obj) property (type value))]
-    (let [param-type (first (.getParameterTypes property-add))]
+    (let [param-type (first (r/parameter-types property-add))]
       (.invoke property-add obj (into-array [(tc/coerce param-type value)])))
     (throw (IllegalArgumentException. (str "No compatible adder for property " property " found.")))))
 
@@ -188,7 +189,7 @@
   "Removes the value to the property collection."
   [obj property value]
   (if-let [property-remove (remover-method (class obj) property (type value))]
-    (let [param-type (first (.getParameterTypes property-remove))]
+    (let [param-type (first (r/parameter-types property-remove))]
       (.invoke property-remove obj (into-array [value])))
     (throw (IllegalArgumentException. (str "No compatible remover for property " property " found.")))))
 

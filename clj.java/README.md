@@ -4,7 +4,7 @@ The clj.java library contains various functions for Clojure/Java integration.
 clj.java only requires classes from the JDK. It does not have external dependencies.
 The functions in this library are expected to provide an idiomatic API for Clojure and some additional value over plain Java interop.
 
-clj-java contains the following namespaces
+clj.java contains the following namespaces
 * beaninfo - functions to set Java bean properties via property descriptors
 * beans- functions for method-based reflective access to Java bean style objects
 * codec- functions to encode/decode to Hex and Base64
@@ -21,7 +21,7 @@ clj.java uses clj.base.
 Usage
 -----
 Leiningen:
-[org.soulspace.clj/clj.java "0.8.0"]
+[org.soulspace.clj/clj.java "0.8.1"]
 
 Copyright
 ---------

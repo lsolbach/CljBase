@@ -8,7 +8,11 @@
 ;;   You must not remove this notice, or any other, from this software.
 ;;
 
-(ns org.soulspace.clj.function)
+(ns org.soulspace.clj.core)
+
+;;
+;; Functions to supplement clojure.core
+;;
 
 (defn not-nil?
   "Tests if 'x' is not nil.
@@ -37,3 +41,16 @@
   "Returns true, if 'x' is an Atom, a Ref or an Agent."
   [x]
   (or (atom? x) (ref? x) (agent? x)))
+
+; https://gist.github.com/Chouser/a571770f06ef2a9c5334
+(defn array-type
+  "Return a string representing the type of an array with 'dims'
+  dimensions and an element of class type 'cl'.
+  For primitives, use a class 'cl' like Integer/TYPE
+  Useful for type hints of the form: ^#=(array-type String) my-str-array"
+  ([cl] (array-type cl 1))
+  ([cl dims]
+     (.getName (class
+                (apply make-array
+                       (if (symbol? cl) (eval cl) cl)
+                       (repeat dims 0))))))

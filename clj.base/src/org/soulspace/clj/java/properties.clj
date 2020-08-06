@@ -7,18 +7,16 @@
 ;;   the terms of this license.
 ;;   You must not remove this notice, or any other, from this software.
 ;;
+(ns org.soulspace.clj.java.properties
+  (:import [java.util Properties]))
 
-(ns org.soulspace.clj.java.test.beans
-  (:use
-    [clojure.test]
-    [org.soulspace.clj.java.beans]))
+;;
+;; 
+;;
 
-(defn method-name [method]
-  (.getName method))
-
-(deftest get-method-test
-  (is (= (getter-method javax.swing.JFrame "menuBar") nil)))
-
-
-(deftest set-method-test
-  (is (= (method-name (setter-method javax.swing.JFrame "menuBar")) "setMenuBar")))
+(defn properties
+  "Creates java properties from a map."
+  ([m]
+   (let [p (Properties.)]
+     (.putAll p m)
+     p)))

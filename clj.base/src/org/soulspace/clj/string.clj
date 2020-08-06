@@ -15,28 +15,30 @@
 ;; String functions
 ;;
 
+;(set! *warn-on-reflection* true)
+
 ;;
 ;; String comparison
 ;;
 
 (defn gt
   "Greater than string comparison."
-  [s1 s2]
+  [^String s1 ^String s2]
   (> (.compareTo s1 s2) 0))
 
 (defn ge
   "Greater or equal string comparison."
-  [s1 s2]
+  [^String s1 ^String s2]
   (>= (.compareTo s1 s2) 0))
 
 (defn lt
   "Less than string comparison."
-  [s1 s2]
+  [^String s1 ^String s2]
   (< (.compareTo s1 s2) 0))
 
 (defn le
   "Less or equal string comparison."
-  [s1 s2]
+  [^String s1 ^String s2]
   (<= (.compareTo s1 s2) 0))
 
 (defn eq
@@ -55,19 +57,19 @@
 
 (defn substring
   "Returns a substring of string defined by the indices."
-  ([begin-idx s]
+  ([begin-idx ^String s]
    (.substring s begin-idx))
-  ([begin-idx end-idx s]
+  ([begin-idx end-idx ^String s]
    (.substring s begin-idx end-idx)))
 
 (defn upper-case?
   "Returns true if the char is upper case."
-  [c]
+  [^Character c]
   (Character/isUpperCase c))
 
 (defn lower-case?
   "Returns true if the char is lower case."
-  [c]
+  [^Character c]
   (Character/isLowerCase c))
 
 (defn first-upper-case
@@ -100,10 +102,10 @@
   (from-camel-case \\- \"fromCamelCase\") -> \"from-Camel-Case\"
   (from-camel-case \\- \"getHTTPRequest\") -> \"get-HTTP-Request\"
   "
-  [c s]
+  [^Character c s]
   (loop [chars (seq s) r-chars [] start? true in-upper? false]
     (if (seq chars)
-      (let [current-char (first chars)]
+      (let [current-char (char (first chars))]
         (if (not (or (Character/isDigit current-char) (Character/isLetter current-char)))
           ;; special char or white space, replace with hyphen
           (recur (rest chars) (conj r-chars \-) false false)
@@ -166,6 +168,6 @@
 
 (defn parse-number
   "Reads a number from a string. Returns nil if not a number."
-  [s]
+  [^String s]
   (if (re-find #"^-?\d+\.?\d*([Ee]\+\d+|[Ee]-\d+|[Ee]\d+)?$" (.trim s))
     (read-string s)))

@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+Version 0.8.1
+-------------
+* rewrote codec functions because javax.xml.bind was removed from JDK in Java 11
+
 Version 0.8.0
 ------------- 
 * updated clj.base dependency, added, deps.edn, updated project files

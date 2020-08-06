@@ -9,8 +9,5 @@
   :middleware [lein-tools-deps.plugin/resolve-dependencies-with-deps-edn]
   :lein-tools-deps/config {:config-files [:install :user :project]}
 
-;  :dependencies [[org.clojure/clojure "1.10.1"]
-;                 [org.soulspace.clj/clj.base "0.8.1"]]
-
   :test-paths ["test"]
   :deploy-repositories [["clojars"  {:sign-releases false :url "https://clojars.org/repo"}]])

@@ -1,9 +1,16 @@
 ChangeLog
 =========
 
+Version 0.8.4
+-------------
+* Added array-type function to create type hints for non primitive arrays
+* Integrated the namespaces of clj.java into clj.base because they don't have
+  any external dependencies, too
+* Added type hints on many functions
+
 Version 0.8.3
 -------------
-* added atom?, ref?, agent? and reftype? methods to test for reference types.
+* added atom?, ref?, agent? and reftype? methods to test for reference types
 
 Version 0.8.2
 -------------

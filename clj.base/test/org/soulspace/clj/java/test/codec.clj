@@ -8,17 +8,15 @@
 ;;   You must not remove this notice, or any other, from this software.
 ;;
 
-(ns org.soulspace.clj.java.test.beans
-  (:use
-    [clojure.test]
-    [org.soulspace.clj.java.beans]))
+(ns org.soulspace.clj.java.test.codec
+  (:require [clojure.test :refer :all]
+            [org.soulspace.clj.java.codec :refer :all]))
 
-(defn method-name [method]
-  (.getName method))
+(def s1 "Hello World!")
 
-(deftest get-method-test
-  (is (= (getter-method javax.swing.JFrame "menuBar") nil)))
+(deftest base64-test
+  (is (= s1 (String. (base64->bytes (bytes->base64 (.getBytes s1)))))))
 
+(deftest hex-test
+  (is (= s1 (String. (hex->bytes (bytes->hex (.getBytes s1)))))))
 
-(deftest set-method-test
-  (is (= (method-name (setter-method javax.swing.JFrame "menuBar")) "setMenuBar")))
