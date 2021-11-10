@@ -4,6 +4,16 @@
 target
 pom.xml
 .lein-failures
+.calva
+.clj-kondo
+.cpcache
+.lsp
+
+# VS Code Calva
+.calva
+.clj-kondo
+.cpcache
+.lsp
 
 # Eclipse
 .classpath

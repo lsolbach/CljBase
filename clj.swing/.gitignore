@@ -6,6 +6,12 @@ pom.xml
 .lein-failures
 .nrepl-port
 
+# VS Code Calva
+.calva
+.clj-kondo
+.cpcache
+.lsp
+
 # Eclipse
 .project
 .classpath
