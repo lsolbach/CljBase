@@ -20,12 +20,13 @@ clj.java uses clj.base.
 
 Usage
 -----
-Leiningen:
-[org.soulspace.clj/clj.java "0.8.1"]
+Add the dependency:
+
+[![Clojars Project](https://img.shields.io/clojars/v/org.soulspace.clj/clj.java.svg)](https://clojars.org/org.soulspace.clj/clj.java)
 
 Copyright
 ---------
-© 2011-2020 Ludger Solbach
+© 2011-2021 Ludger Solbach
 
 License
 -------

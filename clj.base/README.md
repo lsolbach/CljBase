@@ -27,15 +27,13 @@ org.soulspace.clj.java contains namespaces building on classes of the JDK:
 
 Usage
 -----
-Leiningen dependency: 
+Add the dependency: 
 
-```
-[org.soulspace.clj/clj.base "0.9.0"]
-```
+[![Clojars Project](https://img.shields.io/clojars/v/org.soulspace.clj/clj.base.svg)](https://clojars.org/org.soulspace.clj/clj.base)
 
 Copyright
 ---------
-© 2012-2020 Ludger Solbach
+© 2012-2021 Ludger Solbach
 
 License
 -------

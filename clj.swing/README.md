@@ -2,19 +2,17 @@ clj.swing
 =========
 clj.swing is a Clojure library for the creation of Java Swing user interfaces.
 
-[![Clojars Project](https://img.shields.io/clojars/v/org.soulspace.clj/clj.swing.svg)](https://clojars.org/org.soulspace.clj/clj.swing)
+clj.swing uses clj.java.
 
 Usage
 -----
-Leiningen dependency
+Add the dependency:
 
-```
-[org.soulspace.clj/clj.swing "0.7.3"]
-```
+[![Clojars Project](https://img.shields.io/clojars/v/org.soulspace.clj/clj.swing.svg)](https://clojars.org/org.soulspace.clj/clj.swing)
 
 Copyright
 ---------
-© 2011-2020 Ludger Solbach
+© 2011-2021 Ludger Solbach
 
 License
 -------
