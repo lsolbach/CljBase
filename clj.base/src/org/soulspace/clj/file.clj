@@ -169,6 +169,12 @@
         files)
       [file])))
 
+(defn files-by-extension
+  "Returns a sequence of the files with the extension ext in a directory given as file.
+   If the given file is not a directory, it is returned as only file in the sequence."
+  [ext file]
+  (filter (partial has-extension? ext) (files file)))
+
 (defn all-files
   "Returns a sequence of the files in a directory given as file and its sub directories.
    If the given file is not a directory, it is returned as only file in the sequence."
