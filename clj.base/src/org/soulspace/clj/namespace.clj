@@ -69,14 +69,14 @@
   (str/replace (str/replace filename \_ \-) \/ \.))
 
 (defn symbol-name
-  "Converts s to hyphened clojure symbol name"
+  "Converts s to hyphened clojure symbol name."
   [s]
-  (str/lower-case (s/camel-case-to-hyphen s)))
+  (str/lower-case (sstr/camel-case-to-hyphen s)))
 
 (defn record-name
-  "Converts s to hyphened clojure name"
+  "Converts s to camel cased clojure record name."
   [s]
-  (s/first-upper-case (s/hyphen-to-camel-case s)))
+  (sstr/first-upper-case (sstr/hyphen-to-camel-case s)))
 
 (defn call-by-name
   "Resolves a function by name 's' and calls it."
