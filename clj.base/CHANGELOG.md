@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+Version 0.9.0
+-------------
+* fixed a bug in file/base-name
+* fixed docstring issues in file
+* fixed a bug in namespace/call-by-name
+
 Version 0.8.4
 -------------
 * Added array-type function to create type hints for non primitive arrays

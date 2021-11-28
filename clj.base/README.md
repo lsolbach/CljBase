@@ -23,8 +23,6 @@ org.soulspace.clj.java contains namespaces building on classes of the JDK:
 * type-conversion - Java type coercion/conversion functions
 
 
-[![Clojars Project](https://img.shields.io/clojars/v/org.soulspace.clj/clj.base.svg)](https://clojars.org/org.soulspace.clj/clj.base)
-
 Usage
 -----
 Add the dependency: 

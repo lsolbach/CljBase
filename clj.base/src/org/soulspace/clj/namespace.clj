@@ -11,7 +11,7 @@
 (ns org.soulspace.clj.namespace
   (:require [clojure.string :as str]
             [org.soulspace.clj.file :as file]
-            [org.soulspace.clj.string :as s]))
+            [org.soulspace.clj.string :as sstr]))
 
 ;;
 ;; Functions to help working with namespaces
@@ -81,17 +81,17 @@
 (defn call-by-name
   "Resolves a function by name 's' and calls it."
   ([^String s]
-   (when-let [func (ns-resolve (symbol s))]
-     (if (fn? func) (func))))
+   (when-let [func (ns-resolve *ns* (symbol s))]
+     (when (fn? func) (func))))
   ([^String s & args]
-   (when-let [func (ns-resolve (symbol s))]
-     (if (fn? func) (apply func args)))))
+   (when-let [func (ns-resolve *ns* (symbol s))]
+     (when (fn? func) (apply func args)))))
 
 (defn call-by-ns-name
   "Resolves a function by name 's' in the given namespace 'nsp' and calls it."
   ([^String nsp ^String s]
    (when-let [func (ns-resolve (symbol nsp) (symbol s))]
-     (if (fn? func) (func))))
+     (when (fn? func) (func))))
   ([^String nsp ^String s & args]
    (when-let [func (ns-resolve (symbol nsp) (symbol s))]
-     (if (fn? func) (apply func args)))))
+     (when (fn? func) (apply func args)))))

@@ -11,12 +11,11 @@
 (ns org.soulspace.clj.file
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
-            [org.soulspace.clj.string :as sstr])
-  (:import [java.io File]))
+            [org.soulspace.clj.string :as sstr]))
 
-;;
-;; Functions for working with files
-;;
+;;;
+;;; Functions for working with files
+;;;
 
 ;;
 ;; File predicates
@@ -80,7 +79,7 @@
   "Returns the name of the file."
   [file]
   (let [file-name (.getName (io/as-file file))]
-    (sstr/substring 0 (str/last-index-of \. file-name) file-name)))
+    (sstr/substring 0 (str/last-index-of file-name \.) file-name)))
 
 (defn parent-path
   "Returns the parent path for the file if it exists."
@@ -163,7 +162,7 @@
   "Returns a sequence of the files in a directory given as file.
    If the given file is not a directory, it is returned as only file in the sequence."
   [file]
-  (if (exists? file)
+  (when (exists? file)
     (if (is-dir? file)
       (let [files (list-files file)]
         files)
@@ -179,7 +178,7 @@
   "Returns a sequence of the files in a directory given as file and its sub directories.
    If the given file is not a directory, it is returned as only file in the sequence."
   [file]
-  (if (exists? file)
+  (when (exists? file)
     (if (is-dir? file)
       (let [files (conj [] file)]
         (concat files (flatten (map all-files (list-files file)))))
@@ -204,7 +203,7 @@
 (defn create-dir
   "Creates a directory including missing parent directories."
   [file]
-  (if-not (exists? file)
+  (when-not (exists? file)
     (.mkdirs file)))
 
 (defn delete-file
@@ -240,13 +239,15 @@
    (str/join sep (map path files))))
 
 ; convert ** -> ('filename pattern'|/)+  convert * -> ('filename pattern')+
-(defn path-pattern [ant-pattern]
+(defn path-pattern
   "Convert ant style path patterns to regex path patterns."
+  [ant-pattern]
   (let [file-regex "\\w|\\d|–"]
     (str/replace (str/replace ant-pattern "**" (str "(?:" file-regex "|/)+")) "*" (str "(?:" file-regex ")+"))))
 
-(defn build-searchpath [pathnames]
+(defn build-searchpath
   "Creates a sequence containing the directories to search."
+  [pathnames]
   (if (coll? pathnames)
     (map io/as-file pathnames)
     (map io/as-file (split-path pathnames))))
@@ -265,8 +266,9 @@
   ([ext dirs]
    (filter exists? (flatten (map #(all-files-by-extension ext %) dirs)))))
 
-(defn existing-files-by-pattern [pattern dirs]
+(defn existing-files-by-pattern
   "Returns all existing files matching the specified pattern in the given directories."
+  [pattern dirs]
   (filter exists? (flatten (map #(all-files-by-pattern pattern %) dirs))))
 
 (defn existing-files-on-path
